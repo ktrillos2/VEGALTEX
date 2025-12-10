@@ -1,0 +1,404 @@
+/* --- ENTORNO --- */
+/* Scoped to component container if possible, but global for now as per user request style */
+.tactical-loader-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #0a0a0a;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    overflow: hidden;
+    color: #dcdcdc;
+    /* Font will be applied via layout/Next.js font loader, or fallback here */
+
+    /* Updated color requested by user: rgb(33, 239, 31) */
+    --tactical-accent: rgb(33, 239, 31);
+    --tactical-accent-dim: rgba(33, 239, 31, 0.2);
+    --tactical-accent-glow: rgba(33, 239, 31, 0.5);
+    --tactical-scanline: rgba(33, 239, 31, 0.15);
+}
+
+.wrapper-exit {
+    animation: fade-out-wrapper 0.8s ease-out forwards;
+    pointer-events: none;
+    /* Let clicks pass through while fading */
+}
+
+@keyframes fade-out-wrapper {
+    to {
+        opacity: 0;
+    }
+}
+
+/* --- CONTENEDOR PRINCIPAL --- */
+.loader-container {
+    position: relative;
+    width: 350px;
+    height: 350px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.1));
+    animation: system-boot 0.6s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+    opacity: 0;
+}
+
+/* Clase para la animación de SALIDA */
+.loader-exit {
+    animation: system-unlock 0.8s cubic-bezier(0.65, 0, 0.35, 1) forwards !important;
+}
+
+/* --- MIRA CENTRAL (CROSSHAIR) --- */
+.crosshair {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    z-index: 10;
+}
+
+.crosshair::before,
+.crosshair::after {
+    content: '';
+    position: absolute;
+    background-color: var(--tactical-accent);
+    box-shadow: 0 0 8px var(--tactical-accent);
+}
+
+/* Línea horizontal central */
+.crosshair::before {
+    top: 50%;
+    left: -30px;
+    width: 80px;
+    height: 2px;
+    transform: translateY(-50%);
+    animation: expand-width 1s ease-out 0.4s forwards;
+    width: 0;
+}
+
+/* Línea vertical central */
+.crosshair::after {
+    left: 50%;
+    top: -30px;
+    height: 80px;
+    width: 2px;
+    transform: translateX(-50%);
+    animation: expand-height 1s ease-out 0.4s forwards;
+    height: 0;
+}
+
+/* Punto central */
+.dot {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background-color: #fff;
+    border-radius: 50%;
+    z-index: 11;
+    box-shadow: 0 0 10px #fff;
+    animation: pulse-dot 0.5s infinite alternate;
+}
+
+/* --- ANILLOS EXTERNOS --- */
+.ring-thin {
+    position: absolute;
+    width: 160px;
+    height: 160px;
+    border: 1px dashed rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    animation: spin-right 12s linear infinite;
+}
+
+.ring-thick {
+    position: absolute;
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    border-top: 2px solid #fff;
+    border-bottom: 2px solid #fff;
+    animation: oscillate 4s ease-in-out infinite;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+}
+
+.ring-thick::after {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: 50%;
+    width: 4px;
+    height: 4px;
+    background: var(--tactical-accent);
+    transform: translateX(-50%);
+    box-shadow: 0 138px 0 var(--tactical-accent);
+}
+
+/* --- BRACKETS (Esquinas) --- */
+.brackets {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    animation: zoom-in-brackets 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.2s forwards;
+    transform: scale(1.5);
+    opacity: 0;
+}
+
+.b-corner {
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    border: 2px solid #555;
+    transition: all 0.2s;
+    box-shadow: 0 0 5px var(--tactical-accent-dim);
+}
+
+.tl {
+    top: 0;
+    left: 0;
+    border-right: 0;
+    border-bottom: 0;
+    border-color: var(--tactical-accent);
+}
+
+.tr {
+    top: 0;
+    right: 0;
+    border-left: 0;
+    border-bottom: 0;
+    border-color: var(--tactical-accent);
+}
+
+.bl {
+    bottom: 0;
+    left: 0;
+    border-right: 0;
+    border-top: 0;
+    border-color: var(--tactical-accent);
+}
+
+.br {
+    bottom: 0;
+    right: 0;
+    border-left: 0;
+    border-top: 0;
+    border-color: var(--tactical-accent);
+}
+
+/* --- TEXTOS Y DATOS --- */
+.data-text {
+    position: absolute;
+    font-size: 11px;
+    /* Un poco más grande para esta fuente */
+    color: var(--tactical-accent);
+    letter-spacing: 2px;
+    opacity: 0.9;
+    font-weight: 600;
+    text-shadow: 0 0 5px var(--tactical-accent-glow);
+    text-transform: uppercase;
+}
+
+.top-text {
+    bottom: -50px;
+    animation: glitch 2s infinite;
+    font-size: 13px;
+}
+
+.coord-text {
+    right: -70px;
+    top: 50%;
+    transform: translateY(-50%) rotate(90deg);
+    color: #666;
+    font-size: 10px;
+}
+
+/* --- PORCENTAJE (NUEVA FUENTE) --- */
+.percentage-display {
+    position: absolute;
+    top: -65px;
+    /* Ajuste leve de posición */
+    font-size: 28px;
+    /* Un poco más grande */
+    font-weight: 700;
+    /* Bold para que se vea robusto */
+    color: #fff;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 1px;
+}
+
+.percentage-display::after {
+    content: '%';
+    font-size: 16px;
+    color: var(--tactical-accent);
+    margin-left: 3px;
+    font-weight: 500;
+}
+
+/* Barra de carga */
+.loading-bar {
+    position: absolute;
+    bottom: -70px;
+    width: 120px;
+    height: 4px;
+    background: #222;
+    overflow: hidden;
+    border-radius: 0px;
+    /* Bordes cuadrados para match con la fuente */
+}
+
+.loading-bar-fill {
+    height: 100%;
+    width: 0%;
+    background: var(--tactical-accent);
+    box-shadow: 0 0 10px var(--tactical-accent);
+    transition: width 0.1s linear;
+}
+
+/* --- EFECTO DE ESCANEO --- */
+.scanline {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, transparent 49%, var(--tactical-scanline) 50%, transparent 51%);
+    background-size: 100% 20px;
+    animation: scan 1s linear infinite;
+    pointer-events: none;
+    opacity: 0.3;
+    z-index: 5;
+}
+
+/* --- KEYFRAMES --- */
+@keyframes system-boot {
+    0% {
+        opacity: 0;
+        transform: scale(0.8);
+        filter: blur(10px);
+    }
+
+    10% {
+        opacity: 1;
+        transform: scale(1.1);
+        filter: blur(0px) brightness(2);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+        filter: blur(0px) brightness(1);
+    }
+}
+
+@keyframes system-unlock {
+    0% {
+        opacity: 1;
+        transform: scale(1);
+        filter: blur(0px);
+    }
+
+    40% {
+        transform: scale(0.95);
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+        transform: scale(1.5);
+        filter: blur(10px);
+    }
+}
+
+@keyframes expand-width {
+    to {
+        width: 80px;
+    }
+}
+
+@keyframes expand-height {
+    to {
+        height: 80px;
+    }
+}
+
+@keyframes zoom-in-brackets {
+    0% {
+        transform: scale(1.5);
+        opacity: 0;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes spin-right {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes oscillate {
+    0% {
+        transform: rotate(0deg) scale(1);
+    }
+
+    50% {
+        transform: rotate(90deg) scale(1.1);
+    }
+
+    100% {
+        transform: rotate(0deg) scale(1);
+    }
+}
+
+@keyframes pulse-dot {
+    0% {
+        transform: scale(0.8);
+        opacity: 0.5;
+    }
+
+    100% {
+        transform: scale(1.5);
+        opacity: 1;
+    }
+}
+
+@keyframes scan {
+    0% {
+        background-position: 0 0;
+    }
+
+    100% {
+        background-position: 0 20px;
+    }
+}
+
+@keyframes glitch {
+    0% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    2% {
+        opacity: 0.8;
+        transform: translateX(2px);
+    }
+
+    4% {
+        opacity: 1;
+        transform: translateX(-2px);
+    }
+
+    6% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    100% {
+        opacity: 1;
+    }
+}

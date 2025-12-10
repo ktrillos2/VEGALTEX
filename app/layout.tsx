@@ -1,11 +1,17 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Geist, Geist_Mono } from "next/font/google"
+import { Geist, Geist_Mono, Chakra_Petch } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
+import { TacticalLoader } from "@/components/tactical-loader"
 
 const _geist = Geist({ subsets: ["latin"] })
 const _geistMono = Geist_Mono({ subsets: ["latin"] })
+const chakraPetch = Chakra_Petch({
+  weight: ["500", "700"],
+  subsets: ["latin"],
+  variable: "--font-chakra-petch",
+})
 
 export const metadata: Metadata = {
   title: "TACTICAL PRO - Elite Military & Tactical Gear",
@@ -38,7 +44,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark">
-      <body className={`font-sans antialiased`}>
+      <body className={`font-sans antialiased ${chakraPetch.variable}`}>
+        <TacticalLoader />
         {children}
         <Analytics />
       </body>
