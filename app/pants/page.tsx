@@ -2,252 +2,136 @@
 
 import { useState } from "react"
 import Link from "next/link"
-import { Search, ShoppingCart, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
-import Image from "next/image"
+import { ChevronDown } from "lucide-react"
+import { products } from "@/lib/products"
 
 export default function PantsPage() {
-  const [cartOpen, setCartOpen] = useState(false)
-  const [cartItems, setCartItems] = useState<any[]>([])
-  const [selectedColors, setSelectedColors] = useState<{ [key: number]: number }>({})
+  const [selectedColors, setSelectedColors] = useState<Record<number, number>>({})
 
-  const pants = [
-    {
-      id: 1,
-      name: "STRIKER XT GEN.3 COMBAT PANTS",
-      originalPrice: 189,
-      salePrice: 160.65,
-      discount: 15,
-      colors: ["#4B5320", "#000000", "#5a5a5a", "#8B7355"],
-      images: [
-        "/images/products/pants-striker-olive.jpg",
-        "/images/products/pants-striker-black.jpg",
-        "/images/products/pants-striker-gray.jpg",
-        "/images/products/pants-striker-tan.jpg",
-      ],
-    },
-    {
-      id: 2,
-      name: "P-40 ALL-TERRAIN GEN.2 PANTS",
-      originalPrice: 210,
-      salePrice: 178.5,
-      discount: 15,
-      colors: ["#4B5320", "#000000", "#5a5a5a", "#2d3e50"],
-      images: [
-        "/images/products/pants-p40-olive.jpg",
-        "/images/products/pants-p40-black.jpg",
-        "/images/products/pants-p40-gray.jpg",
-        "/images/products/pants-p40-navy.jpg",
-      ],
-    },
-    {
-      id: 3,
-      name: "DELTA OL 3.0 TACTICAL PANTS",
-      originalPrice: 175,
-      salePrice: 148.75,
-      discount: 15,
-      colors: ["#4B5320", "#000000", "#8B7355", "#2d3e50"],
-      images: [
-        "/images/products/pants-delta-olive.jpg",
-        "/images/products/pants-delta-black.jpg",
-        "/images/products/pants-delta-tan.jpg",
-        "/images/products/pants-delta-navy.jpg",
-      ],
-    },
-    {
-      id: 4,
-      name: "STRIKER HT COMBAT PANTS",
-      originalPrice: 199,
-      salePrice: 169.15,
-      discount: 15,
-      colors: ["#4B5320", "#000000", "#5a5a5a", "#8B7355"],
-      images: [
-        "/images/products/pants-ht-olive.jpg",
-        "/images/products/pants-ht-black.jpg",
-        "/images/products/pants-ht-gray.jpg",
-        "/images/products/pants-ht-tan.jpg",
-      ],
-    },
-  ]
+  const pants = products.filter((p) => p.category === "PANTALONES")
 
   return (
-    <div className="min-h-screen bg-white">
-      {/* Header */}
-      <header className="fixed top-0 left-0 right-0 z-50 bg-black text-white">
-        <div className="border-b border-white/20">
-          <div className="container mx-auto px-4 flex items-center h-16">
-            <Link href="/" className="h-24 flex items-center">
-              <Image
-                src="/images/logo-pdf-vegaltex-1-removebg-preview.png"
-                alt="VEGALTEX TACTICAL COLOMBIA"
-                width={120}
-                height={96}
-                className="h-24 w-auto object-contain hover:scale-105 transition-transform"
-              />
-            </Link>
-
-            <div className="flex items-stretch flex-1 h-16 ml-8">
-              <nav className="hidden lg:flex items-stretch flex-1">
-                <Link
-                  href="/pants"
-                  className="px-6 xl:px-8 h-full font-black text-sm tracking-widest uppercase border-r border-white/20 hover:bg-gradient-to-b hover:from-[#21f31f]/20 hover:to-[#4B5320]/20 transition-all duration-200 flex items-center bg-[#21f31f]/10"
-                >
-                  PANTS
-                </Link>
-                <Link
-                  href="/jackets"
-                  className="px-6 xl:px-8 h-full font-black text-sm tracking-widest uppercase border-r border-white/20 hover:bg-gradient-to-b hover:from-[#21f31f]/20 hover:to-[#4B5320]/20 transition-all duration-200 flex items-center"
-                >
-                  JACKETS
-                </Link>
-                <Link
-                  href="/shirts"
-                  className="px-6 xl:px-8 h-full font-black text-sm tracking-widest uppercase border-r border-white/20 hover:bg-gradient-to-b hover:from-[#21f31f]/20 hover:to-[#4B5320]/20 transition-all duration-200 flex items-center"
-                >
-                  SHIRTS
-                </Link>
-                <Link
-                  href="/caps"
-                  className="px-6 xl:px-8 h-full font-black text-sm tracking-widest uppercase border-r border-white/20 hover:bg-gradient-to-b hover:from-[#21f31f]/20 hover:to-[#4B5320]/20 transition-all duration-200 flex items-center"
-                >
-                  CAPS
-                </Link>
-                <Link
-                  href="/accessories"
-                  className="px-6 xl:px-8 h-full font-black text-sm tracking-widest uppercase border-r border-white/20 hover:bg-gradient-to-b hover:from-[#21f31f]/20 hover:to-[#4B5320]/20 transition-all duration-200 flex items-center"
-                >
-                  ACCESSORIES
-                </Link>
-              </nav>
-
-              <div className="flex items-stretch ml-auto">
-                <button className="px-4 md:px-8 h-full border-l border-white/20 hover:bg-gradient-to-b hover:from-[#21f31f]/20 hover:to-[#4B5320]/20 transition-all duration-200 flex items-center justify-center">
-                  <Search className="w-5 h-5" />
-                </button>
-                <button
-                  onClick={() => setCartOpen(true)}
-                  className="px-4 md:px-8 h-full border-l border-white/20 hover:bg-gradient-to-b hover:from-[#21f31f]/20 hover:to-[#4B5320]/20 transition-all duration-200 flex items-center justify-center relative"
-                >
-                  <ShoppingCart className="w-5 h-5" />
-                  <span className="absolute top-4 right-2 md:right-4 bg-[#21f31f] text-black text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
-                    {cartItems.length}
-                  </span>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </header>
-
-      {/* Hero Banner */}
-      <section className="relative h-[60vh] mt-16 bg-black">
-        <div
-          className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: "url('/images/pants-hero-banner.jpg')" }}
-        >
-          <div className="absolute inset-0 bg-gradient-to-r from-black/80 to-transparent" />
-        </div>
-        <div className="relative container mx-auto px-4 h-full flex flex-col justify-center">
-          <h1 className="text-5xl md:text-7xl font-black uppercase tracking-wider text-white mb-4">TACTICAL PANTS</h1>
-          <p className="text-lg md:text-xl text-white/90 max-w-2xl">
-            Engineered for extreme durability and mobility in demanding tactical operations.
+    <div className="min-h-screen bg-[#f8f8f8]">
+      {/* Hero Section */}
+      <section
+        className="relative h-[300px] md:h-[400px] flex items-center justify-center"
+        style={{
+          backgroundImage: "url('/images/image.jpeg')", // You might want a different background for pants if available
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      >
+        <div className="absolute inset-0 bg-black/60" />
+        <div className="relative z-10 container mx-auto px-4 text-center">
+          <h1 className="text-4xl md:text-6xl font-black tracking-tight mb-4 uppercase text-white font-monument">
+            PANTALONES TÁCTICOS
+          </h1>
+          <p className="text-lg text-gray-200 max-w-2xl mx-auto font-medium">
+            Movilidad extrema y durabilidad sin concesiones. Equipamiento probado en combate para cualquier misión.
           </p>
         </div>
       </section>
 
-      {/* Filter Bar */}
-      <section className="py-6 bg-zinc-100 border-b border-zinc-300">
-        <div className="container mx-auto px-4 flex justify-between items-center">
-          <h2 className="text-xl font-bold uppercase tracking-wide">ALL PANTS - 4 RESULTS</h2>
-          <div className="flex gap-4">
-            <Button variant="outline" className="rounded-none border-zinc-400 bg-transparent">
-              TYPE
-            </Button>
-            <Button variant="outline" className="rounded-none border-zinc-400 bg-transparent">
-              COLOUR
-            </Button>
-            <Button variant="outline" className="rounded-none border-zinc-400 bg-transparent">
-              SIZE
-            </Button>
+      <main className="bg-[#f8f8f8] min-h-screen">
+        {/* Filter Bar */}
+        <div className="sticky top-20 z-30 bg-white border-b border-gray-200 shadow-sm">
+          <div className="container mx-auto px-4">
+            <div className="flex flex-col md:flex-row items-center justify-between py-4 gap-4">
+              <div className="flex items-center gap-2 text-sm font-bold text-gray-900">
+                <span>{pants.length} PRODUCTOS</span>
+              </div>
+
+              <div className="flex items-center gap-3 overflow-x-auto w-full md:w-auto pb-2 md:pb-0">
+                <span className="text-sm font-bold text-gray-500 uppercase whitespace-nowrap">FILTRAR POR:</span>
+                {['TIPO', 'COLOR', 'TALLA', 'PRECIO'].map((filter) => (
+                  <Button
+                    key={filter}
+                    variant="outline"
+                    className="bg-white border-gray-300 text-gray-700 hover:border-gray-900 hover:text-black rounded-sm uppercase font-bold text-xs h-9 px-4 whitespace-nowrap"
+                  >
+                    {filter} <ChevronDown className="w-3 h-3 ml-2" />
+                  </Button>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
-      </section>
 
-      {/* Products Grid */}
-      <section className="py-12 md:py-16 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {pants.map((pant) => {
-              const selectedColorIndex = selectedColors[pant.id] || 0
-              const currentImage = pant.images[selectedColorIndex]
+        {/* Products Grid */}
+        <section className="py-8 md:py-12">
+          <div className="container mx-auto px-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-10">
+              {pants.map((pant) => {
+                const selectedColorIndex = selectedColors[pant.id] || 0
+                const currentImage = pant.images[selectedColorIndex]
 
-              return (
-                <Card
-                  key={pant.id}
-                  className="group bg-white border-zinc-300 rounded-none overflow-hidden hover:border-[#21f31f] hover:shadow-xl transition-all duration-300"
-                >
-                  <div className="relative overflow-hidden">
-                    <div className="absolute top-0 right-0 bg-black text-white px-4 py-8 font-black text-xs uppercase z-10 transform rotate-45 translate-x-8 -translate-y-4 origin-bottom-left">
-                      <div className="transform -rotate-45 flex flex-col items-center">
-                        <span className="text-[#21f31f]">BLACK</span>
-                        <span className="text-[#21f31f]">FRIDAY</span>
-                        <span className="text-yellow-400 text-sm mt-1">-{pant.discount}%</span>
+                return (
+                  <div key={pant.id} className="group flex flex-col">
+                    <div className="relative aspect-[4/5] bg-white overflow-hidden mb-4 shadow-sm group-hover:shadow-md transition-shadow duration-300">
+                      {/* Badge */}
+                      {pant.discount > 0 && (
+                        <div className="absolute top-0 left-0 z-10">
+                          <div className="bg-[#21f31f] text-black font-black text-xs uppercase px-3 py-1.5 shadow-sm">
+                            -{pant.discount}%
+                          </div>
+                        </div>
+                      )}
+
+                      <Link href={`/product/${pant.id}`} className="block w-full h-full">
+                        <div
+                          className="w-full h-full bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
+                          style={{ backgroundImage: `url('${currentImage}')` }}
+                        />
+                      </Link>
+
+                      {/* Add to Cart Button Overlay */}
+                      <div className="absolute inset-x-0 bottom-0 p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-t from-white/90 to-transparent">
+                        <Button className="w-full bg-black text-white hover:bg-[#21f31f] hover:text-black font-bold uppercase rounded-sm h-12 transition-colors shadow-lg">
+                          AÑADIR AL CARRITO
+                        </Button>
                       </div>
                     </div>
 
-                    <div
-                      className="h-80 bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
-                      style={{ backgroundImage: `url('${currentImage}')` }}
-                    />
-                    <Button className="absolute bottom-4 left-4 right-4 bg-[#21f31f] hover:bg-[#1dd11b] text-black font-bold tracking-wider uppercase rounded-none opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      ADD TO CART
-                    </Button>
-                  </div>
-                  <div className="p-6">
-                    <h3 className="text-sm font-bold tracking-wide uppercase mb-3 h-10 line-clamp-2">{pant.name}</h3>
-                    <div className="flex items-center gap-2 mb-4">
-                      <span className="text-lg line-through text-zinc-500">{pant.originalPrice}€</span>
-                      <span className="text-2xl font-bold text-[#21f31f]">{pant.salePrice}€</span>
-                      <span className="ml-auto text-[#21f31f] text-sm">✓</span>
-                    </div>
-                    <div className="flex gap-2">
-                      {pant.colors.map((color, idx) => (
-                        <button
-                          key={idx}
-                          onClick={() => setSelectedColors({ ...selectedColors, [pant.id]: idx })}
-                          className={`w-6 h-6 rounded-sm border-2 cursor-pointer hover:border-[#21f31f] transition-colors ${
-                            selectedColorIndex === idx ? "border-[#21f31f] ring-2 ring-[#21f31f]/30" : "border-zinc-400"
-                          }`}
-                          style={{ backgroundColor: color }}
-                        />
-                      ))}
-                    </div>
-                  </div>
-                </Card>
-              )
-            })}
-          </div>
-        </div>
-      </section>
+                    <div className="flex-1 flex flex-col">
+                      <Link href={`/product/${pant.id}`} className="group-hover:text-[#4B5320] transition-colors">
+                        <h3 className="text-base font-extrabold uppercase text-gray-900 leading-tight mb-2 font-monument">
+                          {pant.name}
+                        </h3>
+                      </Link>
 
-      {/* Cart Sidebar */}
-      {cartOpen && (
-        <>
-          <div className="fixed inset-0 bg-black/50 z-50" onClick={() => setCartOpen(false)} />
-          <div className="fixed right-0 top-0 bottom-0 w-full md:w-96 bg-white z-50 shadow-2xl">
-            <div className="flex items-center justify-between p-6 border-b">
-              <h2 className="text-xl font-bold">CART ({cartItems.length})</h2>
-              <button onClick={() => setCartOpen(false)}>
-                <X className="w-6 h-6" />
-              </button>
-            </div>
-            <div className="p-6">
-              <p className="text-center text-zinc-500">Your cart is empty</p>
+                      <div className="mt-auto pt-2 flex flex-col gap-2">
+                        <div className="flex items-baseline gap-2">
+                          <span className="text-lg font-bold text-gray-900">{pant.salePrice}€</span>
+                          {pant.originalPrice > pant.salePrice && (
+                            <span className="text-sm text-gray-400 line-through font-medium">{pant.originalPrice}€</span>
+                          )}
+                        </div>
+
+                        {/* Color Swatches */}
+                        <div className="flex items-center gap-1.5 h-6">
+                          {pant.colors.map((color, idx) => (
+                            <button
+                              key={idx}
+                              onClick={() => setSelectedColors({ ...selectedColors, [pant.id]: idx })}
+                              className={`w-4 h-4 rounded-full border border-gray-300 transition-transform ${selectedColorIndex === idx ? "scale-125 ring-1 ring-gray-400 border-transparent" : "hover:scale-110"
+                                }`}
+                              style={{ backgroundColor: color }}
+                              aria-label={`Select color ${idx}`}
+                            />
+                          ))}
+                          <span className="text-xs text-gray-400 ml-1 font-medium">+{pant.colors.length} COLORES</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )
+              })}
             </div>
           </div>
-        </>
-      )}
+        </section>
+      </main>
     </div>
   )
 }

@@ -5,17 +5,10 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import {
-  Search,
-  ShoppingCart,
   Heart,
-  Flag,
-  X,
-  Menu,
   Star,
   Truck,
   Play,
-  Plus,
-  Minus,
   Lock,
   Shield,
   Package,
@@ -31,15 +24,11 @@ interface ProductPageProps {
 }
 
 export default function ProductPage({ params }: ProductPageProps) {
-  const [cartOpen, setCartOpen] = useState(false)
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [selectedImage, setSelectedImage] = useState(0)
   const [selectedColor, setSelectedColor] = useState(0)
   const [selectedSize, setSelectedSize] = useState("L")
-  const [cartItems, setCartItems] = useState<any[]>([])
   const [scrollSlideIndex, setScrollSlideIndex] = useState(0)
   const scrollContainerRef = useRef<HTMLDivElement>(null)
-  const [isScrollLocked, setIsScrollLocked] = useState(false)
 
   // Product data - in a real app, this would come from an API
   const product = {
@@ -127,28 +116,9 @@ export default function ProductPage({ params }: ProductPageProps) {
   const currentImages = product.colors[selectedColor].images
 
   const addToCart = () => {
-    const newItem = {
-      id: Date.now(),
-      name: product.name,
-      price: product.price,
-      quantity: 1,
-      color: product.colors[selectedColor].name,
-      size: selectedSize,
-      image: currentImages[0],
-    }
-    setCartItems([...cartItems, newItem])
-    setCartOpen(true)
+    // In a real implementation, this would update a global context
+    console.log("Added to cart")
   }
-
-  const updateQuantity = (id: number, delta: number) => {
-    setCartItems(
-      cartItems
-        .map((item) => (item.id === id ? { ...item, quantity: Math.max(0, item.quantity + delta) } : item))
-        .filter((item) => item.quantity > 0),
-    )
-  }
-
-  const cartTotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0)
 
   useEffect(() => {
     const handleScroll = (e: WheelEvent) => {
@@ -221,216 +191,7 @@ export default function ProductPage({ params }: ProductPageProps) {
   ]
 
   return (
-    <div className="min-h-screen bg-white">
-      {/* Cart Sidebar */}
-      <div
-        className={`fixed inset-y-0 right-0 w-full md:w-96 bg-zinc-950 border-l border-[#21f31f]/20 z-50 transform transition-transform duration-300 ${
-          cartOpen ? "translate-x-0" : "translate-x-full"
-        }`}
-      >
-        <div className="h-full flex flex-col">
-          <div className="flex items-center justify-between p-6 border-b border-[#21f31f]/20">
-            <h2 className="text-xl font-bold text-white uppercase tracking-wider">Shopping Cart</h2>
-            <Button
-              onClick={() => setCartOpen(false)}
-              variant="ghost"
-              size="icon"
-              className="text-white hover:bg-[#21f31f]/20"
-            >
-              <X className="w-6 h-6" />
-            </Button>
-          </div>
-
-          <div className="flex-1 overflow-y-auto p-6">
-            {cartItems.length === 0 ? (
-              <p className="text-zinc-400 text-center mt-8">Your cart is empty</p>
-            ) : (
-              <div className="space-y-4">
-                {cartItems.map((item) => (
-                  <div key={item.id} className="flex gap-4 bg-zinc-900 p-4 rounded-none border border-[#21f31f]/20">
-                    <img src={item.image || "/placeholder.svg"} alt={item.name} className="w-20 h-20 object-cover" />
-                    <div className="flex-1">
-                      <h3 className="font-bold text-sm text-white mb-1">{item.name}</h3>
-                      <p className="text-xs text-zinc-400">
-                        {item.color} / {item.size}
-                      </p>
-                      <div className="flex items-center gap-2 mt-2">
-                        <Button
-                          onClick={() => updateQuantity(item.id, -1)}
-                          variant="outline"
-                          size="icon"
-                          className="h-6 w-6 rounded-none border-[#21f31f] text-[#21f31f] hover:bg-[#21f31f] hover:text-black"
-                        >
-                          <Minus className="w-3 h-3" />
-                        </Button>
-                        <span className="text-white font-bold">{item.quantity}</span>
-                        <Button
-                          onClick={() => updateQuantity(item.id, 1)}
-                          variant="outline"
-                          size="icon"
-                          className="h-6 w-6 rounded-none border-[#21f31f] text-[#21f31f] hover:bg-[#21f31f] hover:text-black"
-                        >
-                          <Plus className="w-3 h-3" />
-                        </Button>
-                      </div>
-                    </div>
-                    <div className="text-right">
-                      <p className="font-bold text-white">{item.price * item.quantity}€</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-
-          <div className="border-t border-[#21f31f]/20 p-6 space-y-4">
-            <div className="flex justify-between text-lg font-bold text-white">
-              <span className="uppercase tracking-wider">Total:</span>
-              <span>{cartTotal}€</span>
-            </div>
-            <Button className="w-full bg-[#21f31f] hover:bg-[#1dd11b] text-black font-bold py-6 rounded-none uppercase tracking-wider">
-              Checkout
-            </Button>
-          </div>
-        </div>
-      </div>
-
-      {/* Header */}
-      <header className="sticky top-0 z-40 bg-zinc-950 shadow-lg">
-        {/* Promo Bar */}
-        <div className="bg-zinc-200 text-black text-center py-2 px-4">
-          <div className="flex items-center justify-center gap-2 text-xs md:text-sm">
-            <Flag className="w-4 h-4" />
-            <span className="font-bold">
-              UNLOCK FREE SHIPPING & FREE RETURNS WITH EVERY ORDER.{" "}
-              <span className="text-[#4B5320] font-black underline cursor-pointer">START HERE</span>.
-            </span>
-          </div>
-        </div>
-
-        {/* Main Header */}
-        <div className="border-b border-white/20">
-          <div className="container mx-auto px-4">
-            <div className="flex items-stretch h-20 md:h-24">
-              {/* Logo */}
-              <div className="flex items-center pr-6 border-r border-white/20">
-                <Link href="/">
-                  <img
-                    src="/images/logo-pdf-vegaltex-1-removebg-preview.png"
-                    alt="VEGALTEX TACTICAL COLOMBIA"
-                    className="h-20 md:h-24 w-auto object-contain cursor-pointer hover:scale-105 transition-transform"
-                  />
-                </Link>
-              </div>
-
-              {/* Navigation */}
-              <nav className="hidden lg:flex items-stretch flex-1">
-                <Link
-                  href="/pants"
-                  className="px-6 xl:px-8 h-full font-black text-sm tracking-widest uppercase border-r border-white/20 hover:bg-gradient-to-b hover:from-[#21f31f]/20 hover:to-[#4B5320]/20 transition-all duration-200 flex items-center text-white"
-                  style={{ transform: "scaleX(1.1)" }}
-                >
-                  PANTS
-                </Link>
-                <Link
-                  href="/jackets"
-                  className="px-6 xl:px-8 h-full font-black text-sm tracking-widest uppercase border-r border-white/20 hover:bg-gradient-to-b hover:from-[#21f31f]/20 hover:to-[#4B5320]/20 transition-all duration-200 flex items-center text-white"
-                  style={{ transform: "scaleX(1.1)" }}
-                >
-                  JACKETS
-                </Link>
-                <Link
-                  href="/shirts"
-                  className="px-6 xl:px-8 h-full font-black text-sm tracking-widest uppercase border-r border-white/20 hover:bg-gradient-to-b hover:from-[#21f31f]/20 hover:to-[#4B5320]/20 transition-all duration-200 flex items-center text-white"
-                  style={{ transform: "scaleX(1.1)" }}
-                >
-                  SHIRTS
-                </Link>
-                <Link
-                  href="/caps"
-                  className="px-6 xl:px-8 h-full font-black text-sm tracking-widest uppercase border-r border-white/20 hover:bg-gradient-to-b hover:from-[#21f31f]/20 hover:to-[#4B5320]/20 transition-all duration-200 flex items-center text-white"
-                  style={{ transform: "scaleX(1.1)" }}
-                >
-                  CAPS
-                </Link>
-                <Link
-                  href="/accessories"
-                  className="px-6 xl:px-8 h-full font-black text-sm tracking-widest uppercase border-r border-white/20 hover:bg-gradient-to-b hover:from-[#21f31f]/20 hover:to-[#4B5320]/20 transition-all duration-200 flex items-center text-white"
-                  style={{ transform: "scaleX(1.1)" }}
-                >
-                  ACCESSORIES
-                </Link>
-              </nav>
-
-              {/* Actions */}
-              <div className="flex items-center gap-4 ml-auto pl-6 border-l border-white/20">
-                <Button variant="ghost" size="icon" className="text-white hover:bg-[#21f31f]/20 hidden md:flex">
-                  <Search className="w-5 h-5" />
-                </Button>
-                <Button
-                  onClick={() => setCartOpen(true)}
-                  variant="ghost"
-                  size="icon"
-                  className="text-white hover:bg-[#21f31f]/20 relative"
-                >
-                  <ShoppingCart className="w-5 h-5" />
-                  {cartItems.length > 0 && (
-                    <span className="absolute -top-1 -right-1 bg-[#21f31f] text-black text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
-                      {cartItems.length}
-                    </span>
-                  )}
-                </Button>
-                <Button
-                  onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                  variant="ghost"
-                  size="icon"
-                  className="text-white hover:bg-[#21f31f]/20 lg:hidden"
-                >
-                  <Menu className="w-6 h-6" />
-                </Button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Mobile Menu */}
-        {mobileMenuOpen && (
-          <div className="lg:hidden bg-zinc-900 border-t border-white/20">
-            <nav className="container mx-auto px-4 py-4 space-y-2">
-              <Link
-                href="/pants"
-                className="block px-4 py-3 text-white hover:bg-[#21f31f]/20 uppercase font-bold tracking-wider"
-              >
-                PANTS
-              </Link>
-              <Link
-                href="/jackets"
-                className="block px-4 py-3 text-white hover:bg-[#21f31f]/20 uppercase font-bold tracking-wider"
-              >
-                JACKETS
-              </Link>
-              <Link
-                href="/shirts"
-                className="block px-4 py-3 text-white hover:bg-[#21f31f]/20 uppercase font-bold tracking-wider"
-              >
-                SHIRTS
-              </Link>
-              <Link
-                href="/caps"
-                className="block px-4 py-3 text-white hover:bg-[#21f31f]/20 uppercase font-bold tracking-wider"
-              >
-                CAPS
-              </Link>
-              <Link
-                href="/accessories"
-                className="block px-4 py-3 text-white hover:bg-[#21f31f]/20 uppercase font-bold tracking-wider"
-              >
-                ACCESSORIES
-              </Link>
-            </nav>
-          </div>
-        )}
-      </header>
+    <div className="min-h-screen bg-white pt-20 md:pt-24">
 
       {/* Product Detail Section */}
       <section className="py-8 md:py-12">
@@ -445,9 +206,8 @@ export default function ProductPage({ params }: ProductPageProps) {
                     <button
                       key={idx}
                       onClick={() => setSelectedImage(idx)}
-                      className={`border-2 overflow-hidden transition-all ${
-                        selectedImage === idx ? "border-[#21f31f]" : "border-zinc-300 hover:border-zinc-400"
-                      }`}
+                      className={`border-2 overflow-hidden transition-all ${selectedImage === idx ? "border-[#21f31f]" : "border-zinc-300 hover:border-zinc-400"
+                        }`}
                     >
                       <img
                         src={img || "/placeholder.svg"}
@@ -509,11 +269,10 @@ export default function ProductPage({ params }: ProductPageProps) {
                       className={`relative group`}
                     >
                       <div
-                        className={`w-16 h-16 border-3 transition-all ${
-                          selectedColor === idx
-                            ? "border-[#21f31f] ring-2 ring-[#21f31f]/30"
-                            : "border-zinc-400 hover:border-zinc-600"
-                        }`}
+                        className={`w-16 h-16 border-3 transition-all ${selectedColor === idx
+                          ? "border-[#21f31f] ring-2 ring-[#21f31f]/30"
+                          : "border-zinc-400 hover:border-zinc-600"
+                          }`}
                       >
                         <img
                           src={color.images[0] || "/placeholder.svg"}
@@ -535,11 +294,10 @@ export default function ProductPage({ params }: ProductPageProps) {
                     <button
                       key={size}
                       onClick={() => setSelectedSize(size)}
-                      className={`py-3 border-2 font-bold text-sm uppercase transition-all ${
-                        selectedSize === size
-                          ? "bg-[#21f31f] border-[#21f31f] text-black"
-                          : "bg-white border-zinc-300 text-black hover:border-[#21f31f]"
-                      }`}
+                      className={`py-3 border-2 font-bold text-sm uppercase transition-all ${selectedSize === size
+                        ? "bg-[#21f31f] border-[#21f31f] text-black"
+                        : "bg-white border-zinc-300 text-black hover:border-[#21f31f]"
+                        }`}
                     >
                       {size}
                     </button>
@@ -628,9 +386,8 @@ export default function ProductPage({ params }: ProductPageProps) {
             {slides.map((slide, idx) => (
               <div
                 key={idx}
-                className={`absolute inset-0 transition-opacity duration-700 ${
-                  scrollSlideIndex === idx ? "opacity-100" : "opacity-0"
-                }`}
+                className={`absolute inset-0 transition-opacity duration-700 ${scrollSlideIndex === idx ? "opacity-100" : "opacity-0"
+                  }`}
               >
                 <img src={slide.image || "/placeholder.svg"} alt={slide.title} className="w-full h-full object-cover" />
               </div>
@@ -643,9 +400,8 @@ export default function ProductPage({ params }: ProductPageProps) {
               {slides.map((slide, idx) => (
                 <div
                   key={idx}
-                  className={`transition-opacity duration-700 ${
-                    scrollSlideIndex === idx ? "opacity-100" : "opacity-0"
-                  }`}
+                  className={`transition-opacity duration-700 ${scrollSlideIndex === idx ? "opacity-100" : "opacity-0"
+                    }`}
                 >
                   <h2 className="text-3xl md:text-4xl font-black uppercase tracking-tight mb-4">{slide.title}</h2>
                   {scrollSlideIndex === idx && (
@@ -821,89 +577,7 @@ export default function ProductPage({ params }: ProductPageProps) {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-black text-white py-12">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div>
-              <h3 className="font-black uppercase mb-4 text-[#21f31f]">SHOP</h3>
-              <ul className="space-y-2 text-sm">
-                <li>
-                  <Link href="/pants" className="hover:text-[#21f31f]">
-                    Pants
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/jackets" className="hover:text-[#21f31f]">
-                    Jackets
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/shirts" className="hover:text-[#21f31f]">
-                    Shirts
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/caps" className="hover:text-[#21f31f]">
-                    Caps
-                  </Link>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="font-black uppercase mb-4 text-[#21f31f]">SUPPORT</h3>
-              <ul className="space-y-2 text-sm">
-                <li>
-                  <Link href="#" className="hover:text-[#21f31f]">
-                    Contact Us
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="hover:text-[#21f31f]">
-                    Shipping Info
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="hover:text-[#21f31f]">
-                    Returns
-                  </Link>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="font-black uppercase mb-4 text-[#21f31f]">LEGAL</h3>
-              <ul className="space-y-2 text-sm">
-                <li>
-                  <Link href="#" className="hover:text-[#21f31f]">
-                    Privacy Policy
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="hover:text-[#21f31f]">
-                    Terms of Service
-                  </Link>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="font-black uppercase mb-4 text-[#21f31f]">NEWSLETTER</h3>
-              <div className="flex">
-                <input
-                  type="email"
-                  placeholder="Your email"
-                  className="flex-1 px-4 py-2 bg-zinc-900 border border-white/20 text-white rounded-none focus:outline-none focus:border-[#21f31f]"
-                />
-                <Button className="bg-[#21f31f] hover:bg-[#1dd11b] text-black font-bold px-6 rounded-none uppercase">
-                  Subscribe
-                </Button>
-              </div>
-            </div>
-          </div>
-          <div className="mt-12 pt-8 border-t border-white/20 text-center text-sm text-zinc-500">
-            © 2025 VEGALTEX TACTICAL COLOMBIA. All rights reserved.
-          </div>
-        </div>
-      </footer>
+
     </div>
   )
 }

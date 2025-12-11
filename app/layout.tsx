@@ -4,6 +4,8 @@ import { Geist, Geist_Mono, Chakra_Petch } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
 import { TacticalLoader } from "@/components/tactical-loader"
+import { SiteHeader } from "@/components/site-header"
+import { SiteFooter } from "@/components/site-footer"
 
 const _geist = Geist({ subsets: ["latin"] })
 const _geistMono = Geist_Mono({ subsets: ["latin"] })
@@ -46,8 +48,12 @@ export default function RootLayout({
     <html lang="en" className="dark">
       <body className={`font-sans antialiased ${chakraPetch.variable}`}>
         <TacticalLoader />
-        {children}
-        <Analytics />
+        <SiteHeader />
+        <main className="min-h-screen">
+          {children}
+          <Analytics />
+        </main>
+        <SiteFooter />
       </body>
     </html>
   )
