@@ -164,3 +164,36 @@
     font-family: 'PP Monument Extended', 'Arial Black', sans-serif;
   }
 }
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 2px;
+  height: 2px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #21f31f;
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #1dd11b;
+}
+
+/* Custom utility for specific containers if needed */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 2px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #21f31f;
+  border-radius: 2px;
+}

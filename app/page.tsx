@@ -15,6 +15,14 @@ import {
 
 import { products } from "@/lib/products"
 
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel"
+
 export default function TacticalProLandingPage() {
   const [scrolled, setScrolled] = useState(false)
 
@@ -22,6 +30,33 @@ export default function TacticalProLandingPage() {
     { name: "PANTALONES DE COMBATE STRIKER", image: "/tactical-combat-pants-military.jpg", link: "/pants" },
     { name: "CHAQUETAS TÁCTICAS", image: "/military-tactical-jacket.jpg", link: "/jackets" },
     { name: "CAMISAS DE COMBATE", image: "/tactical-combat-shirt.jpg", link: "/shirts" },
+  ]
+
+  const HERO_SLIDES = [
+    {
+      id: 1,
+      image: "/tactical-military-operator-action.webp",
+      title: "DEFINIENDO EL FUTURO DEL EQUIPAMIENTO TÁCTICO",
+      subtitle: "Diseñado para misiones críticas en los entornos más hostiles. Equípate con la ventaja definitiva.",
+      ctaPrimary: "COMPRAR AHORA",
+      ctaSecondary: "SABER MÁS"
+    },
+    {
+      id: 2,
+      image: "/images/image.jpeg",
+      title: "PROTECCIÓN SUPERIOR. RENDIMIENTO EXTREMO.",
+      subtitle: "Nuestra nueva línea de chaquetas está diseñada para desafiar los elementos y mantenerte operativo.",
+      ctaPrimary: "VER CHAQUETAS",
+      ctaSecondary: "TECNOLOGÍA"
+    },
+    {
+      id: 3,
+      image: "/images/featured-cold-weather.jpg",
+      title: "DOMINA EL FRÍO",
+      subtitle: "Aislamiento térmico avanzado para cuando la temperatura desciende. No dejes que el clima te detenga.",
+      ctaPrimary: "COLECCIÓN INVIERNO",
+      ctaSecondary: "CALIDEZ TÁCTICA"
+    }
   ]
 
   // Map real products to the Latest Products format expected by the UI
@@ -54,40 +89,57 @@ export default function TacticalProLandingPage() {
 
   return (
     <div className="min-h-screen bg-black text-white">
-      {/* Hero Section - Refactored with next/image */}
-      <section className="relative h-[600px] md:h-[800px] flex items-center font-monument">
-        <Image
-          src="/tactical-military-operator-action.webp"
-          alt="Operador Táctico en Acción"
-          fill
-          priority
-          className="object-cover object-center z-0"
-          quality={100}
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-black via-black/60 to-transparent z-10" />
+      {/* Hero Section - Carousel Slider */}
+      <section className="relative h-[600px] md:h-[800px] font-monument group">
+        <Carousel className="w-full h-full" opts={{ loop: true }}>
+          <CarouselContent className="-ml-0 h-full">
+            {HERO_SLIDES.map((slide) => (
+              <CarouselItem key={slide.id} className="pl-0 h-full relative w-full">
+                <div className="relative w-full h-full">
+                  <Image
+                    src={slide.image}
+                    alt={slide.title}
+                    fill
+                    priority={slide.id === 1}
+                    className="object-cover object-center z-0"
+                    quality={100}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-r from-black via-black/60 to-transparent z-10" />
 
-        <div className="relative z-20 container mx-auto px-4">
-          <div className="max-w-4xl pt-20">
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-6 uppercase text-white drop-shadow-lg leading-none">
-              DEFINIENDO<br />EL FUTURO<br /><span className="text-[#21f31f]">DEL EQUIPAMIENTO TÁCTICO</span>
-            </h1>
-            <p className="text-lg md:text-xl text-gray-200 mb-8 leading-relaxed max-w-2xl font-sans font-medium drop-shadow-md">
-              Diseñado para misiones críticas en los entornos más hostiles.
-              Equípate con la ventaja definitiva.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Button className="bg-[#21f31f] hover:bg-[#1dd11b] text-black font-bold tracking-wider uppercase rounded-none h-14 px-10 text-lg transition-transform hover:scale-105">
-                COMPRAR AHORA
-              </Button>
-              <Button
-                variant="outline"
-                className="border-2 border-white text-white hover:bg-white hover:text-black font-bold tracking-wider uppercase rounded-none h-14 px-10 text-lg bg-transparent backdrop-blur-sm transition-transform hover:scale-105"
-              >
-                SABER MÁS
-              </Button>
-            </div>
-          </div>
-        </div>
+                  <div className="relative z-20 container mx-auto px-4 h-full flex items-center">
+                    <div className="max-w-4xl pt-20">
+                      <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6 uppercase text-white drop-shadow-lg leading-none">
+                        {slide.title.split(" ").map((word, i) =>
+                          word === "FUTURO" || word === "TÁCTICO" || word === "EXTREMO" || word === "FRÍO" ? (
+                            <span key={i} className="text-[#21f31f]">{word} </span>
+                          ) : (
+                            <span key={i}>{word} </span>
+                          )
+                        )}
+                      </h1>
+                      <p className="text-lg md:text-xl text-gray-200 mb-8 leading-relaxed max-w-2xl font-sans font-medium drop-shadow-md">
+                        {slide.subtitle}
+                      </p>
+                      <div className="flex flex-col sm:flex-row gap-4">
+                        <Button className="bg-[#21f31f] hover:bg-[#1dd11b] text-black font-bold tracking-wider uppercase rounded-none h-14 px-10 text-lg transition-transform hover:scale-105">
+                          {slide.ctaPrimary}
+                        </Button>
+                        <Button
+                          variant="outline"
+                          className="border-2 border-white text-white hover:bg-white hover:text-black font-bold tracking-wider uppercase rounded-none h-14 px-10 text-lg bg-transparent backdrop-blur-sm transition-transform hover:scale-105"
+                        >
+                          {slide.ctaSecondary}
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <CarouselPrevious className="left-4 bg-transparent border-white/20 text-white hover:bg-[#21f31f] hover:text-black hover:border-[#21f31f] transition-colors rounded-none w-12 h-12 hidden md:flex" />
+          <CarouselNext className="right-4 bg-transparent border-white/20 text-white hover:bg-[#21f31f] hover:text-black hover:border-[#21f31f] transition-colors rounded-none w-12 h-12 hidden md:flex" />
+        </Carousel>
       </section>
 
       <section className="py-16 md:py-24 bg-white">

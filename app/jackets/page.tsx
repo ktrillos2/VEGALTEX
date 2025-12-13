@@ -8,6 +8,8 @@ import { ChevronDown } from "lucide-react"
 
 import { products } from "@/lib/products"
 
+import { CategoryFilter } from "@/components/category-filter"
+
 export default function JacketsPage() {
   const [selectedColors, setSelectedColors] = useState<Record<number, number>>({})
 
@@ -41,11 +43,12 @@ export default function JacketsPage() {
           <div className="container mx-auto px-4">
             <div className="flex flex-col md:flex-row items-center justify-between py-4 gap-4">
               <div className="flex items-center gap-2 text-sm font-bold text-gray-900">
-                <span>9 PRODUCTOS</span>
+                <span>{jackets.length} PRODUCTOS</span>
               </div>
 
               <div className="flex items-center gap-3 overflow-x-auto w-full md:w-auto pb-2 md:pb-0">
                 <span className="text-sm font-bold text-gray-500 uppercase whitespace-nowrap">FILTRAR POR:</span>
+                <CategoryFilter currentCategory="CHAQUETAS" />
                 {['TIPO', 'COLOR', 'TALLA', 'PRECIO'].map((filter) => (
                   <Button
                     key={filter}

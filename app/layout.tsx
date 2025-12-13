@@ -6,6 +6,7 @@ import "./globals.css"
 import { TacticalLoader } from "@/components/tactical-loader"
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
+import { TacticalCursor } from "@/components/tactical-cursor"
 
 const _geist = Geist({ subsets: ["latin"] })
 const _geistMono = Geist_Mono({ subsets: ["latin"] })
@@ -46,7 +47,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark">
-      <body className={`font-sans antialiased ${chakraPetch.variable}`}>
+      <body className={`font-sans antialiased ${chakraPetch.variable} cursor-none`}>
+        <TacticalCursor />
         <TacticalLoader />
         <SiteHeader />
         <main className="min-h-screen">

@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { Search, ShoppingCart, Heart, Flag, X, Menu, Minus, Plus, Loader2 } from "lucide-react"
@@ -15,6 +15,15 @@ export function SiteHeader() {
     const [searchQuery, setSearchQuery] = useState("")
     const [searchLoading, setSearchLoading] = useState(false)
     const [searchResults, setSearchResults] = useState<any[]>([])
+    const searchInputRef = useRef<HTMLInputElement>(null)
+
+    useEffect(() => {
+        if (searchOpen) {
+            setTimeout(() => {
+                searchInputRef.current?.focus()
+            }, 100) // Small delay to allow transition to start
+        }
+    }, [searchOpen])
 
     // Sample initial cart state
     const [cartItems, setCartItems] = useState([
@@ -69,7 +78,7 @@ export function SiteHeader() {
         <>
             {/* Cart Sidebar */}
             <div
-                className={`fixed inset-y-0 right-0 w-full md:w-96 bg-zinc-950 border-l border-[#21f31f]/20 z-50 transform transition-transform duration-300 ${cartOpen ? "translate-x-0" : "translate-x-full"
+                className={`fixed inset-y-0 right-0 w-full md:w-96 bg-zinc-950 border-l border-[#21f31f]/20 z-[70] transform transition-transform duration-300 ${cartOpen ? "translate-x-0" : "translate-x-full"
                     }`}
             >
                 <div className="flex flex-col h-full">
@@ -139,85 +148,126 @@ export function SiteHeader() {
                 </div>
             </div>
 
-            {cartOpen && <div className="fixed inset-0 bg-black/50 z-40" onClick={() => setCartOpen(false)} />}
+            {cartOpen && <div className="fixed inset-0 bg-black/50 z-[60]" onClick={() => setCartOpen(false)} />}
 
             {/* Search Overlay */}
             <div
-                className={`fixed inset-x-0 top-0 bg-black/98 backdrop-blur-lg z-50 transition-transform duration-500 ease-out border-b border-[#21f31f]/30 ${searchOpen ? "translate-y-0" : "-translate-y-full"
+                className={`fixed inset-0 bg-black/80 backdrop-blur-sm z-[60] transition-opacity duration-500 ${searchOpen ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"
                     }`}
-                style={{ maxHeight: "90vh", overflowY: "auto" }}
+                onClick={() => setSearchOpen(false)}
+            />
+            <div
+                className={`fixed inset-0 bg-black/95 z-[70] transition-all duration-500 ease-in-out flex flex-col ${searchOpen ? "translate-y-0 opacity-100 visible" : "-translate-y-full opacity-0 invisible"
+                    }`}
             >
-                <div className="container mx-auto px-4 py-6">
-                    <div className="flex items-center justify-between mb-6">
-                        <h2 className="text-2xl font-bold tracking-wide text-[#21f31f]">BUSCAR</h2>
+                <div className="container mx-auto px-4 py-8 h-full flex flex-col">
+                    <div className="flex items-center justify-between mb-8">
+                        <h2 className="text-3xl font-bold tracking-wide text-[#21f31f] font-monument">BUSCAR</h2>
                         <button
                             onClick={() => {
                                 setSearchOpen(false)
                                 setSearchQuery("")
                                 setSearchResults([])
                             }}
-                            className="p-2 hover:bg-white/10 rounded transition-colors text-white"
+                            className="p-2 hover:bg-white/10 rounded-full transition-colors text-white"
                         >
-                            <X className="w-6 h-6" />
+                            <X className="w-8 h-8" />
                         </button>
                     </div>
 
-                    <div className="mb-8">
+                    <div className="mb-12">
                         <Input
+                            ref={searchInputRef}
                             type="text"
-                            placeholder="Buscar equipo táctico..."
+                            placeholder="¿Qué estás buscando hoy?"
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
-                            className="w-full h-14 bg-zinc-900 border-[#21f31f]/30 focus:border-[#21f31f] text-white placeholder:text-gray-500 rounded-none text-lg"
-                            autoFocus
+                            className="w-full h-16 bg-zinc-900/50 border-b-2 border-[#21f31f]/30 focus:border-[#21f31f] border-t-0 border-x-0 rounded-none text-2xl text-white placeholder:text-gray-500 px-0 focus-visible:ring-0"
+                            autoFocus={searchOpen}
                         />
                     </div>
 
-                    {searchLoading && (
-                        <div className="flex items-center justify-center py-12">
-                            <Loader2 className="w-8 h-8 animate-spin text-[#21f31f]" />
-                        </div>
-                    )}
-
-                    {!searchLoading && searchQuery && searchResults.length > 0 && (
-                        <div>
-                            <h3 className="text-sm font-bold tracking-widest text-gray-400 mb-4">
-                                RESULTADOS DE BÚSQUEDA ({searchResults.length})
-                            </h3>
-                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                                {searchResults.map((product) => (
-                                    <Link
-                                        key={product.id}
-                                        href={`/product/${product.name.toLowerCase().replace(/\s+/g, "-")}`}
-                                        className="bg-zinc-900 hover:bg-zinc-800 transition-all duration-300 group"
-                                        onClick={() => setSearchOpen(false)}
-                                    >
-                                        <div className="aspect-square relative overflow-hidden">
-                                            <Image
-                                                src={product.image || "/placeholder.svg"}
-                                                alt={product.name}
-                                                fill
-                                                className="object-cover group-hover:scale-105 transition-transform duration-300"
-                                            />
-                                        </div>
-                                        <div className="p-4">
-                                            <p className="text-xs text-[#21f31f] mb-1">{product.category}</p>
-                                            <h4 className="font-bold text-sm mb-2 line-clamp-2 text-white">{product.name}</h4>
-                                            <p className="text-[#21f31f] font-bold">${product.price}</p>
-                                        </div>
-                                    </Link>
-                                ))}
+                    <div className="flex-1 overflow-y-auto pr-2 custom-scrollbar">
+                        {searchLoading && (
+                            <div className="flex items-center justify-center py-20">
+                                <Loader2 className="w-12 h-12 animate-spin text-[#21f31f]" />
                             </div>
-                        </div>
-                    )}
+                        )}
 
-                    {/* No Results */}
-                    {!searchLoading && searchQuery && searchResults.length === 0 && (
-                        <div className="text-center py-12">
-                            <Search className="w-12 h-12 mx-auto mb-4 text-gray-600" />
-                            <p className="text-gray-400">No se encontraron productos para "{searchQuery}"</p>
-                        </div>
-                    )}
+                        {!searchLoading && !searchQuery && (
+                            <div>
+                                <h3 className="text-sm font-bold tracking-widest text-[#21f31f] mb-6 uppercase border-b border-white/10 pb-4">
+                                    Productos Destacados
+                                </h3>
+                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                                    {products.slice(0, 4).map((product) => (
+                                        <Link
+                                            key={product.id}
+                                            href={`/product/${product.name.toLowerCase().replace(/\s+/g, "-")}`}
+                                            className="group block"
+                                            onClick={() => setSearchOpen(false)}
+                                        >
+                                            <div className="aspect-[4/5] relative overflow-hidden bg-zinc-900 rounded-lg mb-4">
+                                                <Image
+                                                    src={product.images[0] || "/placeholder.svg"}
+                                                    alt={product.name}
+                                                    fill
+                                                    className="object-cover group-hover:scale-110 transition-transform duration-500"
+                                                />
+                                                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                                                    <span className="text-[#21f31f] font-bold text-sm tracking-widest uppercase">Ver Producto</span>
+                                                </div>
+                                            </div>
+                                            <h4 className="font-bold text-white text-lg leading-tight mb-2 group-hover:text-[#21f31f] transition-colors">{product.name}</h4>
+                                            <p className="text-gray-400 text-sm mb-2">{product.category}</p>
+                                            <p className="text-[#21f31f] font-bold text-lg">${product.salePrice}</p>
+                                        </Link>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+
+                        {!searchLoading && searchQuery && searchResults.length > 0 && (
+                            <div>
+                                <h3 className="text-sm font-bold tracking-widest text-gray-400 mb-6">
+                                    RESULTADOS DE BÚSQUEDA ({searchResults.length})
+                                </h3>
+                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                                    {searchResults.map((product) => (
+                                        <Link
+                                            key={product.id}
+                                            href={`/product/${product.name.toLowerCase().replace(/\s+/g, "-")}`}
+                                            className="bg-zinc-900/50 hover:bg-zinc-900 transition-all duration-300 group rounded-lg overflow-hidden border border-white/5 hover:border-[#21f31f]/30"
+                                            onClick={() => setSearchOpen(false)}
+                                        >
+                                            <div className="aspect-square relative overflow-hidden">
+                                                <Image
+                                                    src={product.image || "/placeholder.svg"}
+                                                    alt={product.name}
+                                                    fill
+                                                    className="object-cover group-hover:scale-105 transition-transform duration-300"
+                                                />
+                                            </div>
+                                            <div className="p-4">
+                                                <p className="text-xs text-[#21f31f] mb-1 uppercase tracking-wider">{product.category}</p>
+                                                <h4 className="font-bold text-base mb-2 line-clamp-2 text-white group-hover:text-[#21f31f] transition-colors">{product.name}</h4>
+                                                <p className="text-white font-bold">${product.price}</p>
+                                            </div>
+                                        </Link>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+
+                        {/* No Results */}
+                        {!searchLoading && searchQuery && searchResults.length === 0 && (
+                            <div className="text-center py-24">
+                                <Search className="w-16 h-16 mx-auto mb-6 text-zinc-700" />
+                                <h3 className="text-xl text-white font-bold mb-2">No encontramos resultados</h3>
+                                <p className="text-gray-400">Intenta con otros términos de búsqueda para "{searchQuery}"</p>
+                            </div>
+                        )}
+                    </div>
                 </div>
             </div>
 

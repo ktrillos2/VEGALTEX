@@ -7,6 +7,8 @@ import { Card } from "@/components/ui/card"
 import { ChevronDown } from "lucide-react"
 import { products } from "@/lib/products"
 
+import { CategoryFilter } from "@/components/category-filter"
+
 export default function PantsPage() {
   const [selectedColors, setSelectedColors] = useState<Record<number, number>>({})
 
@@ -45,6 +47,7 @@ export default function PantsPage() {
 
               <div className="flex items-center gap-3 overflow-x-auto w-full md:w-auto pb-2 md:pb-0">
                 <span className="text-sm font-bold text-gray-500 uppercase whitespace-nowrap">FILTRAR POR:</span>
+                <CategoryFilter currentCategory="PANTALONES" />
                 {['TIPO', 'COLOR', 'TALLA', 'PRECIO'].map((filter) => (
                   <Button
                     key={filter}
