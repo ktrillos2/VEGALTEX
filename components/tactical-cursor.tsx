@@ -49,65 +49,67 @@ export function TacticalCursor() {
         window.addEventListener("mouseup", onMouseUp)
         window.addEventListener("touchmove", onTouchMove, { passive: true })
 
-        // Hide default cursor globally
-        document.body.style.cursor = "none"
+        // Hide default cursor globally ONLY on desktop
+        // document.body.style.cursor = "none" // Removed direct assignment to allow CSS media query control
 
         // Also add a style tag for elements that might force a cursor
         const style = document.createElement("style")
         style.innerHTML = `
-            * {
-                cursor: none !important;
-            }
-            
-            /* Custom styles for cursor elements */
-            .crosshair-dot {
-                width: 8px;
-                height: 8px;
-                background-color: #21f31f; /* Neon green matching theme */
-                border-radius: 50%;
-                box-shadow: 0 0 10px #21f31f;
-                transform: translate(-50%, -50%);
-            }
+            @media (min-width: 1024px) {
+                * {
+                    cursor: none !important;
+                }
+                
+                /* Custom styles for cursor elements */
+                .crosshair-dot {
+                    width: 8px;
+                    height: 8px;
+                    background-color: #21f31f; /* Neon green matching theme */
+                    border-radius: 50%;
+                    box-shadow: 0 0 10px #21f31f;
+                    transform: translate(-50%, -50%);
+                }
 
-            .crosshair-line-h {
-                position: absolute;
-                top: 0;
-                left: -18px;
-                width: 36px;
-                height: 4px;
-                background-color: #21f31f;
-                transform: translateY(-50%);
-            }
+                .crosshair-line-h {
+                    position: absolute;
+                    top: 0;
+                    left: -18px;
+                    width: 36px;
+                    height: 4px;
+                    background-color: #21f31f;
+                    transform: translateY(-50%);
+                }
 
-            .crosshair-line-v {
-                position: absolute;
-                left: 0;
-                top: -18px;
-                height: 36px;
-                width: 4px;
-                background-color: #21f31f;
-                transform: translateX(-50%);
-            }
+                .crosshair-line-v {
+                    position: absolute;
+                    left: 0;
+                    top: -18px;
+                    height: 36px;
+                    width: 4px;
+                    background-color: #21f31f;
+                    transform: translateX(-50%);
+                }
 
-            .mech-ring {
-                width: 100%;
-                height: 100%;
-                border: 2px dashed #21f31f;
-                border-radius: 50%;
-                box-shadow: 0 0 5px #21f31f;
-                animation: spin-slow 10s linear infinite; 
-                transition: border-width 0.1s, background-color 0.1s;
-            }
+                .mech-ring {
+                    width: 100%;
+                    height: 100%;
+                    border: 2px dashed #21f31f;
+                    border-radius: 50%;
+                    box-shadow: 0 0 5px #21f31f;
+                    animation: spin-slow 10s linear infinite; 
+                    transition: border-width 0.1s, background-color 0.1s;
+                }
 
-            .mech-ring.clicking {
-                background-color: rgba(33, 243, 31, 0.2);
-                border-style: solid;
-                border-width: 3px;
-            }
+                .mech-ring.clicking {
+                    background-color: rgba(33, 243, 31, 0.2);
+                    border-style: solid;
+                    border-width: 3px;
+                }
 
-            @keyframes spin-slow {
-                0% { transform: rotate(0deg); }
-                100% { transform: rotate(360deg); }
+                @keyframes spin-slow {
+                    0% { transform: rotate(0deg); }
+                    100% { transform: rotate(360deg); }
+                }
             }
         `
         document.head.appendChild(style)
@@ -116,6 +118,8 @@ export function TacticalCursor() {
         let animationFrameId: number
 
         function animate() {
+            // Only run logic if needed, though harmless on mobile as elements are hidden
+
             // 1. Física del Anillo (Interpolación lineal - Lerp)
             const dx = mouseX - ringX
             const dy = mouseY - ringY
@@ -168,20 +172,20 @@ export function TacticalCursor() {
 
     return (
         <>
-            {/* 1. Cursor de Precisión */}
+            {/* 1. Cursor de Precisión - Hidden on mobile/tablet */}
             <div
                 ref={cursorPreciseRef}
-                className="fixed top-0 left-0 pointer-events-none z-[10000] will-change-transform"
+                className="fixed top-0 left-0 pointer-events-none z-[10000] will-change-transform hidden lg:block"
             >
                 <div className="crosshair-dot" />
                 <div className="crosshair-line-h" />
                 <div className="crosshair-line-v" />
             </div>
 
-            {/* 2. Cursor de Anillo */}
+            {/* 2. Cursor de Anillo - Hidden on mobile/tablet */}
             <div
                 ref={cursorRingContainerRef}
-                className="fixed top-0 left-0 w-[50px] h-[50px] pointer-events-none z-[9999] will-change-transform"
+                className="fixed top-0 left-0 w-[50px] h-[50px] pointer-events-none z-[9999] will-change-transform hidden lg:block"
             >
                 <div ref={ringWrapperRef} className="w-full h-full">
                     <div ref={mechRingVisualRef} className="mech-ring" />

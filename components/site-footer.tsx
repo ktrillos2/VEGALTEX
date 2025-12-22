@@ -5,7 +5,7 @@ export function SiteFooter() {
     return (
         <footer className="bg-black border-t border-zinc-800 py-16">
             <div className="container mx-auto px-4">
-                <div className="grid md:grid-cols-4 gap-8 mb-12">
+                <div className="grid md:grid-cols-3 gap-8 mb-12">
                     <div>
                         <h4 className="text-lg font-bold tracking-wide uppercase mb-6 text-white">TIENDA</h4>
                         <ul className="space-y-3">
@@ -86,23 +86,20 @@ export function SiteFooter() {
                             </li>
                         </ul>
                     </div>
-                    <div>
-                        <h4 className="text-lg font-bold tracking-wide uppercase mb-6 text-white">BOLETÍN</h4>
-                        <p className="text-gray-400 mb-4 text-sm">Mantente actualizado con lo último en equipamiento y ofertas exclusivas.</p>
-                        <div className="flex gap-2">
-                            <input
-                                type="email"
-                                placeholder="Tu correo"
-                                className="flex-1 px-4 py-2 bg-zinc-900 border border-zinc-800 text-white placeholder-gray-500 focus:border-[#21f31f] focus:outline-none rounded-none text-sm"
-                            />
-                            <Button className="bg-[#21f31f] hover:bg-[#1dd11b] text-black font-bold uppercase rounded-none px-4">
-                                IR
-                            </Button>
-                        </div>
-                    </div>
                 </div>
                 <div className="pt-8 border-t border-zinc-800 text-center text-gray-500 text-sm">
                     <p>&copy; 2025 VEGALTEX TACTICAL COLOMBIA. Todos los derechos reservados.</p>
+                    <p className="mt-2">
+                        Realizado por{" "}
+                        <a
+                            href="https://kytcode.lat"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-[#21f31f] hover:underline hover:text-[#1dd11b] transition-colors font-bold"
+                        >
+                            K&T
+                        </a>
+                    </p>
                 </div>
             </div>
         </footer>

@@ -266,11 +266,6 @@ export default function TacticalProLandingPage() {
           <div className="grid md:grid-cols-3 gap-8 mb-16">
             {testimonials.map((testimonial, idx) => (
               <Card key={idx} className="bg-zinc-950 border-zinc-800 rounded-none p-8">
-                <div className="flex gap-1 mb-4">
-                  {Array.from({ length: testimonial.rating }).map((_, i) => (
-                    <div key={i} className="w-5 h-5 bg-[#21f31f]" />
-                  ))}
-                </div>
                 <p className="text-gray-300 mb-6 leading-relaxed">{testimonial.text}</p>
                 <p className="font-bold text-sm uppercase tracking-wide text-[#21f31f]">{testimonial.name}</p>
               </Card>

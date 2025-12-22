@@ -8,6 +8,8 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { products } from "@/lib/products" // Use shared products for search
 
+import { useCart } from "@/lib/context/cart-context" // Add import
+
 export function SiteHeader() {
     const [cartOpen, setCartOpen] = useState(false)
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -17,36 +19,20 @@ export function SiteHeader() {
     const [searchResults, setSearchResults] = useState<any[]>([])
     const searchInputRef = useRef<HTMLInputElement>(null)
 
+    // Use Cart Logic
+    const { items: cartItems, updateQuantity, cartTotal, cartCount, removeItem } = useCart()
+
     useEffect(() => {
         if (searchOpen) {
             setTimeout(() => {
                 searchInputRef.current?.focus()
-            }, 100) // Small delay to allow transition to start
+            }, 100)
         }
     }, [searchOpen])
 
-    // Sample initial cart state
-    const [cartItems, setCartItems] = useState([
-        {
-            id: 1,
-            name: "CHAQUETA TÁCTICA DE INVIERNO DELTA ML GEN.3",
-            price: 272,
-            quantity: 1,
-            color: "Oliva",
-            size: "L",
-            image: "/images/image.png",
-        },
-    ])
+    // Search Logic (kept logic related to searches...)
+    // ...
 
-    const updateQuantity = (id: number, delta: number) => {
-        setCartItems(
-            cartItems
-                .map((item) => (item.id === id ? { ...item, quantity: Math.max(0, item.quantity + delta) } : item))
-                .filter((item) => item.quantity > 0),
-        )
-    }
-
-    const cartTotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0)
 
     // Search Logic
     useEffect(() => {
@@ -282,12 +268,12 @@ export function SiteHeader() {
                                     <Flag className="w-3 h-3 text-[#21f31f]" />
                                 </div>
                                 <span className="mx-3 text-zinc-700 hidden md:block">|</span>
-                                <button className="hover:text-[#21f31f] transition-colors hidden md:block">CONTÁCTENOS</button>
+                                <Link href="/contact" className="hover:text-[#21f31f] transition-colors hidden md:block">CONTÁCTENOS</Link>
                                 <span className="mx-3 text-zinc-700 hidden md:block">|</span>
-                                <button className="flex items-center gap-2 hover:text-[#21f31f] transition-colors">
+                                <Link href="/destacados" className="flex items-center gap-2 hover:text-[#21f31f] transition-colors">
                                     <Heart className="w-3 h-3" />
                                     <span className="hidden md:inline">Guardado</span>
-                                </button>
+                                </Link>
                             </div>
                         </div>
                     </div>

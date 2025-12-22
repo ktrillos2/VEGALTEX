@@ -1,12 +1,15 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Geist, Geist_Mono, Chakra_Petch } from "next/font/google"
+import { Geist, Geist_Mono, Chakra_Petch, Black_Ops_One, Share_Tech_Mono } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
+import "./tactical-toast.css"
 import { TacticalLoader } from "@/components/tactical-loader"
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
 import { TacticalCursor } from "@/components/tactical-cursor"
+
+import { Toaster } from "@/components/ui/sonner"
 
 const _geist = Geist({ subsets: ["latin"] })
 const _geistMono = Geist_Mono({ subsets: ["latin"] })
@@ -14,6 +17,16 @@ const chakraPetch = Chakra_Petch({
   weight: ["500", "700"],
   subsets: ["latin"],
   variable: "--font-chakra-petch",
+})
+const blackOpsOne = Black_Ops_One({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-black-ops",
+})
+const shareTechMono = Share_Tech_Mono({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-share-tech",
 })
 
 export const metadata: Metadata = {
@@ -40,6 +53,9 @@ export const metadata: Metadata = {
   },
 }
 
+import { CartProvider } from "@/lib/context/cart-context"
+import { WhatsAppButton } from "@/components/whatsapp-button"
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -47,15 +63,19 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark">
-      <body className={`font-sans antialiased ${chakraPetch.variable} cursor-none`}>
-        <TacticalCursor />
-        <TacticalLoader />
-        <SiteHeader />
-        <main className="min-h-screen">
-          {children}
-          <Analytics />
-        </main>
-        <SiteFooter />
+      <body className={`font-sans antialiased ${chakraPetch.variable} ${blackOpsOne.variable} ${shareTechMono.variable} cursor-none`}>
+        <CartProvider>
+          <TacticalCursor />
+          <TacticalLoader />
+          <SiteHeader />
+          <main className="min-h-screen">
+            {children}
+            <Analytics />
+          </main>
+          <SiteFooter />
+          <WhatsAppButton />
+          <Toaster />
+        </CartProvider>
       </body>
     </html>
   )

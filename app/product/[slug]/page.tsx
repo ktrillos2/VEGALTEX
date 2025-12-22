@@ -16,6 +16,9 @@ import {
   Layers,
   Tag,
 } from "lucide-react"
+import { toast } from "sonner"
+import { useFavorites } from "@/lib/hooks/use-favorites"
+import { TacticalToast } from "@/components/tactical-toast"
 
 interface ProductPageProps {
   params: {
@@ -30,19 +33,26 @@ export default function ProductPage({ params }: ProductPageProps) {
   const [scrollSlideIndex, setScrollSlideIndex] = useState(0)
   const scrollContainerRef = useRef<HTMLDivElement>(null)
 
+  const { toggleFavorite, isFavorite, isLoaded } = useFavorites()
+
   // Product data - in a real app, this would come from an API
+
+  // ... imports and interface
+
+  // ... inside component
+
   const product = {
     id: 1,
-    name: "DELTA ML GEN.3 TACTICAL WINTER JACKET",
+    name: "CHAQUETA TÁCTICA DELTA ML GEN.3", // Translated name for better context
     price: 320,
-    badge: "NEW",
+    badge: "NUEVO", // Translated
     rating: 5,
     reviews: 7,
     description:
-      "A versatile cold-weather solution with premium insulation, windproof protection, and innovative features for optimal performance in harsh conditions.",
+      "Una solución versátil para clima frío con aislamiento premium, protección contra el viento y características innovadoras para un rendimiento óptimo en condiciones adversas.", // Translated
     colors: [
       {
-        name: "Black",
+        name: "Negro", // Translated
         hex: "#000000",
         images: [
           "/images/products/jacket-delta-ml-black.jpg",
@@ -52,7 +62,7 @@ export default function ProductPage({ params }: ProductPageProps) {
         ],
       },
       {
-        name: "Brown Grey",
+        name: "Marrón Gris", // Translated
         hex: "#4B5320",
         images: [
           "/images/products/jacket-delta-ml-olive.jpg",
@@ -62,7 +72,7 @@ export default function ProductPage({ params }: ProductPageProps) {
         ],
       },
       {
-        name: "Steel Grey",
+        name: "Gris Acero", // Translated
         hex: "#5a5a5a",
         images: [
           "/images/products/jacket-delta-ml-gray.jpg",
@@ -72,7 +82,7 @@ export default function ProductPage({ params }: ProductPageProps) {
         ],
       },
       {
-        name: "Navy Blue",
+        name: "Azul Marino", // Translated
         hex: "#2d3e50",
         images: [
           "/images/products/jacket-delta-ml-navy.jpg",
@@ -84,28 +94,28 @@ export default function ProductPage({ params }: ProductPageProps) {
     ],
     sizes: ["XS", "S", "M", "L", "XL", "2XL", "3XL", "4XL"],
     features: [
-      "Premium insulation for extreme cold",
-      "Windproof and water-resistant",
-      "Multiple tactical pockets",
-      "Reinforced elbows and shoulders",
-      "YKK zippers throughout",
-      "Adjustable hood and cuffs",
+      "Aislamiento premium para frío extremo",
+      "Resistente al viento y al agua",
+      "Múltiples bolsillos tácticos",
+      "Codos y hombros reforzados",
+      "Cremalleras YKK en todo",
+      "Capucha y puños ajustables",
     ],
     upgradeWith: [
       {
-        name: "URBAN T-SHIRT",
+        name: "CAMISETA URBAN", // Translated
         price: 43,
         image: "/images/products/shirt-urban-olive.jpg",
         colors: ["#000000", "#4B5320", "#8B7355", "#2d3e50"],
       },
       {
-        name: "URBAN POLO SHIRT",
+        name: "POLO TÁCTICO URBAN", // Translated
         price: 49,
         image: "/images/products/shirt-polo-olive.jpg",
         colors: ["#4B5320", "#000000", "#8B7355", "#2d3e50"],
       },
       {
-        name: "WATCH CAP",
+        name: "GORRO DE VIGILANCIA", // Translated
         price: 32,
         image: "/images/products/cap-watch-olive.jpg",
         colors: ["#4B5320", "#000000"],
@@ -116,76 +126,59 @@ export default function ProductPage({ params }: ProductPageProps) {
   const currentImages = product.colors[selectedColor].images
 
   const addToCart = () => {
-    // In a real implementation, this would update a global context
-    console.log("Added to cart")
+    toast.custom((id) => (
+      <TacticalToast
+        title="OPERACIÓN INICIADA"
+        message={`${product.name} agregado al carrito de suministros.`}
+      />
+    ), { duration: 5000 })
+  }
+
+  const handleToggleFavorite = () => {
+    toggleFavorite(product.id, product.name)
   }
 
   useEffect(() => {
-    const handleScroll = (e: WheelEvent) => {
-      const container = scrollContainerRef.current
-      if (!container) return
+    const handleScroll = () => {
+      if (!scrollContainerRef.current) return
+      const rect = scrollContainerRef.current.getBoundingClientRect()
+      const viewportHeight = window.innerHeight
 
-      const rect = container.getBoundingClientRect()
-      // Check if the slider section is in the viewport
-      const isInView = rect.top <= 0 && rect.bottom >= window.innerHeight
+      // Calculate progress based on how far the top of the container has moved up
+      // 0 means top is at viewport top.
+      // 1 means we've scrolled 100vh down (so container top is -100vh).
+      const progress = -rect.top / viewportHeight
 
-      if (isInView) {
-        const totalSlides = slides.length
-        const delta = e.deltaY
-
-        // If we're in the middle of slides, always prevent scroll
-        if (scrollSlideIndex > 0 && scrollSlideIndex < totalSlides - 1) {
-          e.preventDefault()
-          if (delta > 0) {
-            setScrollSlideIndex((prev) => prev + 1)
-          } else {
-            setScrollSlideIndex((prev) => prev - 1)
-          }
-        }
-        // At first slide, scrolling up - allow normal scroll
-        else if (scrollSlideIndex === 0 && delta < 0) {
-          // Allow normal scroll up
-          return
-        }
-        // At first slide, scrolling down - prevent and advance
-        else if (scrollSlideIndex === 0 && delta > 0) {
-          e.preventDefault()
-          setScrollSlideIndex(1)
-        }
-        // At last slide, scrolling down - allow normal scroll
-        else if (scrollSlideIndex === totalSlides - 1 && delta > 0) {
-          // Allow normal scroll down
-          return
-        }
-        // At last slide, scrolling up - prevent and go back
-        else if (scrollSlideIndex === totalSlides - 1 && delta < 0) {
-          e.preventDefault()
-          setScrollSlideIndex((prev) => prev - 1)
-        }
+      if (progress >= -0.5 && progress < slides.length + 0.5) {
+        let newIndex = Math.round(progress)
+        if (newIndex < 0) newIndex = 0
+        if (newIndex >= slides.length) newIndex = slides.length - 1
+        setScrollSlideIndex(newIndex)
       }
     }
 
-    window.addEventListener("wheel", handleScroll, { passive: false })
-    return () => window.removeEventListener("wheel", handleScroll)
-  }, [scrollSlideIndex])
+    window.addEventListener("scroll", handleScroll, { passive: true })
+    handleScroll() // Initial check
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
 
   const slides = [
     {
-      title: "WINDPROOF AND WATER-REPELLENT FACE FABRIC.",
+      title: "TEJIDO EXTERIOR CORTAVIENTOS Y REPELENTE AL AGUA.", // Translated
       description:
-        "A polyamide fabric with natural stretch and a polyurethane membrane protects you from light rain and cold winds.",
+        "Un tejido de poliamida con elasticidad natural y una membrana de poliuretano te protege de la lluvia ligera y vientos fríos.", // Translated
       image: "/images/products/jacket-feature-windproof.jpg",
     },
     {
-      title: "HIGH-PERFORMANCE LIGHTWEIGHT INSULATION.",
+      title: "AISLAMIENTO LIGERO DE ALTO RENDIMIENTO.", // Translated
       description:
-        "Advanced synthetic insulation provides exceptional warmth-to-weight ratio for extreme cold weather operations.",
+        "El aislamiento sintético avanzado proporciona una relación calor-peso excepcional para operaciones en clima frío extremo.", // Translated
       image: "/images/products/jacket-feature-insulation.jpg",
     },
     {
-      title: "FAST-DRYING AND BREATHABLE BASE LINING.",
+      title: "FORRO BASE TRANSPIRABLE Y DE SECADO RÁPIDO.", // Translated
       description:
-        "Moisture-wicking interior lining ensures comfort during high-intensity activities and rapid temperature changes.",
+        "El forro interior que absorbe la humedad garantiza comodidad durante actividades de alta intensidad y cambios rápidos de temperatura.", // Translated
       image: "/images/products/jacket-feature-breathable.jpg",
     },
   ]
@@ -237,27 +230,19 @@ export default function ProductPage({ params }: ProductPageProps) {
             {/* Right: Product Info */}
             <div className="space-y-6">
               <div>
-                <h1 className="text-3xl md:text-4xl font-black uppercase tracking-tight mb-3">{product.name}</h1>
-                <div className="flex items-center gap-2 mb-4">
-                  <div className="flex text-yellow-400">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 fill-current" />
-                    ))}
-                  </div>
-                  <span className="text-sm text-zinc-600">{product.reviews} reviews</span>
-                </div>
-                <div className="text-3xl font-black mb-4">{product.price}€</div>
-                <p className="text-zinc-700 leading-relaxed">
+                <h1 className="text-3xl md:text-4xl font-black uppercase tracking-tight mb-3 text-black">{product.name}</h1>
+                <div className="text-3xl font-black mb-4 text-black">{product.price}€</div>
+                <p className="text-zinc-800 leading-relaxed font-medium">
                   {product.description}{" "}
-                  <Link href="#" className="text-[#4B5320] font-bold hover:underline">
-                    More Info
+                  <Link href="#" className="text-[#4B5320] font-bold hover:underline ml-1">
+                    Más Info
                   </Link>
                 </p>
               </div>
 
               {/* Color Selection */}
               <div>
-                <label className="block text-sm font-bold uppercase tracking-wide mb-3">COLOUR:</label>
+                <label className="block text-sm font-bold uppercase tracking-wide mb-3 text-black">COLOR:</label>
                 <div className="flex gap-3 mb-2">
                   {product.colors.map((color, idx) => (
                     <button
@@ -288,7 +273,7 @@ export default function ProductPage({ params }: ProductPageProps) {
 
               {/* Size Selection */}
               <div>
-                <label className="block text-sm font-bold uppercase tracking-wide mb-3">SIZE:</label>
+                <label className="block text-sm font-bold uppercase tracking-wide mb-3 text-black">TALLA:</label>
                 <div className="grid grid-cols-4 gap-2 mb-3">
                   {product.sizes.map((size) => (
                     <button
@@ -296,7 +281,7 @@ export default function ProductPage({ params }: ProductPageProps) {
                       onClick={() => setSelectedSize(size)}
                       className={`py-3 border-2 font-bold text-sm uppercase transition-all ${selectedSize === size
                         ? "bg-[#21f31f] border-[#21f31f] text-black"
-                        : "bg-white border-zinc-300 text-black hover:border-[#21f31f]"
+                        : "bg-white border-zinc-300 text-black hover:border-zinc-800 hover:bg-zinc-50"
                         }`}
                     >
                       {size}
@@ -306,34 +291,37 @@ export default function ProductPage({ params }: ProductPageProps) {
               </div>
 
               {/* Delivery Info */}
-              <div className="flex items-center gap-3 text-sm">
+              <div className="flex items-center gap-3 text-sm text-zinc-800 font-medium">
                 <Truck className="w-5 h-5 text-[#4B5320]" />
-                <span>Est. delivery on or before Friday, 12 Dec</span>
+                <span>
+                  Entrega est. el {new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toLocaleDateString("es-ES", {
+                    weekday: "long",
+                    month: "short",
+                    day: "numeric",
+                  })}
+                </span>
               </div>
 
               {/* Add to Basket */}
               <div className="flex gap-3">
                 <Button
                   onClick={addToCart}
-                  className="flex-1 bg-zinc-700 hover:bg-zinc-800 text-white font-bold py-6 rounded-none uppercase tracking-wider text-base"
+                  className="flex-1 bg-zinc-900 hover:bg-black text-white font-bold h-14 rounded-none uppercase tracking-wider text-base border-none shadow-none transition-colors"
                 >
-                  ADD TO BASKET
+                  AGREGAR AL CARRITO
                 </Button>
                 <Button
+                  onClick={handleToggleFavorite}
                   variant="outline"
                   size="icon"
-                  className="w-14 h-14 border-zinc-700 hover:bg-zinc-100 rounded-none bg-transparent"
+                  className={`w-14 h-14 rounded-none border-2 transition-all ${isFavorite(product.id)
+                    ? "bg-zinc-100 border-[#21f31f] text-[#21f31f]"
+                    : "bg-[#bfbfbf] border-[#bfbfbf] text-white hover:bg-[#a6a6a6] hover:border-[#a6a6a6]"
+                    }`}
                 >
-                  <Heart className="w-6 h-6" />
+                  <Heart className={`w-6 h-6 ${isFavorite(product.id) ? "fill-current" : ""}`} />
                 </Button>
               </div>
-
-              <Button
-                variant="outline"
-                className="w-full border-zinc-700 text-black hover:bg-zinc-100 py-4 rounded-none uppercase font-bold text-sm bg-transparent"
-              >
-                Find your size
-              </Button>
             </div>
           </div>
         </div>
@@ -342,34 +330,34 @@ export default function ProductPage({ params }: ProductPageProps) {
       {/* Upgrade With Section */}
       <section className="py-12 md:py-16 bg-zinc-50">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl font-black uppercase text-center mb-12 tracking-tight">UPGRADE WITH:</h2>
+          <h2 className="text-3xl md:text-4xl font-black uppercase text-center mb-12 tracking-tight text-black">MEJORA TU EQUIPO CON:</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {product.upgradeWith.map((item, idx) => (
               <Card
                 key={idx}
-                className="bg-white rounded-none border-zinc-300 overflow-hidden hover:border-[#21f31f] hover:shadow-lg transition-all"
+                className="bg-white rounded-none border-zinc-200 overflow-hidden hover:border-[#21f31f] hover:shadow-lg transition-all"
               >
-                <div className="h-80 overflow-hidden">
+                <div className="h-80 overflow-hidden bg-zinc-100">
                   <img
                     src={item.image || "/placeholder.svg"}
                     alt={item.name}
-                    className="w-full h-full object-cover hover:scale-110 transition-transform duration-300"
+                    className="w-full h-full object-cover hover:scale-110 transition-transform duration-300 text-transparent"
                   />
                 </div>
                 <div className="p-6 text-center">
-                  <h3 className="font-black uppercase text-lg mb-3">{item.name}</h3>
-                  <p className="text-2xl font-bold mb-4">{item.price}€</p>
+                  <h3 className="font-black uppercase text-lg mb-3 text-black">{item.name}</h3>
+                  <p className="text-2xl font-bold mb-4 text-zinc-900">{item.price}€</p>
                   <div className="flex justify-center gap-2 mb-4">
                     {item.colors.map((color, colorIdx) => (
                       <div
                         key={colorIdx}
-                        className="w-6 h-6 border-2 border-zinc-400"
-                        style={{ backgroundColor: color }}
+                        className="w-6 h-6 border shadow-sm"
+                        style={{ backgroundColor: color, borderColor: color === '#ffffff' ? '#e5e5e5' : 'transparent' }}
                       />
                     ))}
                   </div>
-                  <Button className="w-full bg-[#21f31f] hover:bg-[#1dd11b] text-black font-bold rounded-none uppercase tracking-wider">
-                    Add to Cart
+                  <Button className="w-full bg-[#21f31f] hover:bg-[#1dd11b] text-black font-bold rounded-none uppercase tracking-wider py-6">
+                    AGREGAR AL CARRITO
                   </Button>
                 </div>
               </Card>
@@ -379,99 +367,99 @@ export default function ProductPage({ params }: ProductPageProps) {
       </section>
 
       {/* Scroll-Locked Vertical Slider Section */}
-      <section ref={scrollContainerRef} className="relative h-screen bg-black overflow-hidden">
-        <div className="grid md:grid-cols-2 h-full">
-          {/* Left: Product Image */}
-          <div className="relative h-full overflow-hidden">
-            {slides.map((slide, idx) => (
-              <div
-                key={idx}
-                className={`absolute inset-0 transition-opacity duration-700 ${scrollSlideIndex === idx ? "opacity-100" : "opacity-0"
-                  }`}
-              >
-                <img src={slide.image || "/placeholder.svg"} alt={slide.title} className="w-full h-full object-cover" />
-              </div>
-            ))}
-          </div>
-
-          {/* Right: Feature Content */}
-          <div className="relative flex items-center justify-center p-8 md:p-16">
-            <div className="max-w-xl space-y-12">
+      <section ref={scrollContainerRef} className="relative h-[300vh] bg-black">
+        <div className="sticky top-[146px] md:top-[162px] h-[calc(100vh-146px)] md:h-[calc(100vh-162px)] overflow-hidden">
+          <div className="grid md:grid-cols-2 h-full">
+            {/* Left: Product Image */}
+            <div className="relative h-full overflow-hidden">
               {slides.map((slide, idx) => (
                 <div
                   key={idx}
-                  className={`transition-opacity duration-700 ${scrollSlideIndex === idx ? "opacity-100" : "opacity-0"
+                  className={`absolute inset-0 transition-opacity duration-700 ${scrollSlideIndex === idx ? "opacity-100" : "opacity-0"
                     }`}
                 >
-                  <h2 className="text-3xl md:text-4xl font-black uppercase tracking-tight mb-4">{slide.title}</h2>
-                  {scrollSlideIndex === idx && (
-                    <p className="text-lg text-zinc-300 leading-relaxed">{slide.description}</p>
-                  )}
+                  <img src={slide.image || "/placeholder.svg"} alt={slide.title} className="w-full h-full object-cover" />
                 </div>
               ))}
             </div>
 
-            {/* Progress Bar */}
-            <div className="absolute right-8 top-1/2 -translate-y-1/2 w-1 h-48 bg-zinc-800">
-              <div
-                className="w-full bg-[#21f31f] transition-all duration-700"
-                style={{
-                  height: `${((scrollSlideIndex + 1) / slides.length) * 100}%`,
-                }}
-              />
+            {/* Right: Feature Content */}
+            <div className="relative flex items-center justify-center p-8 md:p-16 bg-black">
+              <div className="max-w-xl space-y-12">
+                {slides.map((slide, idx) => (
+                  <div
+                    key={idx}
+                    className={`absolute top-1/2 left-8 right-8 -translate-y-1/2 transition-opacity duration-700 ${scrollSlideIndex === idx ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+                      }`}
+                  >
+                    <h2 className="text-3xl md:text-4xl font-black uppercase tracking-tight mb-4 text-white">{slide.title}</h2>
+                    <p className="text-lg text-zinc-300 leading-relaxed">{slide.description}</p>
+                  </div>
+                ))}
+              </div>
+
+              {/* Progress Bar */}
+              <div className="absolute right-8 top-1/2 -translate-y-1/2 w-1 h-48 bg-zinc-800">
+                <div
+                  className="w-full bg-[#21f31f] transition-all duration-700"
+                  style={{
+                    height: `${((scrollSlideIndex + 1) / slides.length) * 100}%`,
+                  }}
+                />
+              </div>
             </div>
           </div>
         </div>
-      </section>
+      </section >
 
       {/* Detailed Product Information Sections */}
-      <section className="py-16 md:py-24 bg-white">
+      < section className="py-16 md:py-24 bg-white" >
         <div className="container mx-auto px-4">
           {/* Technical Specifications */}
-          <div className="max-w-4xl mx-auto mb-16">
+          <div className="mb-16">
             <h2 className="text-3xl md:text-4xl font-black uppercase tracking-tight mb-8 border-b-4 border-[#21f31f] pb-4 text-black">
-              TECHNICAL SPECIFICATIONS
+              ESPECIFICACIONES TÉCNICAS
             </h2>
             <div className="grid md:grid-cols-2 gap-8">
               <div>
-                <h3 className="font-bold text-lg uppercase mb-4 text-[#21f31f]">MATERIALS</h3>
+                <h3 className="font-bold text-lg uppercase mb-4 text-[#21f31f]">MATERIALES</h3>
                 <ul className="space-y-2 text-zinc-700">
                   <li className="flex justify-between border-b border-zinc-200 pb-2">
-                    <span>Outer Shell:</span>
-                    <span className="font-bold">Nylon Ripstop</span>
+                    <span className="font-medium text-black">Capa Exterior:</span>
+                    <span className="font-bold text-black">Nylon Ripstop</span>
                   </li>
                   <li className="flex justify-between border-b border-zinc-200 pb-2">
-                    <span>Insulation:</span>
-                    <span className="font-bold">PrimaLoft® Gold</span>
+                    <span className="font-medium text-black">Aislamiento:</span>
+                    <span className="font-bold text-black">PrimaLoft® Gold</span>
                   </li>
                   <li className="flex justify-between border-b border-zinc-200 pb-2">
-                    <span>Membrane:</span>
-                    <span className="font-bold">Polyurethane</span>
+                    <span className="font-medium text-black">Membrana:</span>
+                    <span className="font-bold text-black">Poliuretano</span>
                   </li>
                   <li className="flex justify-between border-b border-zinc-200 pb-2">
-                    <span>Lining:</span>
-                    <span className="font-bold">Polyester Mesh</span>
+                    <span className="font-medium text-black">Forro:</span>
+                    <span className="font-bold text-black">Malla de Poliéster</span>
                   </li>
                 </ul>
               </div>
               <div>
-                <h3 className="font-bold text-lg uppercase mb-4 text-[#21f31f]">PERFORMANCE</h3>
+                <h3 className="font-bold text-lg uppercase mb-4 text-[#21f31f]">RENDIMIENTO</h3>
                 <ul className="space-y-2 text-zinc-700">
                   <li className="flex justify-between border-b border-zinc-200 pb-2">
-                    <span>Water Resistance:</span>
-                    <span className="font-bold">10,000mm</span>
+                    <span className="font-medium text-black">Resistencia al Agua:</span>
+                    <span className="font-bold text-black">10,000mm</span>
                   </li>
                   <li className="flex justify-between border-b border-zinc-200 pb-2">
-                    <span>Breathability:</span>
-                    <span className="font-bold">10,000g/m²/24h</span>
+                    <span className="font-medium text-black">Transpirabilidad:</span>
+                    <span className="font-bold text-black">10,000g/m²/24h</span>
                   </li>
                   <li className="flex justify-between border-b border-zinc-200 pb-2">
-                    <span>Weight:</span>
-                    <span className="font-bold">890g (Size M)</span>
+                    <span className="font-medium text-black">Peso:</span>
+                    <span className="font-bold text-black">890g (Talla M)</span>
                   </li>
                   <li className="flex justify-between border-b border-zinc-200 pb-2">
-                    <span>Temperature Range:</span>
-                    <span className="font-bold">-20°C to 5°C</span>
+                    <span className="font-medium text-black">Rango de Temperatura:</span>
+                    <span className="font-bold text-black">-20°C a 5°C</span>
                   </li>
                 </ul>
               </div>
@@ -479,94 +467,92 @@ export default function ProductPage({ params }: ProductPageProps) {
           </div>
 
           {/* Features Grid */}
-          <div className="max-w-4xl mx-auto mb-16">
+          <div className="mb-16">
             <h2 className="text-3xl md:text-4xl font-black uppercase tracking-tight mb-8 border-b-4 border-[#21f31f] pb-4 text-black">
-              KEY FEATURES
+              CARACTERÍSTICAS CLAVE
             </h2>
             <div className="grid md:grid-cols-3 gap-6">
               {[
-                { icon: Lock, title: "YKK Zippers", desc: "Heavy-duty YKK zippers throughout for reliability" },
+                { icon: Lock, title: "Cremalleras YKK", desc: "Cremalleras YKK de alta resistencia para fiabilidad" },
                 {
                   icon: Shield,
-                  title: "Reinforced Construction",
-                  desc: "Reinforced elbows and shoulders for durability",
+                  title: "Construcción Reforzada",
+                  desc: "Codos y hombros reforzados para durabilidad",
                 },
-                { icon: Package, title: "Multiple Pockets", desc: "8 tactical pockets with secure closures" },
-                { icon: Thermometer, title: "Temperature Control", desc: "Pit zips for ventilation control" },
-                { icon: Layers, title: "Adjustable Fit", desc: "Adjustable hood, cuffs, and hem" },
-                { icon: Tag, title: "Hook & Loop", desc: "Velcro panels for patches and ID" },
+                { icon: Package, title: "Múltiples Bolsillos", desc: "8 bolsillos tácticos con cierres seguros" },
+                { icon: Thermometer, title: "Control de Temp.", desc: "Cremalleras en axilas para ventilación" },
+                { icon: Layers, title: "Ajuste Personalizado", desc: "Capucha, puños y dobladillo ajustables" },
+                { icon: Tag, title: "Panel de Velcro", desc: "Paneles para parches e identificación" },
               ].map((feature, idx) => {
                 const IconComponent = feature.icon
                 return (
                   <Card
                     key={idx}
-                    className="p-6 border-2 border-zinc-200 hover:border-[#21f31f] transition-all duration-300 rounded-none hover:shadow-[0_0_20px_rgba(33,243,31,0.3)] cursor-pointer group"
+                    className="p-6 border-2 border-zinc-200 hover:border-[#21f31f] transition-all duration-300 rounded-none hover:shadow-[0_0_20px_rgba(33,243,31,0.3)] cursor-pointer group bg-white"
                   >
                     <IconComponent className="w-10 h-10 mb-3 text-[#21f31f] group-hover:scale-110 transition-transform" />
-                    <h3 className="font-bold text-lg uppercase mb-2 text-white">{feature.title}</h3>
-                    <p className="text-sm text-card-foreground">{feature.desc}</p>
+                    <h3 className="font-bold text-lg uppercase mb-2 text-black">{feature.title}</h3>
+                    <p className="text-sm text-zinc-600">{feature.desc}</p>
                   </Card>
                 )
               })}
             </div>
           </div>
-
+          {/* ... (Care instructions translated below) */}
           {/* Care Instructions */}
-          <div className="max-w-4xl mx-auto">
+          <div className="max-w-full mb-16">
             <h2 className="text-3xl md:text-4xl font-black uppercase tracking-tight mb-8 border-b-4 border-[#21f31f] pb-4 text-black">
-              CARE INSTRUCTIONS
+              INSTRUCCIONES DE CUIDADO
             </h2>
             <div className="bg-zinc-50 p-8 border-l-4 border-[#21f31f]">
               <ul className="space-y-3 text-zinc-700">
                 <li className="flex items-start gap-3">
                   <span className="text-[#21f31f] font-bold">•</span>
-                  <span>Machine wash at 30°C with similar colors</span>
+                  <span className="text-black font-medium">Lavar a máquina a 30°C con colores similares</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-[#21f31f] font-bold">•</span>
-                  <span>Do not bleach or use fabric softener</span>
+                  <span className="text-black font-medium">No usar lejía ni suavizante</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-[#21f31f] font-bold">•</span>
-                  <span>Tumble dry on low heat or hang dry</span>
+                  <span className="text-black font-medium">Secar en secadora a baja temperatura o colgar</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-[#21f31f] font-bold">•</span>
-                  <span>Iron on low setting if needed, avoid direct heat on prints</span>
+                  <span className="text-black font-medium">Planchar a baja temperatura si es necesario</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-[#21f31f] font-bold">•</span>
-                  <span>Store in a cool, dry place away from direct sunlight</span>
+                  <span className="text-black font-medium">Guardar en un lugar fresco y seco alejado del sol directo</span>
                 </li>
               </ul>
             </div>
           </div>
         </div>
-      </section>
+      </section >
 
       {/* Feature Highlight */}
-      <section className="py-16 md:py-24 bg-black text-white">
+      < section className="py-16 md:py-24 bg-black text-white" >
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
               <h2 className="text-4xl md:text-5xl font-black uppercase mb-6 leading-tight">
-                FOR WHATEVER WINTER THROWS AT YOU.
+                PARA LO QUE SEA QUE EL INVIERNO TE LANCE.
               </h2>
               <p className="text-zinc-300 mb-8 leading-relaxed text-lg">
-                Originally designed as a mid-layer, the new generation Delta ML works also as stand-alone jacket for
-                when temperatures hit the zero mark. The jacket offers exceptional weather protection, great wear
-                comfort and can be modified according to your layering needs.
+                Originalmente diseñada como capa intermedia, la nueva generación Delta ML funciona también como chaqueta independiente para cuando las temperaturas rozan los cero grados. Ofrece protección excepcional contra el clima y comodidad.
               </p>
               <div className="space-y-4">
                 <Button className="bg-[#21f31f] hover:bg-[#1dd11b] text-black font-bold px-8 py-6 rounded-none uppercase tracking-wider text-base">
                   <Play className="w-5 h-5 mr-2" />
-                  WATCH VIDEO
+                  VER VIDEO
                 </Button>
                 <Button
                   variant="outline"
                   className="ml-4 border-white text-white hover:bg-white hover:text-black font-bold px-8 py-6 rounded-none uppercase tracking-wider text-base bg-transparent"
                 >
-                  WATCH DEEP DIVE
+                  VER ANÁLISIS
                 </Button>
               </div>
             </div>
@@ -576,8 +562,6 @@ export default function ProductPage({ params }: ProductPageProps) {
           </div>
         </div>
       </section>
-
-
     </div>
   )
 }
