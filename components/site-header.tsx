@@ -7,6 +7,7 @@ import { Search, ShoppingCart, Heart, Flag, X, Menu, Minus, Plus, Loader2 } from
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { products } from "@/lib/products" // Use shared products for search
+import { formatCOP } from "@/lib/utils"
 
 import { useCart } from "@/lib/context/cart-context" // Add import
 
@@ -97,7 +98,7 @@ export function SiteHeader() {
                                             <p className="text-xs text-gray-400 mb-1">
                                                 Color: {item.color} | Talla: {item.size}
                                             </p>
-                                            <p className="text-[#21f31f] font-bold mb-2">${item.price}</p>
+                                            <p className="text-[#21f31f] font-bold mb-2">{formatCOP(item.price)}</p>
                                             <div className="flex items-center gap-2">
                                                 <button
                                                     onClick={() => updateQuantity(item.id, -1)}
@@ -124,11 +125,13 @@ export function SiteHeader() {
                         <div className="border-t border-[#21f31f]/20 p-6 bg-black">
                             <div className="flex justify-between items-center mb-6">
                                 <span className="text-lg font-bold uppercase text-white">Total:</span>
-                                <span className="text-2xl font-bold text-[#21f31f]">${cartTotal.toFixed(2)}</span>
+                                <span className="text-2xl font-bold text-[#21f31f]">{formatCOP(cartTotal)}</span>
                             </div>
-                            <Button className="w-full bg-[#21f31f] hover:bg-[#1dd11b] text-black font-bold tracking-wider uppercase rounded-none h-12">
-                                PAGAR
-                            </Button>
+                            <Link href="/checkout" onClick={() => setCartOpen(false)}>
+                                <Button className="w-full bg-[#21f31f] hover:bg-[#1dd11b] text-black font-bold tracking-wider uppercase rounded-none h-12">
+                                    PAGAR
+                                </Button>
+                            </Link>
                         </div>
                     )}
                 </div>
@@ -206,7 +209,7 @@ export function SiteHeader() {
                                             </div>
                                             <h4 className="font-bold text-white text-lg leading-tight mb-2 group-hover:text-[#21f31f] transition-colors">{product.name}</h4>
                                             <p className="text-gray-400 text-sm mb-2">{product.category}</p>
-                                            <p className="text-[#21f31f] font-bold text-lg">${product.salePrice}</p>
+                                            <p className="text-[#21f31f] font-bold text-lg">{formatCOP(product.salePrice)}</p>
                                         </Link>
                                     ))}
                                 </div>
@@ -237,7 +240,7 @@ export function SiteHeader() {
                                             <div className="p-4">
                                                 <p className="text-xs text-[#21f31f] mb-1 uppercase tracking-wider">{product.category}</p>
                                                 <h4 className="font-bold text-base mb-2 line-clamp-2 text-white group-hover:text-[#21f31f] transition-colors">{product.name}</h4>
-                                                <p className="text-white font-bold">${product.price}</p>
+                                                <p className="text-white font-bold">{formatCOP(product.price)}</p>
                                             </div>
                                         </Link>
                                     ))}
@@ -280,12 +283,12 @@ export function SiteHeader() {
                     <div className="bg-gradient-to-b from-[#2e3238] to-[#1a1d21] shadow-lg relative z-20">
                         <div className="container mx-auto px-4">
                             <div className="flex items-stretch h-20 md:h-24">
-                                <div className="flex items-center pr-4 md:pr-8 border-r border-[#545659]">
-                                    <Link href="/">
+                                <div className="flex items-center border-r border-[#545659] relative w-32 md:w-40 shrink-0">
+                                    <Link href="/" className="w-full h-full flex items-center justify-center">
                                         <img
                                             src="/images/logo-pdf-vegaltex-1-removebg-preview.png"
                                             alt="VEGALTEX TACTICAL COLOMBIA"
-                                            className="h-20 md:h-24 w-auto object-contain cursor-pointer hover:scale-105 transition-transform drop-shadow-md"
+                                            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-20 md:h-28 w-auto object-contain cursor-pointer hover:scale-105 transition-transform drop-shadow-md z-30"
                                         />
                                     </Link>
                                 </div>

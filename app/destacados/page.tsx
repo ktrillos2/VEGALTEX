@@ -3,6 +3,7 @@
 import Link from "next/link"
 import { useFavorites } from "@/lib/hooks/use-favorites"
 import { products } from "@/lib/products"
+import { formatCOP } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Heart, Ghost, ShoppingBag } from "lucide-react"
@@ -85,11 +86,11 @@ export default function FeaturedPage() {
                                         <div className="flex flex-col">
                                             {product.originalPrice > product.salePrice && (
                                                 <span className="text-xs text-zinc-500 line-through">
-                                                    {product.originalPrice}€
+                                                    {formatCOP(product.originalPrice)}
                                                 </span>
                                             )}
                                             <span className="text-xl font-black text-[#21f31f]">
-                                                {product.salePrice}€
+                                                {formatCOP(product.salePrice)}
                                             </span>
                                         </div>
 

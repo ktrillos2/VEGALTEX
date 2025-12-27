@@ -19,6 +19,8 @@ import {
 import { toast } from "sonner"
 import { useFavorites } from "@/lib/hooks/use-favorites"
 import { TacticalToast } from "@/components/tactical-toast"
+import { useCart } from "@/lib/context/cart-context"
+import { formatCOP } from "@/lib/utils"
 
 interface ProductPageProps {
   params: {
@@ -34,6 +36,7 @@ export default function ProductPage({ params }: ProductPageProps) {
   const scrollContainerRef = useRef<HTMLDivElement>(null)
 
   const { toggleFavorite, isFavorite, isLoaded } = useFavorites()
+  const { addItem } = useCart()
 
   // Product data - in a real app, this would come from an API
 
@@ -44,7 +47,7 @@ export default function ProductPage({ params }: ProductPageProps) {
   const product = {
     id: 1,
     name: "CHAQUETA TÁCTICA DELTA ML GEN.3", // Translated name for better context
-    price: 320,
+    price: 320000,
     badge: "NUEVO", // Translated
     rating: 5,
     reviews: 7,
@@ -104,19 +107,19 @@ export default function ProductPage({ params }: ProductPageProps) {
     upgradeWith: [
       {
         name: "CAMISETA URBAN", // Translated
-        price: 43,
+        price: 43000,
         image: "/images/products/shirt-urban-olive.jpg",
         colors: ["#000000", "#4B5320", "#8B7355", "#2d3e50"],
       },
       {
         name: "POLO TÁCTICO URBAN", // Translated
-        price: 49,
+        price: 49000,
         image: "/images/products/shirt-polo-olive.jpg",
         colors: ["#4B5320", "#000000", "#8B7355", "#2d3e50"],
       },
       {
         name: "GORRO DE VIGILANCIA", // Translated
-        price: 32,
+        price: 32000,
         image: "/images/products/cap-watch-olive.jpg",
         colors: ["#4B5320", "#000000"],
       },
@@ -126,12 +129,16 @@ export default function ProductPage({ params }: ProductPageProps) {
   const currentImages = product.colors[selectedColor].images
 
   const addToCart = () => {
-    toast.custom((id) => (
-      <TacticalToast
-        title="OPERACIÓN INICIADA"
-        message={`${product.name} agregado al carrito de suministros.`}
-      />
-    ), { duration: 5000 })
+    addItem(product, product.colors[selectedColor].name, selectedSize)
+    toast.custom(
+      () => (
+        <TacticalToast
+          title="AGREGADO"
+          message={`${product.name} agregado al carrito.`}
+        />
+      ),
+      { duration: 5000 }
+    )
   }
 
   const handleToggleFavorite = () => {
@@ -231,7 +238,7 @@ export default function ProductPage({ params }: ProductPageProps) {
             <div className="space-y-6">
               <div>
                 <h1 className="text-3xl md:text-4xl font-black uppercase tracking-tight mb-3 text-black">{product.name}</h1>
-                <div className="text-3xl font-black mb-4 text-black">{product.price}€</div>
+                <div className="text-3xl font-black mb-4 text-black">{formatCOP(product.price)}</div>
                 <p className="text-zinc-800 leading-relaxed font-medium">
                   {product.description}{" "}
                   <Link href="#" className="text-[#4B5320] font-bold hover:underline ml-1">
@@ -306,9 +313,10 @@ export default function ProductPage({ params }: ProductPageProps) {
               <div className="flex gap-3">
                 <Button
                   onClick={addToCart}
-                  className="flex-1 bg-zinc-900 hover:bg-black text-white font-bold h-14 rounded-none uppercase tracking-wider text-base border-none shadow-none transition-colors"
+                  className="flex-1 bg-zinc-900 text-white font-bold h-14 rounded-none uppercase tracking-wider text-base border-none shadow-none relative overflow-hidden group"
                 >
-                  AGREGAR AL CARRITO
+                  <span className="relative z-10 group-hover:text-black transition-colors duration-300">AGREGAR AL CARRITO</span>
+                  <div className="absolute inset-0 bg-[#21f31f] transform -translate-x-full skew-x-12 group-hover:translate-x-0 transition-transform duration-300 ease-out" />
                 </Button>
                 <Button
                   onClick={handleToggleFavorite}
@@ -346,7 +354,7 @@ export default function ProductPage({ params }: ProductPageProps) {
                 </div>
                 <div className="p-6 text-center">
                   <h3 className="font-black uppercase text-lg mb-3 text-black">{item.name}</h3>
-                  <p className="text-2xl font-bold mb-4 text-zinc-900">{item.price}€</p>
+                  <p className="text-2xl font-bold mb-4 text-zinc-900">{formatCOP(item.price)}</p>
                   <div className="flex justify-center gap-2 mb-4">
                     {item.colors.map((color, colorIdx) => (
                       <div
@@ -356,8 +364,8 @@ export default function ProductPage({ params }: ProductPageProps) {
                       />
                     ))}
                   </div>
-                  <Button className="w-full bg-[#21f31f] hover:bg-[#1dd11b] text-black font-bold rounded-none uppercase tracking-wider py-6">
-                    AGREGAR AL CARRITO
+                  <Button variant="outline" className="w-full border-2 border-black text-black hover:bg-black hover:text-white font-bold rounded-none uppercase tracking-wider py-6 transition-colors">
+                    VER PRODUCTO
                   </Button>
                 </div>
               </Card>

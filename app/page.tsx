@@ -23,6 +23,8 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel"
 
+import { formatCOP } from "@/lib/utils"
+
 export default function TacticalProLandingPage() {
   const [scrolled, setScrolled] = useState(false)
 
@@ -63,7 +65,7 @@ export default function TacticalProLandingPage() {
   const latestProducts = products.slice(0, 4).map((product) => ({
     id: product.id,
     name: product.name,
-    price: `${product.salePrice}€`,
+    price: formatCOP(product.salePrice),
     image: product.images[0],
     badge: product.badge,
     colors: product.colors.length,

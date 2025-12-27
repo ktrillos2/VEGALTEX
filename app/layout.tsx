@@ -74,7 +74,7 @@ export default function RootLayout({
           </main>
           <SiteFooter />
           <WhatsAppButton />
-          <Toaster />
+          <Toaster position="top-left" />
         </CartProvider>
       </body>
     </html>

@@ -9,22 +9,9 @@ interface TacticalToastProps {
 }
 
 export function TacticalToast({ title, message, uid = "882-X" }: TacticalToastProps) {
-    const [status, setStatus] = useState<"processing" | "success">("processing")
-    const [displayTitle, setDisplayTitle] = useState("SISTEMA TÁCTICO")
-    const [displayMessage, setDisplayMessage] = useState("ANALIZANDO OBJETIVO...")
-
-    useEffect(() => {
-        // Phase 1: Processing (Already set by default state)
-
-        // Phase 2: Success after 1.5s
-        const timer = setTimeout(() => {
-            setStatus("success")
-            setDisplayTitle(title)
-            setDisplayMessage(message)
-        }, 1500)
-
-        return () => clearTimeout(timer)
-    }, [title, message])
+    const status: "success" = "success"
+    const displayTitle = title
+    const displayMessage = message
 
     // Generate random UID on mount if not provided or to mimic the example logic
     const [displayUid, setDisplayUid] = useState(uid)

@@ -30,17 +30,29 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     const [items, setItems] = useState<CartItem[]>([])
     const [isInitialized, setIsInitialized] = useState(false)
 
-    // Load from localStorage on mount
+    // Load from localStorage on mount and sync across tabs
     useEffect(() => {
-        const savedCart = localStorage.getItem("cart")
-        if (savedCart) {
-            try {
-                setItems(JSON.parse(savedCart))
-            } catch (e) {
-                console.error("Failed to parse cart", e)
+        const loadCart = () => {
+            const savedCart = localStorage.getItem("cart")
+            if (savedCart) {
+                try {
+                    setItems(JSON.parse(savedCart))
+                } catch (e) {
+                    console.error("Failed to parse cart", e)
+                }
             }
         }
-        setIsInitialized(true)
+
+        loadCart()
+
+        const handleStorageChange = (e: StorageEvent) => {
+            if (e.key === "cart") {
+                loadCart()
+            }
+        }
+
+        window.addEventListener("storage", handleStorageChange)
+        return () => window.removeEventListener("storage", handleStorageChange)
     }, [])
 
     // Save to localStorage on change
@@ -57,13 +69,12 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
             const existingItem = currentItems.find((item) => item.id === uniqueId)
 
             if (existingItem) {
-                toast.success("Cantidad actualizada en el carrito")
                 return currentItems.map((item) =>
                     item.id === uniqueId ? { ...item, quantity: item.quantity + 1 } : item
                 )
             }
 
-            toast.success("Producto agregado al carrito")
+
             return [
                 ...currentItems,
                 {

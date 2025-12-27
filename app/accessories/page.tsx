@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { ChevronDown } from "lucide-react"
 import { products } from "@/lib/products"
+import { formatCOP } from "@/lib/utils"
 
 export default function AccessoriesPage() {
   const [selectedColors, setSelectedColors] = useState<Record<number, number>>({})
@@ -88,9 +89,11 @@ export default function AccessoriesPage() {
 
                       {/* Add to Cart Button Overlay */}
                       <div className="absolute inset-x-0 bottom-0 p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-t from-white/90 to-transparent">
-                        <Button className="w-full bg-black text-white hover:bg-[#21f31f] hover:text-black font-bold uppercase rounded-sm h-12 transition-colors shadow-lg">
-                          AÑADIR AL CARRITO
-                        </Button>
+                        <Link href={`/product/${item.id}`}>
+                          <Button className="w-full bg-black text-white hover:bg-[#21f31f] hover:text-black font-bold uppercase rounded-sm h-12 transition-colors shadow-lg">
+                            VER PRODUCTO
+                          </Button>
+                        </Link>
                       </div>
                     </div>
 
@@ -103,9 +106,9 @@ export default function AccessoriesPage() {
 
                       <div className="mt-auto pt-2 flex flex-col gap-2">
                         <div className="flex items-baseline gap-2">
-                          <span className="text-lg font-bold text-gray-900">{item.salePrice}€</span>
+                          <span className="text-lg font-bold text-gray-900">{formatCOP(item.salePrice)}</span>
                           {item.originalPrice > item.salePrice && (
-                            <span className="text-sm text-gray-400 line-through font-medium">{item.originalPrice}€</span>
+                            <span className="text-sm text-gray-400 line-through font-medium">{formatCOP(item.originalPrice)}</span>
                           )}
                         </div>
 

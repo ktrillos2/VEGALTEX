@@ -1,4 +1,6 @@
-export const products = [
+const COP_FACTOR = 1000
+
+const rawProducts = [
     // Chaquetas
     {
         id: 1,
@@ -413,3 +415,9 @@ export const products = [
         badge: "NUEVO",
     }
 ];
+
+export const products = rawProducts.map((p) => ({
+    ...p,
+    originalPrice: Math.round(p.originalPrice * COP_FACTOR),
+    salePrice: Math.round(p.salePrice * COP_FACTOR),
+}))

@@ -16,6 +16,23 @@ Your project is live at:
 
 **[https://vercel.com/vegaltex-tactical-colombias-projects/v0-tactical-gear-landing-page](https://vercel.com/vegaltex-tactical-colombias-projects/v0-tactical-gear-landing-page)**
 
+## Wompi Setup
+
+To fix 403 errors when opening the Wompi widget, ensure the public key and integrity secret belong to the same Wompi account and environment.
+
+1. Create a `.env.local` file at the project root with:
+
+```
+NEXT_PUBLIC_WOMPI_PUBLIC_KEY=pub_test_xxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+WOMPI_INTEGRITY_SECRET=test_integrity_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
+```
+
+2. The `WOMPI_INTEGRITY_SECRET` is used server-side to generate the `signature:integrity` from `reference + amountInCents + currency + secret`.
+
+3. The `NEXT_PUBLIC_WOMPI_PUBLIC_KEY` is used client-side by the Wompi widget.
+
+Both must match the same Wompi environment (test or production). If the signature is invalid or mismatched, Wompi responds with 403.
+
 ## Build your app
 
 Continue building your app on:
