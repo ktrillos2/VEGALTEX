@@ -21,9 +21,9 @@ export default function PantsPage() {
       <section
         className="relative h-[300px] md:h-[400px] flex items-center justify-center"
         style={{
-          backgroundImage: "url('/images/image.jpeg')", // You might want a different background for pants if available
+          backgroundImage: "url('/hero.png')", // You might want a different background for pants if available
           backgroundSize: "cover",
-          backgroundPosition: "center",
+          backgroundPosition: "top center",
         }}
       >
         <div className="absolute inset-0 bg-black/60" />

@@ -10,7 +10,7 @@ export function TacticalCursor() {
 
     useEffect(() => {
         // --- Configuración ---
-        const LAG_FACTOR = 0.25
+        const LAG_FACTOR = 0.45
 
         // --- Estado ---
         let mouseX = window.innerWidth / 2

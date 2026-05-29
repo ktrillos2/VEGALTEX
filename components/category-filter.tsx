@@ -10,6 +10,7 @@ const CATEGORIES = [
     { name: "PANTALONES", href: "/pants" },
     { name: "CAMISAS", href: "/shirts" },
     { name: "GORRAS", href: "/caps" },
+    { name: "BOTAS", href: "/boots" },
     { name: "ACCESORIOS", href: "/accessories" },
 ]
 

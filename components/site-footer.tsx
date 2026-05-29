@@ -30,6 +30,11 @@ export function SiteFooter() {
                                 </Link>
                             </li>
                             <li>
+                                <Link href="/boots" className="text-gray-400 hover:text-[#21f31f] transition-colors">
+                                    Botas
+                                </Link>
+                            </li>
+                            <li>
                                 <Link href="/accessories" className="text-gray-400 hover:text-[#21f31f] transition-colors">
                                     Accesorios
                                 </Link>
@@ -88,16 +93,15 @@ export function SiteFooter() {
                     </div>
                 </div>
                 <div className="pt-8 border-t border-zinc-800 text-center text-gray-500 text-sm">
-                    <p>&copy; 2025 VEGALTEX TACTICAL COLOMBIA. Todos los derechos reservados.</p>
+                    <p>&copy; {new Date().getFullYear()} VEGALTEX TACTICAL COLOMBIA. Todos los derechos reservados.</p>
                     <p className="mt-2">
-                        Realizado por{" "}
                         <a
-                            href="https://kytcode.lat"
+                            href="https://www.kytcode.lat"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-[#21f31f] hover:underline hover:text-[#1dd11b] transition-colors font-bold"
+                            className="text-[#21f31f] hover:underline hover:text-[#1dd11b] transition-colors font-bold inline-flex items-center gap-1"
                         >
-                            K&T
+                            Desarrollado por K&T <span className="text-white">♥</span>
                         </a>
                     </p>
                 </div>

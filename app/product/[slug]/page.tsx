@@ -1,7 +1,8 @@
 "use client"
 
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect, useRef, use } from "react"
 import Link from "next/link"
+import { notFound } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import {
@@ -21,115 +22,110 @@ import { useFavorites } from "@/lib/hooks/use-favorites"
 import { TacticalToast } from "@/components/tactical-toast"
 import { useCart } from "@/lib/context/cart-context"
 import { formatCOP } from "@/lib/utils"
+import { products } from "@/lib/products"
 
 interface ProductPageProps {
-  params: {
-    slug: string
-  }
+  params: Promise<{ slug: string }>
 }
 
 export default function ProductPage({ params }: ProductPageProps) {
+  // Unwrap params Promise (Next.js 15/16 requirement)
+  const { slug } = use(params)
+
+  // ─── TODOS LOS HOOKS DEBEN IR ANTES DE CUALQUIER RETURN ────────────────
   const [selectedImage, setSelectedImage] = useState(0)
   const [selectedColor, setSelectedColor] = useState(0)
-  const [selectedSize, setSelectedSize] = useState("L")
+  const [selectedSize, setSelectedSize] = useState("")
   const [scrollSlideIndex, setScrollSlideIndex] = useState(0)
   const scrollContainerRef = useRef<HTMLDivElement>(null)
 
   const { toggleFavorite, isFavorite, isLoaded } = useFavorites()
   const { addItem } = useCart()
 
-  // Product data - in a real app, this would come from an API
+  // useEffect siempre se llama, usa 3 como constante de slides para no depender de product
+  useEffect(() => {
+    const SLIDES_COUNT = 3
+    const handleScroll = () => {
+      if (!scrollContainerRef.current) return
+      const rect = scrollContainerRef.current.getBoundingClientRect()
+      const viewportHeight = window.innerHeight
+      const progress = -rect.top / viewportHeight
+      if (progress >= -0.5 && progress < SLIDES_COUNT + 0.5) {
+        let newIndex = Math.round(progress)
+        if (newIndex < 0) newIndex = 0
+        if (newIndex >= SLIDES_COUNT) newIndex = SLIDES_COUNT - 1
+        setScrollSlideIndex(newIndex)
+      }
+    }
+    window.addEventListener("scroll", handleScroll, { passive: true })
+    handleScroll()
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
+  // ───────────────────────────────────────────────────────────────────────
 
-  // ... imports and interface
+  // Buscar el producto por ID usando el slug ya resuelto
+  const productId = parseInt(slug, 10)
+  const rawProduct = products.find((p) => p.id === productId)
 
-  // ... inside component
+  // Si no se encontró el producto, mostrar 404 (DESPUÉS de todos los hooks)
+  if (!rawProduct) return notFound()
 
+
+  // Adaptar el producto al formato que necesita esta página
   const product = {
-    id: 1,
-    name: "CHAQUETA TÁCTICA DELTA ML GEN.3", // Translated name for better context
-    price: 320000,
-    badge: "NUEVO", // Translated
+    id: rawProduct.id,
+    name: rawProduct.name,
+    price: rawProduct.salePrice,
+    badge: rawProduct.badge,
     rating: 5,
-    reviews: 7,
-    description:
-      "Una solución versátil para clima frío con aislamiento premium, protección contra el viento y características innovadoras para un rendimiento óptimo en condiciones adversas.", // Translated
-    colors: [
-      {
-        name: "Negro", // Translated
-        hex: "#000000",
-        images: [
-          "/images/products/jacket-delta-ml-black.jpg",
-          "/images/products/jacket-delta-ml-black.jpg",
-          "/images/products/jacket-delta-ml-black.jpg",
-          "/images/products/jacket-delta-ml-black.jpg",
-        ],
-      },
-      {
-        name: "Marrón Gris", // Translated
-        hex: "#4B5320",
-        images: [
-          "/images/products/jacket-delta-ml-olive.jpg",
-          "/images/products/jacket-delta-ml-olive.jpg",
-          "/images/products/jacket-delta-ml-olive.jpg",
-          "/images/products/jacket-delta-ml-olive.jpg",
-        ],
-      },
-      {
-        name: "Gris Acero", // Translated
-        hex: "#5a5a5a",
-        images: [
-          "/images/products/jacket-delta-ml-gray.jpg",
-          "/images/products/jacket-delta-ml-gray.jpg",
-          "/images/products/jacket-delta-ml-gray.jpg",
-          "/images/products/jacket-delta-ml-gray.jpg",
-        ],
-      },
-      {
-        name: "Azul Marino", // Translated
-        hex: "#2d3e50",
-        images: [
-          "/images/products/jacket-delta-ml-navy.jpg",
-          "/images/products/jacket-delta-ml-navy.jpg",
-          "/images/products/jacket-delta-ml-navy.jpg",
-          "/images/products/jacket-delta-ml-navy.jpg",
-        ],
-      },
-    ],
-    sizes: ["XS", "S", "M", "L", "XL", "2XL", "3XL", "4XL"],
+    reviews: 12,
+    description: `Producto táctico de alta calidad de la categoría ${rawProduct.category.toLowerCase()}. Diseñado para ofrecer rendimiento máximo en condiciones exigentes con materiales premium.`,
+    colors: rawProduct.colors.map((hex, idx) => ({
+      name: `Color ${idx + 1}`,
+      hex,
+      images: [rawProduct.images[idx] || rawProduct.images[0] || "/placeholder.svg"],
+    })),
+    allImages: rawProduct.images,
+    sizes: rawProduct.category === "BOTAS"
+      ? ["36", "37", "38", "39", "40", "41", "42", "43", "44", "45"]
+      : ["XS", "S", "M", "L", "XL", "2XL", "3XL", "4XL"],
     features: [
-      "Aislamiento premium para frío extremo",
-      "Resistente al viento y al agua",
-      "Múltiples bolsillos tácticos",
-      "Codos y hombros reforzados",
-      "Cremalleras YKK en todo",
-      "Capucha y puños ajustables",
+      "Material de alta resistencia para uso táctico",
+      "Diseño ergonómico para máxima comodidad",
+      "Construcción reforzada en zonas de desgaste",
+      "Costuras de doble pespunte industriales",
+      "Acabados de alta durabilidad",
+      "Probado en condiciones extremas",
     ],
     upgradeWith: [
       {
-        name: "CAMISETA URBAN", // Translated
-        price: 43000,
-        image: "/images/products/shirt-urban-olive.jpg",
-        colors: ["#000000", "#4B5320", "#8B7355", "#2d3e50"],
+        name: "CINTURÓN TÁCTICO DUAL D-RING",
+        price: 72000,
+        image: "/images/products/belt-dual-olive.jpg",
+        colors: ["#4B5320", "#000000", "#5a5a5a", "#8B7355"],
       },
       {
-        name: "POLO TÁCTICO URBAN", // Translated
-        price: 49000,
-        image: "/images/products/shirt-polo-olive.jpg",
-        colors: ["#4B5320", "#000000", "#8B7355", "#2d3e50"],
+        name: "RODILLERAS DE COMBATE 3D",
+        price: 38000,
+        image: "/images/products/knee-pads-black.jpg",
+        colors: ["#000000", "#4B5320"],
       },
       {
-        name: "GORRO DE VIGILANCIA", // Translated
-        price: 32000,
-        image: "/images/products/cap-watch-olive.jpg",
-        colors: ["#4B5320", "#000000"],
+        name: "GORRA TÁCTICA LIGERA STRIKER",
+        price: 34000,
+        image: "/images/products/cap-light-olive.jpg",
+        colors: ["#4B5320", "#000000", "#5a5a5a"],
       },
     ],
   }
 
-  const currentImages = product.colors[selectedColor].images
+  // Galería: usar todas las imágenes del producto
+  const currentImages = product.allImages.length > 0
+    ? product.allImages
+    : ["/placeholder.svg"]
 
   const addToCart = () => {
-    addItem(product, product.colors[selectedColor].name, selectedSize)
+    addItem(rawProduct, product.colors[selectedColor]?.name ?? "Default", selectedSize)
     toast.custom(
       () => (
         <TacticalToast
@@ -145,50 +141,24 @@ export default function ProductPage({ params }: ProductPageProps) {
     toggleFavorite(product.id, product.name)
   }
 
-  useEffect(() => {
-    const handleScroll = () => {
-      if (!scrollContainerRef.current) return
-      const rect = scrollContainerRef.current.getBoundingClientRect()
-      const viewportHeight = window.innerHeight
-
-      // Calculate progress based on how far the top of the container has moved up
-      // 0 means top is at viewport top.
-      // 1 means we've scrolled 100vh down (so container top is -100vh).
-      const progress = -rect.top / viewportHeight
-
-      if (progress >= -0.5 && progress < slides.length + 0.5) {
-        let newIndex = Math.round(progress)
-        if (newIndex < 0) newIndex = 0
-        if (newIndex >= slides.length) newIndex = slides.length - 1
-        setScrollSlideIndex(newIndex)
-      }
-    }
-
-    window.addEventListener("scroll", handleScroll, { passive: true })
-    handleScroll() // Initial check
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
-
   const slides = [
     {
-      title: "TEJIDO EXTERIOR CORTAVIENTOS Y REPELENTE AL AGUA.", // Translated
-      description:
-        "Un tejido de poliamida con elasticidad natural y una membrana de poliuretano te protege de la lluvia ligera y vientos fríos.", // Translated
+      title: "TEJIDO EXTERIOR CORTAVIENTOS Y REPELENTE AL AGUA.",
+      description: "Un tejido de poliamida con elasticidad natural y una membrana de poliuretano te protege de la lluvia ligera y vientos fríos.",
       image: "/images/products/jacket-feature-windproof.jpg",
     },
     {
-      title: "AISLAMIENTO LIGERO DE ALTO RENDIMIENTO.", // Translated
-      description:
-        "El aislamiento sintético avanzado proporciona una relación calor-peso excepcional para operaciones en clima frío extremo.", // Translated
+      title: "AISLAMIENTO LIGERO DE ALTO RENDIMIENTO.",
+      description: "El aislamiento sintético avanzado proporciona una relación calor-peso excepcional para operaciones en clima frío extremo.",
       image: "/images/products/jacket-feature-insulation.jpg",
     },
     {
-      title: "FORRO BASE TRANSPIRABLE Y DE SECADO RÁPIDO.", // Translated
-      description:
-        "El forro interior que absorbe la humedad garantiza comodidad durante actividades de alta intensidad y cambios rápidos de temperatura.", // Translated
+      title: "FORRO BASE TRANSPIRABLE Y DE SECADO RÁPIDO.",
+      description: "El forro interior que absorbe la humedad garantiza comodidad durante actividades de alta intensidad y cambios rápidos de temperatura.",
       image: "/images/products/jacket-feature-breathable.jpg",
     },
   ]
+
 
   return (
     <div className="min-h-screen bg-white pt-20 md:pt-24">
@@ -250,7 +220,7 @@ export default function ProductPage({ params }: ProductPageProps) {
               {/* Color Selection */}
               <div>
                 <label className="block text-sm font-bold uppercase tracking-wide mb-3 text-black">COLOR:</label>
-                <div className="flex gap-3 mb-2">
+                <div className="flex gap-3 mb-2 flex-wrap">
                   {product.colors.map((color, idx) => (
                     <button
                       key={idx}
@@ -259,23 +229,19 @@ export default function ProductPage({ params }: ProductPageProps) {
                         setSelectedImage(0)
                       }}
                       className={`relative group`}
+                      title={color.name}
                     >
                       <div
-                        className={`w-16 h-16 border-3 transition-all ${selectedColor === idx
-                          ? "border-[#21f31f] ring-2 ring-[#21f31f]/30"
-                          : "border-zinc-400 hover:border-zinc-600"
+                        className={`w-10 h-10 rounded-full border-3 transition-all ${selectedColor === idx
+                          ? "ring-2 ring-[#21f31f] ring-offset-2"
+                          : "hover:ring-2 hover:ring-zinc-400 hover:ring-offset-1"
                           }`}
-                      >
-                        <img
-                          src={color.images[0] || "/placeholder.svg"}
-                          alt={color.name}
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
+                        style={{ backgroundColor: color.hex, borderColor: color.hex === '#ffffff' ? '#e5e5e5' : 'transparent' }}
+                      />
                     </button>
                   ))}
                 </div>
-                <p className="text-sm text-zinc-600">{product.colors[selectedColor].name}</p>
+                <p className="text-sm text-zinc-600">{product.colors[selectedColor]?.name}</p>
               </div>
 
               {/* Size Selection */}

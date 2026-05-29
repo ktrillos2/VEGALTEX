@@ -32,6 +32,7 @@ export default function TacticalProLandingPage() {
     { name: "PANTALONES DE COMBATE STRIKER", image: "/tactical-combat-pants-military.jpg", link: "/pants" },
     { name: "CHAQUETAS TÁCTICAS", image: "/military-tactical-jacket.jpg", link: "/jackets" },
     { name: "CAMISAS DE COMBATE", image: "/tactical-combat-shirt.jpg", link: "/shirts" },
+    { name: "BOTAS TÁCTICAS", image: "/botas/botas-c.JPG", link: "/boots" },
   ]
 
   const HERO_SLIDES = [
@@ -103,14 +104,14 @@ export default function TacticalProLandingPage() {
                     alt={slide.title}
                     fill
                     priority={slide.id === 1}
-                    className="object-cover object-center z-0"
+                    className="object-cover object-[center_30%] z-0"
                     quality={100}
                   />
                   <div className="absolute inset-0 bg-gradient-to-r from-black via-black/60 to-transparent z-10" />
 
                   <div className="relative z-20 container mx-auto px-4 h-full flex items-center">
                     <div className="max-w-4xl pt-20">
-                      <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6 uppercase text-white drop-shadow-lg leading-none">
+                      <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6 uppercase text-white drop-shadow-lg leading-tight">
                         {slide.title.split(" ").map((word, i) =>
                           word === "FUTURO" || word === "TÁCTICO" || word === "EXTREMO" || word === "FRÍO" ? (
                             <span key={i} className="text-[#21f31f]">{word} </span>
@@ -187,7 +188,7 @@ export default function TacticalProLandingPage() {
       {/* Category Grid */}
       <section className="py-20 bg-black">
         <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {categories.map((category, index) => (
               <Link key={index} href={category.link}>
                 <div className="group relative h-96 overflow-hidden cursor-pointer rounded-none">
@@ -213,7 +214,7 @@ export default function TacticalProLandingPage() {
       <section className="py-20 bg-zinc-950">
         <div className="container mx-auto px-4">
           <div className="grid lg:grid-cols-2 gap-12 items-center mb-20">
-            <div className="relative h-[500px] overflow-hidden">
+            <div className="relative h-[350px] md:h-[500px] overflow-hidden">
               <img
                 src="/images/featured-cold-weather.jpg"
                 alt="Operaciones en Clima Frío"
@@ -273,25 +274,6 @@ export default function TacticalProLandingPage() {
               </Card>
             ))}
           </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            <div>
-              <div className="text-5xl font-bold text-[#21f31f] mb-2">25+</div>
-              <div className="text-sm uppercase tracking-wide text-gray-400">Años de Experiencia</div>
-            </div>
-            <div>
-              <div className="text-5xl font-bold text-[#21f31f] mb-2">50K+</div>
-              <div className="text-sm uppercase tracking-wide text-gray-400">Profesionales Equipados</div>
-            </div>
-            <div>
-              <div className="text-5xl font-bold text-[#21f31f] mb-2">120+</div>
-              <div className="text-sm uppercase tracking-wide text-gray-400">Países Servidos</div>
-            </div>
-            <div>
-              <div className="text-5xl font-bold text-[#21f31f] mb-2">98%</div>
-              <div className="text-sm uppercase tracking-wide text-gray-400">Tasa de Satisfacción</div>
-            </div>
-          </div>
         </div>
       </section>
 
@@ -341,7 +323,7 @@ export default function TacticalProLandingPage() {
                 </div>
               </div>
             </div>
-            <div className="relative h-[600px] overflow-hidden">
+            <div className="relative h-[350px] md:h-[600px] overflow-hidden">
               <img
                 src="/tactical-fabric-texture-close-up.jpg"
                 alt="Advanced fabric technology"
@@ -352,28 +334,7 @@ export default function TacticalProLandingPage() {
         </div>
       </section>
 
-      <section className="py-20 bg-gradient-to-b from-zinc-950 to-black border-t border-[#21f31f]/20">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <Award className="w-16 h-16 text-[#21f31f] mx-auto mb-6" />
-            <h2 className="text-4xl md:text-5xl font-bold tracking-wide uppercase mb-6">ÚNETE A LA ÉLITE</h2>
-            <p className="text-lg text-gray-400 mb-8 leading-relaxed">
-              Suscríbete para obtener acceso exclusivo a nuevos productos, ofertas especiales y conocimientos tácticos de
-              profesionales de la industria.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 max-w-2xl mx-auto">
-              <input
-                type="email"
-                placeholder="Ingresa tu correo"
-                className="flex-1 px-6 py-4 bg-zinc-900 border-2 border-zinc-800 text-white placeholder-gray-500 focus:border-[#21f31f] focus:outline-none rounded-none"
-              />
-              <Button className="bg-[#21f31f] hover:bg-[#1dd11b] text-black font-bold tracking-wider uppercase rounded-none h-14 px-8">
-                SUSCRIBIRSE
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
+
     </div >
   )
 }

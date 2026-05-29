@@ -19,9 +19,9 @@ export default function AccessoriesPage() {
       <section
         className="relative h-[300px] md:h-[400px] flex items-center justify-center"
         style={{
-          backgroundImage: "url('/images/image.jpeg')",
+          backgroundImage: "url('/hero.png')",
           backgroundSize: "cover",
-          backgroundPosition: "center",
+          backgroundPosition: "top center",
         }}
       >
         <div className="absolute inset-0 bg-black/60" />

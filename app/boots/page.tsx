@@ -3,15 +3,16 @@
 import { useState } from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { Card } from "@/components/ui/card"
 import { ChevronDown } from "lucide-react"
 import { products } from "@/lib/products"
 import { formatCOP } from "@/lib/utils"
 
-export default function ShirtsPage() {
+import { CategoryFilter } from "@/components/category-filter"
+
+export default function BootsPage() {
   const [selectedColors, setSelectedColors] = useState<Record<number, number>>({})
 
-  const shirts = products.filter((p) => p.category === "CAMISAS")
+  const boots = products.filter((p) => p.category === "BOTAS")
 
   return (
     <div className="min-h-screen bg-[#f8f8f8]">
@@ -27,10 +28,10 @@ export default function ShirtsPage() {
         <div className="absolute inset-0 bg-black/60" />
         <div className="relative z-10 container mx-auto px-4 text-center">
           <h1 className="text-4xl md:text-6xl font-black tracking-tight mb-4 uppercase text-white font-monument">
-            CAMISAS DE COMBATE
+            BOTAS TÁCTICAS
           </h1>
           <p className="text-lg text-gray-200 max-w-2xl mx-auto font-medium">
-            Rendimiento superior y comodidad bajo cualquier condición. Diseñadas para mantenerte operativo, fresco y protegido.
+            Calzado de alto rendimiento diseñado para terrenos extremos. Estabilidad, protección y confort en cada paso.
           </p>
         </div>
       </section>
@@ -41,11 +42,12 @@ export default function ShirtsPage() {
           <div className="container mx-auto px-4">
             <div className="flex flex-col md:flex-row items-center justify-between py-4 gap-4">
               <div className="flex items-center gap-2 text-sm font-bold text-gray-900">
-                <span>{shirts.length} PRODUCTOS</span>
+                <span>{boots.length} PRODUCTOS</span>
               </div>
 
               <div className="flex items-center gap-3 overflow-x-auto w-full md:w-auto pb-2 md:pb-0">
                 <span className="text-sm font-bold text-gray-500 uppercase whitespace-nowrap">FILTRAR POR:</span>
+                <CategoryFilter currentCategory="BOTAS" />
                 {['TIPO', 'COLOR', 'TALLA', 'PRECIO'].map((filter) => (
                   <Button
                     key={filter}
@@ -64,23 +66,23 @@ export default function ShirtsPage() {
         <section className="py-8 md:py-12">
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-10">
-              {shirts.map((shirt) => {
-                const selectedColorIndex = selectedColors[shirt.id] || 0
-                const currentImage = shirt.images[selectedColorIndex]
+              {boots.map((boot) => {
+                const selectedColorIndex = selectedColors[boot.id] || 0
+                const currentImage = boot.images[selectedColorIndex]
 
                 return (
-                  <div key={shirt.id} className="group flex flex-col">
+                  <div key={boot.id} className="group flex flex-col">
                     <div className="relative aspect-[4/5] bg-white overflow-hidden mb-4 shadow-sm group-hover:shadow-md transition-shadow duration-300">
                       {/* Badge */}
-                      {shirt.discount > 0 && (
+                      {boot.discount > 0 && (
                         <div className="absolute top-0 left-0 z-10">
                           <div className="bg-[#21f31f] text-black font-black text-xs uppercase px-3 py-1.5 shadow-sm">
-                            -{shirt.discount}%
+                            -{boot.discount}%
                           </div>
                         </div>
                       )}
 
-                      <Link href={`/product/${shirt.id}`} className="block w-full h-full">
+                      <Link href={`/product/${boot.id}`} className="block w-full h-full">
                         <div
                           className="w-full h-full bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
                           style={{ backgroundImage: `url('${currentImage}')` }}
@@ -89,7 +91,7 @@ export default function ShirtsPage() {
 
                       {/* Add to Cart Button Overlay */}
                       <div className="absolute inset-x-0 bottom-0 p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-t from-white/90 to-transparent">
-                        <Link href={`/product/${shirt.id}`}>
+                        <Link href={`/product/${boot.id}`}>
                           <Button className="w-full bg-black text-white hover:bg-[#21f31f] hover:text-black font-bold uppercase rounded-sm h-12 transition-colors shadow-lg">
                             VER PRODUCTO
                           </Button>
@@ -98,33 +100,33 @@ export default function ShirtsPage() {
                     </div>
 
                     <div className="flex-1 flex flex-col">
-                      <Link href={`/product/${shirt.id}`} className="group-hover:text-[#4B5320] transition-colors">
-                        <h3 className="text-base font-extrabold uppercase text-gray-900 leading-tight mb-2 font-monument">
-                          {shirt.name}
-                        </h3>
+                      <Link href={`/product/${boot.id}`} className="group-hover:text-[#4B5320] transition-colors">
+                        <h2 className="text-base font-extrabold uppercase text-gray-900 leading-tight mb-2 font-monument">
+                          {boot.name}
+                        </h2>
                       </Link>
 
                       <div className="mt-auto pt-2 flex flex-col gap-2">
                         <div className="flex items-baseline gap-2">
-                          <span className="text-lg font-bold text-gray-900">{formatCOP(shirt.salePrice)}</span>
-                          {shirt.originalPrice > shirt.salePrice && (
-                            <span className="text-sm text-gray-400 line-through font-medium">{formatCOP(shirt.originalPrice)}</span>
+                          <span className="text-lg font-bold text-gray-900">{formatCOP(boot.salePrice)}</span>
+                          {boot.originalPrice > boot.salePrice && (
+                            <span className="text-sm text-gray-400 line-through font-medium">{formatCOP(boot.originalPrice)}</span>
                           )}
                         </div>
 
                         {/* Color Swatches */}
                         <div className="flex items-center gap-1.5 h-6">
-                          {shirt.colors.map((color, idx) => (
+                          {boot.colors.map((color, idx) => (
                             <button
                               key={idx}
-                              onClick={() => setSelectedColors({ ...selectedColors, [shirt.id]: idx })}
+                              onClick={() => setSelectedColors({ ...selectedColors, [boot.id]: idx })}
                               className={`w-4 h-4 rounded-full border border-gray-300 transition-transform ${selectedColorIndex === idx ? "scale-125 ring-1 ring-gray-400 border-transparent" : "hover:scale-110"
                                 }`}
                               style={{ backgroundColor: color }}
                               aria-label={`Select color ${idx}`}
                             />
                           ))}
-                          <span className="text-xs text-gray-400 ml-1 font-medium">+{shirt.colors.length} COLORES</span>
+                          <span className="text-xs text-gray-400 ml-1 font-medium">+{boot.colors.length} COLORES</span>
                         </div>
                       </div>
                     </div>

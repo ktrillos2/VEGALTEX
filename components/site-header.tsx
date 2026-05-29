@@ -299,6 +299,7 @@ export function SiteHeader() {
                                         { label: "CHAQUETAS", href: "/jackets" },
                                         { label: "CAMISAS", href: "/shirts" },
                                         { label: "GORRAS", href: "/caps" },
+                                        { label: "BOTAS", href: "/boots" },
                                         { label: "ACCESORIOS", href: "/accessories" }
                                     ].map((item) => (
                                         <Link
@@ -351,6 +352,7 @@ export function SiteHeader() {
                                         { label: "CHAQUETAS", href: "/jackets" },
                                         { label: "CAMISAS", href: "/shirts" },
                                         { label: "GORRAS", href: "/caps" },
+                                        { label: "BOTAS", href: "/boots" },
                                         { label: "ACCESORIOS", href: "/accessories" }
                                     ].map((item) => (
                                         <Link
