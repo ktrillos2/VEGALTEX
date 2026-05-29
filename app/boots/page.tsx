@@ -18,7 +18,7 @@ export default function BootsPage() {
     <div className="min-h-screen bg-[#f8f8f8]">
       {/* Hero Section */}
       <section
-        className="relative h-[300px] md:h-[400px] flex items-center justify-center"
+        className="relative h-[400px] md:h-[550px] flex items-center justify-center"
         style={{
           backgroundImage: "url('/hero.png')",
           backgroundSize: "cover",
@@ -26,7 +26,9 @@ export default function BootsPage() {
         }}
       >
         <div className="absolute inset-0 bg-black/60" />
-        <div className="relative z-10 container mx-auto px-4 text-center">
+        {/* Bottom fade for smooth transition */}
+        <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-[#f8f8f8] to-transparent z-10" />
+        <div className="relative z-20 container mx-auto px-4 text-center">
           <h1 className="text-4xl md:text-6xl font-black tracking-tight mb-4 uppercase text-white font-monument">
             BOTAS TÁCTICAS
           </h1>

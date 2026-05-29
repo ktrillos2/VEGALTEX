@@ -108,6 +108,8 @@ export default function TacticalProLandingPage() {
                     quality={100}
                   />
                   <div className="absolute inset-0 bg-gradient-to-r from-black via-black/60 to-transparent z-10" />
+                  {/* Bottom fade to white for smooth transition */}
+                  <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-white to-transparent z-10" />
 
                   <div className="relative z-20 container mx-auto px-4 h-full flex items-center">
                     <div className="max-w-4xl pt-20">
