@@ -8,6 +8,14 @@ import { ChevronDown } from "lucide-react"
 import { products } from "@/lib/products"
 import { formatCOP } from "@/lib/utils"
 
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel"
+
 export default function AccessoriesPage() {
   const [selectedColors, setSelectedColors] = useState<Record<number, number>>({})
 
@@ -133,6 +141,52 @@ export default function AccessoriesPage() {
                   </div>
                 )
               })}
+            </div>
+          </div>
+        </section>
+
+        {/* Carousel de Accesorios Destacados */}
+        <section className="py-20 bg-zinc-950">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl md:text-5xl font-bold tracking-wide uppercase mb-4 text-white">
+                MÁS SOLUCIONES TÁCTICAS
+              </h2>
+              <p className="text-lg text-gray-400">
+                Complementa tu equipamiento con accesorios de alto rendimiento
+              </p>
+            </div>
+            <div className="max-w-5xl mx-auto px-4 md:px-12">
+              <Carousel className="w-full" opts={{ loop: true, align: "start" }}>
+                <CarouselContent>
+                  <CarouselItem>
+                    <div className="p-2">
+                      <div className="relative overflow-hidden group h-[400px] md:h-[500px]">
+                        <img
+                          src="/accesorios-a.png"
+                          alt="Accesorios A"
+                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                        />
+                        <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-300" />
+                      </div>
+                    </div>
+                  </CarouselItem>
+                  <CarouselItem>
+                    <div className="p-2">
+                      <div className="relative overflow-hidden group h-[400px] md:h-[500px]">
+                        <img
+                          src="/accesorios-b.png"
+                          alt="Accesorios B"
+                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                        />
+                        <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-300" />
+                      </div>
+                    </div>
+                  </CarouselItem>
+                </CarouselContent>
+                <CarouselPrevious className="absolute left-2 md:-left-6 top-1/2 -translate-y-1/2 bg-black border-zinc-800 text-white hover:bg-[#21f31f] hover:text-black hover:border-[#21f31f] rounded-none w-10 h-10 md:w-12 md:h-12 flex" />
+                <CarouselNext className="absolute right-2 md:-right-6 top-1/2 -translate-y-1/2 bg-black border-zinc-800 text-white hover:bg-[#21f31f] hover:text-black hover:border-[#21f31f] rounded-none w-10 h-10 md:w-12 md:h-12 flex" />
+              </Carousel>
             </div>
           </div>
         </section>

@@ -139,6 +139,45 @@ export default function PantsPage() {
             </div>
           </div>
         </section>
+
+        {/* Banner Pantalones con Fondo Natural y Diseño Superpuesto */}
+        <section className="relative w-full h-[500px] md:h-[600px] mt-12 group overflow-hidden">
+          {/* Fondo de naturaleza */}
+          <div 
+            className="absolute inset-0 bg-cover bg-center transition-transform duration-1000 group-hover:scale-105"
+            style={{ backgroundImage: "url('/nature-bg.png')" }}
+          />
+          <div className="absolute inset-0 bg-black/40" />
+          
+          {/* Difuminado hacia el color de fondo (parecido a la imagen 2) */}
+          <div className="absolute inset-x-0 bottom-0 h-32 md:h-48 bg-gradient-to-t from-[#f8f8f8] to-transparent z-10" />
+
+          {/* Imagen de los pantalones superpuesta */}
+          <div className="absolute right-0 bottom-0 z-20 w-full md:w-[60%] h-[90%] md:h-full flex items-end justify-center md:justify-end pr-0 md:pr-12 pointer-events-none">
+            <img
+              src="/pantalones.png"
+              alt="Pantalones Tácticos"
+              className="max-h-full w-auto object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.7)]"
+            />
+          </div>
+
+          {/* Caja de texto (alineada como la referencia) */}
+          <div className="relative z-10 container mx-auto h-full flex items-end md:items-center pb-8 md:pb-0 px-4 md:px-8">
+            <div className="bg-[#1f2418]/90 backdrop-blur-md p-6 md:p-8 max-w-[450px] w-full border-l-[6px] border-[#879a4a] shadow-2xl">
+              <h2 className="text-3xl md:text-4xl font-black tracking-wider uppercase mb-4 text-white drop-shadow-lg font-monument leading-none">
+                RENDIMIENTO<br />SUPERIOR
+              </h2>
+              <p className="text-sm md:text-base text-gray-300 mb-8 font-medium leading-relaxed">
+                Diseñados para la máxima movilidad y durabilidad en el terreno. 
+                Nuestros pantalones tácticos integran compartimentos estratégicos 
+                y materiales resistentes para soportar las condiciones más extremas.
+              </p>
+              <Button className="w-full sm:w-auto bg-[#879a4a] hover:bg-[#9eb455] text-black font-black tracking-widest uppercase rounded-none h-12 px-8 transition-all hover:-translate-y-1 shadow-lg">
+                VER CATÁLOGO COMPLETO
+              </Button>
+            </div>
+          </div>
+        </section>
       </main>
     </div>
   )
