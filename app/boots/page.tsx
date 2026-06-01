@@ -138,6 +138,49 @@ export default function BootsPage() {
             </div>
           </div>
         </section>
+
+        {/* Estilos para animación de fondo de Botas (Rocas/Terreno Fuerte) */}
+        <style dangerouslySetInnerHTML={{__html: `
+          @keyframes subtleRockPan {
+            0% { transform: scale(1.05) translate(0, 0); }
+            50% { transform: scale(1.1) translate(1%, -1%); }
+            100% { transform: scale(1.05) translate(0, 0); }
+          }
+          .animate-subtle-rock-pan {
+            animation: subtleRockPan 25s ease-in-out infinite;
+          }
+        `}} />
+
+        {/* Banner Inferior de Botas con Fondo Animado */}
+        <section className="py-32 md:py-48 relative overflow-hidden group flex flex-col justify-center min-h-[500px]">
+          {/* Fondo oscuro base */}
+          <div className="absolute inset-0 bg-[#1a1a1a]" />
+          
+          {/* Fondo de piedras trituradas animado */}
+          <div 
+            className="absolute inset-0 bg-cover bg-center animate-subtle-rock-pan"
+            style={{ backgroundImage: "url('https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Crushed_stone.jpg/1200px-Crushed_stone.jpg')" }}
+          />
+          {/* Overlay oscuro adicional para legibilidad */}
+          <div className="absolute inset-0 bg-zinc-950/70 mix-blend-multiply transition-opacity duration-700 group-hover:bg-zinc-950/50" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#f8f8f8] via-transparent to-transparent h-24" />
+
+          <div className="relative z-10 container mx-auto px-4">
+            <div className="text-center">
+              <h2 className="text-4xl md:text-5xl font-bold tracking-wide uppercase mb-4 text-white font-monument">
+                TERRENO <span className="text-[#21f31f]">EXTREMO</span>
+              </h2>
+              <p className="text-lg text-gray-400 max-w-2xl mx-auto mb-12">
+                Conquista cualquier obstáculo con el calzado diseñado para soportar las condiciones más duras.
+              </p>
+              <div className="flex justify-center relative z-20">
+                <Button className="bg-[#21f31f] hover:bg-[#1dd11b] text-black font-black tracking-widest uppercase rounded-none h-14 px-12 transition-transform hover:scale-105 shadow-[0_0_20px_rgba(33,243,31,0.3)]">
+                  VER COLECCIÓN
+                </Button>
+              </div>
+            </div>
+          </div>
+        </section>
       </main>
     </div>
   )

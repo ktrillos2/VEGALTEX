@@ -136,6 +136,49 @@ export default function CapsPage() {
             </div>
           </div>
         </section>
+
+        {/* Estilos para animación de fondo de Gorras */}
+        <style dangerouslySetInnerHTML={{__html: `
+          @keyframes subtleForestPan {
+            0% { transform: scale(1.05) translate(0, 0); }
+            50% { transform: scale(1.1) translate(-1%, 1%); }
+            100% { transform: scale(1.05) translate(0, 0); }
+          }
+          .animate-subtle-forest-pan {
+            animation: subtleForestPan 25s ease-in-out infinite;
+          }
+        `}} />
+
+        {/* Sección con Fondo Animado (Gorras) */}
+        <section className="py-20 md:py-32 relative overflow-hidden group">
+          {/* Fondo de bosque animado */}
+          <div 
+            className="absolute inset-0 bg-cover bg-center animate-subtle-forest-pan"
+            style={{ backgroundImage: "url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=2000&auto=format&fit=crop')" }}
+          />
+          {/* Overlay oscuro para asegurar contraste */}
+          <div className="absolute inset-0 bg-zinc-950/80 mix-blend-multiply transition-opacity duration-700 group-hover:bg-zinc-950/60" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#f8f8f8] via-transparent to-transparent h-24" />
+
+          <div className="relative z-10 container mx-auto px-4 text-center">
+            <h2 className="text-4xl md:text-5xl font-bold tracking-wide uppercase mb-4 text-white font-monument">
+              PROTECCIÓN Y <span className="text-[#21f31f]">ESTILO</span>
+            </h2>
+            <p className="text-lg text-gray-300 max-w-2xl mx-auto mb-16">
+              Descubre los detalles de nuestras gorras tácticas.
+            </p>
+            
+            {/* Espacio para que el usuario agregue las imágenes luego */}
+            <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+              <div className="h-[400px] border-2 border-dashed border-gray-600 rounded flex items-center justify-center text-gray-500 uppercase tracking-widest font-bold">
+                Espacio para Imagen 1
+              </div>
+              <div className="h-[400px] border-2 border-dashed border-gray-600 rounded flex items-center justify-center text-gray-500 uppercase tracking-widest font-bold">
+                Espacio para Imagen 2
+              </div>
+            </div>
+          </div>
+        </section>
       </main>
     </div>
   )

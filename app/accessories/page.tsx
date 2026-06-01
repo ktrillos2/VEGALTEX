@@ -1,6 +1,7 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useRef } from "react"
+import Autoplay from "embla-carousel-autoplay"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
@@ -20,6 +21,10 @@ export default function AccessoriesPage() {
   const [selectedColors, setSelectedColors] = useState<Record<number, number>>({})
 
   const accessories = products.filter((p) => p.category === "ACCESORIOS")
+
+  const plugin = useRef(
+    Autoplay({ delay: 3000, stopOnInteraction: true })
+  )
 
   return (
     <div className="min-h-screen bg-[#f8f8f8]">
@@ -157,7 +162,13 @@ export default function AccessoriesPage() {
               </p>
             </div>
             <div className="max-w-5xl mx-auto px-4 md:px-12">
-              <Carousel className="w-full" opts={{ loop: true, align: "start" }}>
+              <Carousel
+                className="w-full"
+                opts={{ loop: true, align: "start" }}
+                plugins={[plugin.current]}
+                onMouseEnter={plugin.current.stop}
+                onMouseLeave={plugin.current.reset}
+              >
                 <CarouselContent>
                   <CarouselItem>
                     <div className="p-2">

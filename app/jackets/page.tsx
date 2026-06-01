@@ -140,6 +140,46 @@ export default function JacketsPage() {
             </div>
           </div>
         </section>
+
+        {/* Estilos para animación de fondo de Chaquetas (Nieve/Montaña) */}
+        <style dangerouslySetInnerHTML={{__html: `
+          @keyframes subtleSnowPan {
+            0% { transform: scale(1.05) translate(0, 0); }
+            50% { transform: scale(1.1) translate(-1%, 1%); }
+            100% { transform: scale(1.05) translate(0, 0); }
+          }
+          .animate-subtle-snow-pan {
+            animation: subtleSnowPan 25s ease-in-out infinite;
+          }
+        `}} />
+
+        {/* Featured Jackets Gallery with Animations */}
+        <section className="py-32 md:py-48 relative overflow-hidden group flex flex-col justify-center min-h-[500px]">
+          {/* Fondo de montaña nevada animado */}
+          <div 
+            className="absolute inset-0 bg-cover bg-center animate-subtle-snow-pan"
+            style={{ backgroundImage: "url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=2000&auto=format&fit=crop')" }}
+          />
+          {/* Overlay oscuro para asegurar contraste y legibilidad */}
+          <div className="absolute inset-0 bg-zinc-950/80 mix-blend-multiply transition-opacity duration-700 group-hover:bg-zinc-950/60" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#f8f8f8] via-transparent to-transparent h-24" />
+
+          <div className="relative z-10 container mx-auto px-4">
+            <div className="text-center">
+              <h2 className="text-4xl md:text-5xl font-bold tracking-wide uppercase mb-4 text-white font-monument">
+                DISEÑO Y TECNOLOGÍA
+              </h2>
+              <p className="text-lg text-gray-400 max-w-2xl mx-auto">
+                Descubre los detalles de nuestras chaquetas tácticas de alto rendimiento.
+              </p>
+            </div>
+            <div className="flex justify-center mt-12 relative z-20">
+              <Button className="bg-[#21f31f] hover:bg-[#1dd11b] text-black font-black tracking-widest uppercase rounded-none h-14 px-12 transition-transform hover:scale-105 shadow-[0_0_20px_rgba(33,243,31,0.3)]">
+                VER CATÁLOGO
+              </Button>
+            </div>
+          </div>
+        </section>
       </main>
     </div>
   )

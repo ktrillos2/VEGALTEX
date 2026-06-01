@@ -140,14 +140,26 @@ export default function PantsPage() {
           </div>
         </section>
 
+        {/* Estilos para animación de fondo */}
+        <style dangerouslySetInnerHTML={{__html: `
+          @keyframes subtlePan {
+            0% { transform: scale(1.05) translate(0, 0); }
+            50% { transform: scale(1.1) translate(-1%, 1%); }
+            100% { transform: scale(1.05) translate(0, 0); }
+          }
+          .animate-subtle-pan {
+            animation: subtlePan 20s ease-in-out infinite;
+          }
+        `}} />
+
         {/* Banner Pantalones con Fondo Natural y Diseño Superpuesto */}
         <section className="relative w-full h-[500px] md:h-[600px] mt-12 group overflow-hidden">
-          {/* Fondo de naturaleza */}
+          {/* Fondo de naturaleza (Helechos húmedos/bosque táctico) */}
           <div 
-            className="absolute inset-0 bg-cover bg-center transition-transform duration-1000 group-hover:scale-105"
-            style={{ backgroundImage: "url('/nature-bg.png')" }}
+            className="absolute inset-0 bg-cover bg-center animate-subtle-pan"
+            style={{ backgroundImage: "url('/nature.png')" }}
           />
-          <div className="absolute inset-0 bg-black/40" />
+          <div className="absolute inset-0 bg-[#0f140a]/50" /> {/* Tinte verde oscuro para el ambiente */}
           
           {/* Difuminado hacia el color de fondo (parecido a la imagen 2) */}
           <div className="absolute inset-x-0 bottom-0 h-32 md:h-48 bg-gradient-to-t from-[#f8f8f8] to-transparent z-10" />

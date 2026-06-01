@@ -136,6 +136,42 @@ export default function ShirtsPage() {
             </div>
           </div>
         </section>
+
+        {/* Estilos para animación de fondo del Banner de Camisetas */}
+        <style dangerouslySetInnerHTML={{__html: `
+          @keyframes subtleMove {
+            0% { transform: scale(1.1) translate(0, 0); }
+            33% { transform: scale(1.15) translate(-2%, 2%); }
+            66% { transform: scale(1.12) translate(2%, -1%); }
+            100% { transform: scale(1.1) translate(0, 0); }
+          }
+          .animate-subtle-move {
+            animation: subtleMove 25s ease-in-out infinite;
+          }
+        `}} />
+
+        {/* Banner Final de Camisetas */}
+        <section className="w-full relative py-32 md:py-48 flex justify-center items-center overflow-hidden">
+          {/* Fondo de textura militar animado expandido a lo ancho */}
+          <div 
+            className="absolute inset-0 bg-cover bg-center opacity-90 z-0 animate-subtle-move"
+            style={{ backgroundImage: "url('/tactical-fabric-texture-close-up.jpg')" }}
+          />
+          {/* Overlay oscuro para legibilidad */}
+          <div className="absolute inset-0 bg-[#2b301c]/70 mix-blend-multiply z-0" />
+          
+          <div className="relative z-10 container mx-auto px-4 flex flex-col items-center">
+            <h3 className="text-white font-black text-4xl md:text-6xl md:text-[5rem] uppercase tracking-widest font-monument text-center drop-shadow-2xl">
+              <span className="text-[#21f31f]">NUEVA</span> COLECCIÓN
+            </h3>
+            <p className="text-gray-300 mt-6 text-lg md:text-xl font-medium tracking-wide max-w-2xl text-center">
+              Diseño táctico revolucionario con materiales de última generación para el operador moderno.
+            </p>
+            <Button className="mt-10 bg-[#21f31f] hover:bg-[#1dd11b] text-black font-black tracking-widest uppercase rounded-none h-14 px-12 transition-transform hover:scale-105 shadow-[0_0_20px_rgba(33,243,31,0.3)]">
+              EXPLORAR AHORA
+            </Button>
+          </div>
+        </section>
       </main>
     </div>
   )
