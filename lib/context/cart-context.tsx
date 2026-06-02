@@ -44,6 +44,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
         }
 
         loadCart()
+        setIsInitialized(true)
 
         const handleStorageChange = (e: StorageEvent) => {
             if (e.key === "cart") {

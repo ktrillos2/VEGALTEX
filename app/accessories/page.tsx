@@ -1,7 +1,6 @@
 "use client"
 
-import { useState, useRef } from "react"
-import Autoplay from "embla-carousel-autoplay"
+import { useState } from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
@@ -9,22 +8,14 @@ import { ChevronDown } from "lucide-react"
 import { products } from "@/lib/products"
 import { formatCOP } from "@/lib/utils"
 
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel"
+
 
 export default function AccessoriesPage() {
   const [selectedColors, setSelectedColors] = useState<Record<number, number>>({})
 
   const accessories = products.filter((p) => p.category === "ACCESORIOS")
 
-  const plugin = useRef(
-    Autoplay({ delay: 3000, stopOnInteraction: true })
-  )
+
 
   return (
     <div className="min-h-screen bg-[#f8f8f8]">
@@ -32,7 +23,7 @@ export default function AccessoriesPage() {
       <section
         className="relative h-[400px] md:h-[550px] flex items-center justify-center"
         style={{
-          backgroundImage: "url('/hero.png')",
+          backgroundImage: "url('/hero.webp')",
           backgroundSize: "cover",
           backgroundPosition: "top center",
         }}
@@ -65,9 +56,9 @@ export default function AccessoriesPage() {
                   <Button
                     key={filter}
                     variant="outline"
-                    className="bg-white border-gray-300 text-gray-700 hover:border-gray-900 hover:text-black rounded-sm uppercase font-bold text-xs h-9 px-4 whitespace-nowrap"
+                    className="bg-zinc-950 border border-[#21f31f]/30 text-white hover:bg-black hover:border-[#21f31f] transition-all duration-300 rounded-none shadow-md uppercase font-bold text-xs h-10 px-5 whitespace-nowrap group"
                   >
-                    {filter} <ChevronDown className="w-3 h-3 ml-2" />
+                    {filter} <ChevronDown className="w-4 h-4 ml-2 text-[#21f31f]/70 group-hover:text-[#21f31f] transition-colors" />
                   </Button>
                 ))}
               </div>
@@ -150,54 +141,48 @@ export default function AccessoriesPage() {
           </div>
         </section>
 
-        {/* Carousel de Accesorios Destacados */}
-        <section className="py-20 bg-zinc-950">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl md:text-5xl font-bold tracking-wide uppercase mb-4 text-white">
-                MÁS SOLUCIONES TÁCTICAS
+        {/* Estilos para animación de fondo del Cielo */}
+        <style dangerouslySetInnerHTML={{__html: `
+          @keyframes subtleSkyPan {
+            0% { transform: scale(1.05) translate(0, 0); }
+            50% { transform: scale(1.1) translate(1%, -1%); }
+            100% { transform: scale(1.05) translate(0, 0); }
+          }
+          .animate-subtle-sky-pan {
+            animation: subtleSkyPan 25s ease-in-out infinite;
+          }
+        `}} />
+
+        {/* Banner Inferior de Accesorios con Fondo Animado */}
+        <section className="py-32 md:py-48 relative overflow-hidden group flex flex-col justify-center min-h-[500px]">
+          {/* Fondo oscuro base */}
+          <div className="absolute inset-0 bg-[#1a1a1a]" />
+          
+          {/* Fondo de cielo animado */}
+          <div 
+            className="absolute inset-0 bg-cover bg-center animate-subtle-sky-pan"
+            style={{ backgroundImage: "url('/cielo.webp')" }}
+          />
+          {/* Overlay oscuro adicional para legibilidad */}
+          <div className="absolute inset-0 bg-zinc-950/70 mix-blend-multiply transition-opacity duration-700 group-hover:bg-zinc-950/50" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#f8f8f8] via-transparent to-transparent h-24" />
+
+          <div className="relative z-10 container mx-auto px-4">
+            <div className="text-center">
+              <h2 className="text-4xl md:text-5xl font-bold tracking-wide uppercase mb-4 text-white font-monument">
+                LLEGA A LO MÁS <span className="text-[#21f31f]">ALTO</span>
               </h2>
-              <p className="text-lg text-gray-400">
-                Complementa tu equipamiento con accesorios de alto rendimiento
+              <p className="text-lg text-gray-400 max-w-2xl mx-auto">
+                Complementa tu equipamiento táctico con accesorios diseñados para alcanzar nuevos límites.
               </p>
             </div>
-            <div className="max-w-5xl mx-auto px-4 md:px-12">
-              <Carousel
-                className="w-full"
-                opts={{ loop: true, align: "start" }}
-                plugins={[plugin.current]}
-                onMouseEnter={plugin.current.stop}
-                onMouseLeave={plugin.current.reset}
-              >
-                <CarouselContent>
-                  <CarouselItem>
-                    <div className="p-2">
-                      <div className="relative overflow-hidden group h-[400px] md:h-[500px]">
-                        <img
-                          src="/accesorios-a.png"
-                          alt="Accesorios A"
-                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                        />
-                        <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-300" />
-                      </div>
-                    </div>
-                  </CarouselItem>
-                  <CarouselItem>
-                    <div className="p-2">
-                      <div className="relative overflow-hidden group h-[400px] md:h-[500px]">
-                        <img
-                          src="/accesorios-b.png"
-                          alt="Accesorios B"
-                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                        />
-                        <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-300" />
-                      </div>
-                    </div>
-                  </CarouselItem>
-                </CarouselContent>
-                <CarouselPrevious className="absolute left-2 md:-left-6 top-1/2 -translate-y-1/2 bg-black border-zinc-800 text-white hover:bg-[#21f31f] hover:text-black hover:border-[#21f31f] rounded-none w-10 h-10 md:w-12 md:h-12 flex" />
-                <CarouselNext className="absolute right-2 md:-right-6 top-1/2 -translate-y-1/2 bg-black border-zinc-800 text-white hover:bg-[#21f31f] hover:text-black hover:border-[#21f31f] rounded-none w-10 h-10 md:w-12 md:h-12 flex" />
-              </Carousel>
+            <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-8 relative z-20 max-w-5xl mx-auto">
+              <div className="border border-dashed border-gray-500/50 h-[300px] md:h-[400px] flex items-center justify-center text-gray-500 font-bold tracking-widest text-sm uppercase">
+                ESPACIO PARA IMAGEN 1
+              </div>
+              <div className="border border-dashed border-gray-500/50 h-[300px] md:h-[400px] flex items-center justify-center text-gray-500 font-bold tracking-widest text-sm uppercase">
+                ESPACIO PARA IMAGEN 2
+              </div>
             </div>
           </div>
         </section>

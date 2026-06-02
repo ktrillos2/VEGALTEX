@@ -3,9 +3,10 @@
 import { useCart } from "@/lib/context/cart-context"
 import { Separator } from "@/components/ui/separator"
 import Image from "next/image"
+import { Trash2 } from "lucide-react"
 
 export function OrderSummary() {
-    const { items, cartTotal } = useCart()
+    const { items, cartTotal, removeItem } = useCart()
 
     return (
         <div className="bg-white border border-zinc-300 p-6 relative overflow-hidden group text-black">
@@ -42,9 +43,18 @@ export function OrderSummary() {
                             </div>
                             <div className="flex-1 min-w-0">
                                 <h3 className="font-bold text-sm truncate uppercase tracking-tight text-black">{item.name}</h3>
-                                <p className="text-xs text-zinc-500 font-mono mt-1">
-                                    <span className="text-primary">VAR:</span> {item.color} | {item.size}
-                                </p>
+                                <div className="flex items-center justify-between mt-1">
+                                    <p className="text-xs text-zinc-500 font-mono">
+                                        <span className="text-primary">VAR:</span> {item.color} | {item.size}
+                                    </p>
+                                    <button 
+                                        onClick={() => removeItem(item.id)}
+                                        className="text-zinc-400 hover:text-red-500 transition-colors"
+                                        title="Eliminar producto"
+                                    >
+                                        <Trash2 className="w-3.5 h-3.5" />
+                                    </button>
+                                </div>
                                 <p className="text-xs text-zinc-500 font-mono">
                                     <span className="text-primary">QTY:</span> {item.quantity}
                                 </p>

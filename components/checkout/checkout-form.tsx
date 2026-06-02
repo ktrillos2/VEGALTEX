@@ -439,7 +439,7 @@ export function CheckoutForm() {
                         </div>
                         <div className="h-8 relative w-24">
                             <img
-                                src="/images/wompi-logo.png"
+                                src="/images/wompi-logo.webp"
                                 alt="Wompi Logo"
                                 className="object-contain w-full h-full"
                             />

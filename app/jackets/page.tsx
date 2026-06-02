@@ -22,7 +22,7 @@ export default function JacketsPage() {
       <section
         className="relative h-[400px] md:h-[550px] flex items-center justify-center"
         style={{
-          backgroundImage: "url('/hero.png')",
+          backgroundImage: "url('/hero.webp')",
           backgroundSize: "cover",
           backgroundPosition: "top center",
         }}
@@ -56,9 +56,9 @@ export default function JacketsPage() {
                   <Button
                     key={filter}
                     variant="outline"
-                    className="bg-white border-gray-300 text-gray-700 hover:border-gray-900 hover:text-black rounded-sm uppercase font-bold text-xs h-9 px-4 whitespace-nowrap"
+                    className="bg-zinc-950 border border-[#21f31f]/30 text-white hover:bg-black hover:border-[#21f31f] transition-all duration-300 rounded-none shadow-md uppercase font-bold text-xs h-10 px-5 whitespace-nowrap group"
                   >
-                    {filter} <ChevronDown className="w-3 h-3 ml-2" />
+                    {filter} <ChevronDown className="w-4 h-4 ml-2 text-[#21f31f]/70 group-hover:text-[#21f31f] transition-colors" />
                   </Button>
                 ))}
               </div>
@@ -173,10 +173,12 @@ export default function JacketsPage() {
                 Descubre los detalles de nuestras chaquetas tácticas de alto rendimiento.
               </p>
             </div>
-            <div className="flex justify-center mt-12 relative z-20">
-              <Button className="bg-[#21f31f] hover:bg-[#1dd11b] text-black font-black tracking-widest uppercase rounded-none h-14 px-12 transition-transform hover:scale-105 shadow-[0_0_20px_rgba(33,243,31,0.3)]">
-                VER CATÁLOGO
-              </Button>
+            <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6 relative z-20 max-w-6xl mx-auto">
+              {[1, 2, 3].map((num) => (
+                <div key={num} className="border border-dashed border-gray-500/50 h-[300px] md:h-[400px] flex items-center justify-center text-gray-500 font-bold tracking-widest text-sm uppercase">
+                  ESPACIO PARA IMAGEN {num}
+                </div>
+              ))}
             </div>
           </div>
         </section>

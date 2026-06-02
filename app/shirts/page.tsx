@@ -19,7 +19,7 @@ export default function ShirtsPage() {
       <section
         className="relative h-[400px] md:h-[550px] flex items-center justify-center"
         style={{
-          backgroundImage: "url('/hero.png')",
+          backgroundImage: "url('/hero.webp')",
           backgroundSize: "cover",
           backgroundPosition: "top center",
         }}
@@ -52,9 +52,9 @@ export default function ShirtsPage() {
                   <Button
                     key={filter}
                     variant="outline"
-                    className="bg-white border-gray-300 text-gray-700 hover:border-gray-900 hover:text-black rounded-sm uppercase font-bold text-xs h-9 px-4 whitespace-nowrap"
+                    className="bg-zinc-950 border border-[#21f31f]/30 text-white hover:bg-black hover:border-[#21f31f] transition-all duration-300 rounded-none shadow-md uppercase font-bold text-xs h-10 px-5 whitespace-nowrap group"
                   >
-                    {filter} <ChevronDown className="w-3 h-3 ml-2" />
+                    {filter} <ChevronDown className="w-4 h-4 ml-2 text-[#21f31f]/70 group-hover:text-[#21f31f] transition-colors" />
                   </Button>
                 ))}
               </div>
@@ -155,7 +155,7 @@ export default function ShirtsPage() {
           {/* Fondo de textura militar animado expandido a lo ancho */}
           <div 
             className="absolute inset-0 bg-cover bg-center opacity-90 z-0 animate-subtle-move"
-            style={{ backgroundImage: "url('/tactical-fabric-texture-close-up.jpg')" }}
+            style={{ backgroundImage: "url('/tactical-fabric-texture-close-up.webp')" }}
           />
           {/* Overlay oscuro para legibilidad */}
           <div className="absolute inset-0 bg-[#2b301c]/70 mix-blend-multiply z-0" />

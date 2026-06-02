@@ -45,29 +45,29 @@ export function SiteFooter() {
                         <h4 className="text-lg font-bold tracking-wide uppercase mb-6 text-white">SOPORTE</h4>
                         <ul className="space-y-3">
                             <li>
-                                <a href="#" className="text-gray-400 hover:text-[#21f31f] transition-colors">
+                                <Link href="/contact" className="text-gray-400 hover:text-[#21f31f] transition-colors">
                                     Contáctenos
-                                </a>
+                                </Link>
                             </li>
                             <li>
-                                <a href="#" className="text-gray-400 hover:text-[#21f31f] transition-colors">
+                                <Link href="/" className="text-gray-400 hover:text-[#21f31f] transition-colors">
                                     Guía de Tallas
-                                </a>
+                                </Link>
                             </li>
                             <li>
-                                <a href="#" className="text-gray-400 hover:text-[#21f31f] transition-colors">
+                                <Link href="/" className="text-gray-400 hover:text-[#21f31f] transition-colors">
                                     Información de Envío
-                                </a>
+                                </Link>
                             </li>
                             <li>
-                                <a href="#" className="text-gray-400 hover:text-[#21f31f] transition-colors">
+                                <Link href="/" className="text-gray-400 hover:text-[#21f31f] transition-colors">
                                     Devoluciones
-                                </a>
+                                </Link>
                             </li>
                             <li>
-                                <a href="#" className="text-gray-400 hover:text-[#21f31f] transition-colors">
+                                <Link href="/" className="text-gray-400 hover:text-[#21f31f] transition-colors">
                                     Preguntas Frecuentes
-                                </a>
+                                </Link>
                             </li>
                         </ul>
                     </div>
@@ -75,19 +75,19 @@ export function SiteFooter() {
                         <h4 className="text-lg font-bold tracking-wide uppercase mb-6 text-white">LEGAL</h4>
                         <ul className="space-y-3">
                             <li>
-                                <a href="#" className="text-gray-400 hover:text-[#21f31f] transition-colors">
+                                <Link href="/" className="text-gray-400 hover:text-[#21f31f] transition-colors">
                                     Política de Privacidad
-                                </a>
+                                </Link>
                             </li>
                             <li>
-                                <a href="#" className="text-gray-400 hover:text-[#21f31f] transition-colors">
+                                <Link href="/" className="text-gray-400 hover:text-[#21f31f] transition-colors">
                                     Términos y Condiciones
-                                </a>
+                                </Link>
                             </li>
                             <li>
-                                <a href="#" className="text-gray-400 hover:text-[#21f31f] transition-colors">
+                                <Link href="/" className="text-gray-400 hover:text-[#21f31f] transition-colors">
                                     Política de Cookies
-                                </a>
+                                </Link>
                             </li>
                         </ul>
                     </div>

@@ -71,6 +71,8 @@ export default function ProductPage({ params }: ProductPageProps) {
   if (!rawProduct) return notFound()
 
 
+  const isTechPlus = ["PANTALONES", "CHAQUETAS", "CAMISAS", "GORRAS"].includes(rawProduct.category)
+
   // Adaptar el producto al formato que necesita esta página
   const product = {
     id: rawProduct.id,
@@ -79,7 +81,7 @@ export default function ProductPage({ params }: ProductPageProps) {
     badge: rawProduct.badge,
     rating: 5,
     reviews: 12,
-    description: `Producto táctico de alta calidad de la categoría ${rawProduct.category.toLowerCase()}. Diseñado para ofrecer rendimiento máximo en condiciones exigentes con materiales premium.`,
+    description: `Producto táctico de alta calidad de la categoría ${rawProduct.category.toLowerCase()}. Diseñado para ofrecer rendimiento máximo en condiciones exigentes con materiales premium.${isTechPlus ? " Incorpora tecnología uni For me TECH PLUS." : ""}`,
     colors: rawProduct.colors.map((hex, idx) => ({
       name: `Color ${idx + 1}`,
       hex,
@@ -99,21 +101,24 @@ export default function ProductPage({ params }: ProductPageProps) {
     ],
     upgradeWith: [
       {
+        id: 22,
         name: "CINTURÓN TÁCTICO DUAL D-RING",
         price: 72000,
-        image: "/images/products/belt-dual-olive.jpg",
+        image: "/images/products/belt-dual-olive.webp",
         colors: ["#4B5320", "#000000", "#5a5a5a", "#8B7355"],
       },
       {
+        id: 24,
         name: "RODILLERAS DE COMBATE 3D",
         price: 38000,
-        image: "/images/products/knee-pads-black.jpg",
+        image: "/images/products/knee-pads-black.webp",
         colors: ["#000000", "#4B5320"],
       },
       {
+        id: 18,
         name: "GORRA TÁCTICA LIGERA STRIKER",
         price: 34000,
-        image: "/images/products/cap-light-olive.jpg",
+        image: "/images/products/cap-light-olive.webp",
         colors: ["#4B5320", "#000000", "#5a5a5a"],
       },
     ],
@@ -123,6 +128,24 @@ export default function ProductPage({ params }: ProductPageProps) {
   const currentImages = product.allImages.length > 0
     ? product.allImages
     : ["/placeholder.svg"]
+
+  const careInstructions = isTechPlus ? [
+    "Lavar a máquina a baja temperatura.",
+    "No usar blanqueador.",
+    "No lavar en seco, ni utilizar limpiadores a base de solventes.",
+    "No retorcer ni frotar.",
+    "No dejar en remojo.",
+    "Planchar a baja temperatura.",
+    "No emplear agentes suavizantes.",
+    "Secar a la sombra.",
+    "Se puede secar a máquina, en ciclo bajo."
+  ] : [
+    "Lavar a máquina a 30°C con colores similares",
+    "No usar lejía ni suavizante",
+    "Secar en secadora a baja temperatura o colgar",
+    "Planchar a baja temperatura si es necesario",
+    "Guardar en un lugar fresco y seco alejado del sol directo"
+  ]
 
   const addToCart = () => {
     addItem(rawProduct, product.colors[selectedColor]?.name ?? "Default", selectedSize)
@@ -145,17 +168,17 @@ export default function ProductPage({ params }: ProductPageProps) {
     {
       title: "TEJIDO EXTERIOR CORTAVIENTOS Y REPELENTE AL AGUA.",
       description: "Un tejido de poliamida con elasticidad natural y una membrana de poliuretano te protege de la lluvia ligera y vientos fríos.",
-      image: "/images/products/jacket-feature-windproof.jpg",
+      image: "/images/products/jacket-feature-windproof.webp",
     },
     {
       title: "AISLAMIENTO LIGERO DE ALTO RENDIMIENTO.",
       description: "El aislamiento sintético avanzado proporciona una relación calor-peso excepcional para operaciones en clima frío extremo.",
-      image: "/images/products/jacket-feature-insulation.jpg",
+      image: "/images/products/jacket-feature-insulation.webp",
     },
     {
       title: "FORRO BASE TRANSPIRABLE Y DE SECADO RÁPIDO.",
       description: "El forro interior que absorbe la humedad garantiza comodidad durante actividades de alta intensidad y cambios rápidos de temperatura.",
-      image: "/images/products/jacket-feature-breathable.jpg",
+      image: "/images/products/jacket-feature-breathable.webp",
     },
   ]
 
@@ -210,10 +233,7 @@ export default function ProductPage({ params }: ProductPageProps) {
                 <h1 className="text-3xl md:text-4xl font-black uppercase tracking-tight mb-3 text-black">{product.name}</h1>
                 <div className="text-3xl font-black mb-4 text-black">{formatCOP(product.price)}</div>
                 <p className="text-zinc-800 leading-relaxed font-medium">
-                  {product.description}{" "}
-                  <Link href="#" className="text-[#4B5320] font-bold hover:underline ml-1">
-                    Más Info
-                  </Link>
+                  {product.description}
                 </p>
               </div>
 
@@ -330,9 +350,11 @@ export default function ProductPage({ params }: ProductPageProps) {
                       />
                     ))}
                   </div>
-                  <Button variant="outline" className="w-full border-2 border-black text-black hover:bg-black hover:text-white font-bold rounded-none uppercase tracking-wider py-6 transition-colors">
-                    VER PRODUCTO
-                  </Button>
+                  <Link href={`/product/${item.id}`}>
+                    <Button variant="outline" className="w-full border-2 border-black text-black hover:bg-black hover:text-white font-bold rounded-none uppercase tracking-wider py-6 transition-colors">
+                      VER PRODUCTO
+                    </Button>
+                  </Link>
                 </div>
               </Card>
             ))}
@@ -389,90 +411,55 @@ export default function ProductPage({ params }: ProductPageProps) {
       {/* Detailed Product Information Sections */}
       < section className="py-16 md:py-24 bg-white" >
         <div className="container mx-auto px-4">
-          {/* Technical Specifications */}
-          <div className="mb-16">
-            <h2 className="text-3xl md:text-4xl font-black uppercase tracking-tight mb-8 border-b-4 border-[#21f31f] pb-4 text-black">
-              ESPECIFICACIONES TÉCNICAS
-            </h2>
-            <div className="grid md:grid-cols-2 gap-8">
-              <div>
-                <h3 className="font-bold text-lg uppercase mb-4 text-[#21f31f]">MATERIALES</h3>
-                <ul className="space-y-2 text-zinc-700">
-                  <li className="flex justify-between border-b border-zinc-200 pb-2">
-                    <span className="font-medium text-black">Capa Exterior:</span>
-                    <span className="font-bold text-black">Nylon Ripstop</span>
-                  </li>
-                  <li className="flex justify-between border-b border-zinc-200 pb-2">
-                    <span className="font-medium text-black">Aislamiento:</span>
-                    <span className="font-bold text-black">PrimaLoft® Gold</span>
-                  </li>
-                  <li className="flex justify-between border-b border-zinc-200 pb-2">
-                    <span className="font-medium text-black">Membrana:</span>
-                    <span className="font-bold text-black">Poliuretano</span>
-                  </li>
-                  <li className="flex justify-between border-b border-zinc-200 pb-2">
-                    <span className="font-medium text-black">Forro:</span>
-                    <span className="font-bold text-black">Malla de Poliéster</span>
-                  </li>
-                </ul>
+          {/* uni For me TECH PLUS Section */}
+          {isTechPlus && (
+            <div className="mb-16">
+              <div className="flex items-center gap-4 mb-8 border-b-4 border-[#21f31f] pb-4">
+                <h2 className="text-3xl md:text-4xl font-black uppercase tracking-tight text-black">
+                  TECNOLOGÍA uni For me TECH PLUS
+                </h2>
               </div>
-              <div>
-                <h3 className="font-bold text-lg uppercase mb-4 text-[#21f31f]">RENDIMIENTO</h3>
-                <ul className="space-y-2 text-zinc-700">
-                  <li className="flex justify-between border-b border-zinc-200 pb-2">
-                    <span className="font-medium text-black">Resistencia al Agua:</span>
-                    <span className="font-bold text-black">10,000mm</span>
-                  </li>
-                  <li className="flex justify-between border-b border-zinc-200 pb-2">
-                    <span className="font-medium text-black">Transpirabilidad:</span>
-                    <span className="font-bold text-black">10,000g/m²/24h</span>
-                  </li>
-                  <li className="flex justify-between border-b border-zinc-200 pb-2">
-                    <span className="font-medium text-black">Peso:</span>
-                    <span className="font-bold text-black">890g (Talla M)</span>
-                  </li>
-                  <li className="flex justify-between border-b border-zinc-200 pb-2">
-                    <span className="font-medium text-black">Rango de Temperatura:</span>
-                    <span className="font-bold text-black">-20°C a 5°C</span>
-                  </li>
-                </ul>
+              <div className="grid md:grid-cols-3 gap-6 mb-8">
+                <Card className="p-6 border-2 border-zinc-200 hover:border-[#21f31f] transition-all bg-white rounded-none shadow-sm hover:shadow-md">
+                  <h3 className="font-bold text-lg uppercase mb-2 text-[#21f31f]">PROTECCIÓN SOLAR</h3>
+                  <p className="text-sm text-zinc-700 font-medium leading-relaxed">
+                    Tecnología que permite que el textil evite el paso de los rayos UV, actuando como un escudo protector en la piel. (Norma ASTM 6603)
+                  </p>
+                </Card>
+                <Card className="p-6 border-2 border-zinc-200 hover:border-[#21f31f] transition-all bg-white rounded-none shadow-sm hover:shadow-md">
+                  <h3 className="font-bold text-lg uppercase mb-2 text-[#21f31f]">ANTIFLUIDO / REPELENCIA</h3>
+                  <p className="text-sm text-zinc-700 font-medium leading-relaxed">
+                    Tecnología que repele el agua y evita el paso de salpicaduras accidentales, la cual permanece a través de las lavadas, actuando como un escudo protector de la piel.
+                  </p>
+                </Card>
+                <Card className="p-6 border-2 border-zinc-200 hover:border-[#21f31f] transition-all bg-white rounded-none shadow-sm hover:shadow-md">
+                  <h3 className="font-bold text-lg uppercase mb-2 text-[#21f31f]">LIBERTAD DE MOVIMIENTO</h3>
+                  <p className="text-sm text-zinc-700 font-medium leading-relaxed">
+                    Tecnología que permite la elongación y recuperación del textil para brindar mayor comodidad.
+                  </p>
+                </Card>
               </div>
-            </div>
-          </div>
 
-          {/* Features Grid */}
-          <div className="mb-16">
-            <h2 className="text-3xl md:text-4xl font-black uppercase tracking-tight mb-8 border-b-4 border-[#21f31f] pb-4 text-black">
-              CARACTERÍSTICAS CLAVE
-            </h2>
-            <div className="grid md:grid-cols-3 gap-6">
-              {[
-                { icon: Lock, title: "Cremalleras YKK", desc: "Cremalleras YKK de alta resistencia para fiabilidad" },
-                {
-                  icon: Shield,
-                  title: "Construcción Reforzada",
-                  desc: "Codos y hombros reforzados para durabilidad",
-                },
-                { icon: Package, title: "Múltiples Bolsillos", desc: "8 bolsillos tácticos con cierres seguros" },
-                { icon: Thermometer, title: "Control de Temp.", desc: "Cremalleras en axilas para ventilación" },
-                { icon: Layers, title: "Ajuste Personalizado", desc: "Capucha, puños y dobladillo ajustables" },
-                { icon: Tag, title: "Panel de Velcro", desc: "Paneles para parches e identificación" },
-              ].map((feature, idx) => {
-                const IconComponent = feature.icon
-                return (
-                  <Card
-                    key={idx}
-                    className="p-6 border-2 border-zinc-200 hover:border-[#21f31f] transition-all duration-300 rounded-none hover:shadow-[0_0_20px_rgba(33,243,31,0.3)] cursor-pointer group bg-white"
-                  >
-                    <IconComponent className="w-10 h-10 mb-3 text-[#21f31f] group-hover:scale-110 transition-transform" />
-                    <h3 className="font-bold text-lg uppercase mb-2 text-black">{feature.title}</h3>
-                    <p className="text-sm text-zinc-600">{feature.desc}</p>
-                  </Card>
-                )
-              })}
+              <h3 className="font-black text-xl uppercase mb-4 text-black">BENEFICIOS:</h3>
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                {[
+                  "RESISTENCIA al enganche, pilling (mota, chanchito), y rasgado",
+                  "FÁCIL DE CUIDAR",
+                  "DURACIÓN DE COLOR",
+                  "DURABILIDAD",
+                  "PLANCHADO + RÁPIDO",
+                  "SECADO + RÁPIDO",
+                ].map((benefit, idx) => (
+                  <div key={idx} className="flex items-center gap-2 p-3 bg-zinc-50 border border-zinc-200">
+                    <div className="w-2 h-2 bg-[#21f31f] shrink-0" />
+                    <span className="text-sm font-bold text-zinc-800">{benefit}</span>
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
-          {/* ... (Care instructions translated below) */}
+          )}
+
+
           {/* Care Instructions */}
           <div className="max-w-full mb-16">
             <h2 className="text-3xl md:text-4xl font-black uppercase tracking-tight mb-8 border-b-4 border-[#21f31f] pb-4 text-black">
@@ -480,26 +467,12 @@ export default function ProductPage({ params }: ProductPageProps) {
             </h2>
             <div className="bg-zinc-50 p-8 border-l-4 border-[#21f31f]">
               <ul className="space-y-3 text-zinc-700">
-                <li className="flex items-start gap-3">
-                  <span className="text-[#21f31f] font-bold">•</span>
-                  <span className="text-black font-medium">Lavar a máquina a 30°C con colores similares</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-[#21f31f] font-bold">•</span>
-                  <span className="text-black font-medium">No usar lejía ni suavizante</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-[#21f31f] font-bold">•</span>
-                  <span className="text-black font-medium">Secar en secadora a baja temperatura o colgar</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-[#21f31f] font-bold">•</span>
-                  <span className="text-black font-medium">Planchar a baja temperatura si es necesario</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-[#21f31f] font-bold">•</span>
-                  <span className="text-black font-medium">Guardar en un lugar fresco y seco alejado del sol directo</span>
-                </li>
+                {careInstructions.map((instruction, idx) => (
+                  <li key={idx} className="flex items-start gap-3">
+                    <span className="text-[#21f31f] font-bold">•</span>
+                    <span className="text-black font-medium">{instruction}</span>
+                  </li>
+                ))}
               </ul>
             </div>
           </div>
@@ -531,7 +504,7 @@ export default function ProductPage({ params }: ProductPageProps) {
               </div>
             </div>
             <div className="relative">
-              <img src="/images/jackets-hero-banner.jpg" alt="Feature highlight" className="w-full h-auto" />
+              <img src="/images/jackets-hero-banner.webp" alt="Feature highlight" className="w-full h-auto" />
             </div>
           </div>
         </div>

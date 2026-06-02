@@ -1,9 +1,10 @@
 "use client"
 
 import { useState, useEffect, useRef } from "react"
+import { usePathname } from "next/navigation"
 import Link from "next/link"
 import Image from "next/image"
-import { Search, ShoppingCart, Heart, Flag, X, Menu, Minus, Plus, Loader2 } from "lucide-react"
+import { Search, ShoppingCart, Heart, Flag, X, Menu, Minus, Plus, Loader2, Trash2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { products } from "@/lib/products" // Use shared products for search
@@ -12,6 +13,7 @@ import { formatCOP } from "@/lib/utils"
 import { useCart } from "@/lib/context/cart-context" // Add import
 
 export function SiteHeader() {
+    const pathname = usePathname()
     const [cartOpen, setCartOpen] = useState(false)
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
     const [searchOpen, setSearchOpen] = useState(false)
@@ -98,7 +100,16 @@ export function SiteHeader() {
                                             <p className="text-xs text-gray-400 mb-1">
                                                 Color: {item.color} | Talla: {item.size}
                                             </p>
-                                            <p className="text-[#21f31f] font-bold mb-2">{formatCOP(item.price)}</p>
+                                            <div className="flex justify-between items-center mb-2">
+                                                <p className="text-[#21f31f] font-bold">{formatCOP(item.price)}</p>
+                                                <button
+                                                    onClick={() => removeItem(item.id)}
+                                                    className="text-zinc-500 hover:text-red-500 transition-colors"
+                                                    title="Eliminar producto"
+                                                >
+                                                    <Trash2 className="w-4 h-4" />
+                                                </button>
+                                            </div>
                                             <div className="flex items-center gap-2">
                                                 <button
                                                     onClick={() => updateQuantity(item.id, -1)}
@@ -266,7 +277,7 @@ export function SiteHeader() {
                     {/* Top Bar */}
                     <div className="border-b border-white/10">
                         <div className="container mx-auto px-4">
-                            <div className="flex items-center justify-end h-10 text-[10px] md:text-xs font-bold text-white uppercase tracking-widest">
+                            <div className="flex items-center justify-end h-10 text-[10px] md:text-xs font-bold text-white uppercase tracking-widest font-sans">
                                 <div className="hidden md:flex items-center gap-1">
                                     <Flag className="w-3 h-3 text-[#21f31f]" />
                                 </div>
@@ -275,7 +286,7 @@ export function SiteHeader() {
                                 <span className="mx-3 text-zinc-700 hidden md:block">|</span>
                                 <Link href="/destacados" className="flex items-center gap-2 hover:text-[#21f31f] transition-colors">
                                     <Heart className="w-3 h-3" />
-                                    <span className="hidden md:inline">Guardado</span>
+                                    <span className="hidden md:inline">GUARDADO</span>
                                 </Link>
                             </div>
                         </div>
@@ -286,7 +297,7 @@ export function SiteHeader() {
                                 <div className="flex items-center border-r border-[#545659] relative w-32 md:w-40 shrink-0">
                                     <Link href="/" className="w-full h-full flex items-center justify-center">
                                         <img
-                                            src="/images/logo-pdf-vegaltex-1-removebg-preview.png"
+                                            src="/images/logo-pdf-vegaltex-1-removebg-preview.webp"
                                             alt="VEGALTEX TACTICAL COLOMBIA"
                                             className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-20 md:h-28 w-auto object-contain cursor-pointer hover:scale-105 transition-transform drop-shadow-md z-30"
                                         />
@@ -301,20 +312,30 @@ export function SiteHeader() {
                                         { label: "GORRAS", href: "/caps" },
                                         { label: "BOTAS", href: "/boots" },
                                         { label: "ACCESORIOS", href: "/accessories" }
-                                    ].map((item) => (
+                                    ].map((item) => {
+                                        const isActive = pathname === item.href || pathname?.startsWith(item.href + '/');
+                                        return (
                                         <Link
                                             key={item.label}
                                             href={item.href}
-                                            className="relative px-6 xl:px-10 h-full flex items-center justify-center border-l border-[#545659] border-b border-[#1f2226] overflow-hidden group transition-all duration-200"
+                                            className="relative px-6 xl:px-10 h-full flex items-center justify-center border-l border-[#545659] border-b border-[#1f2226] overflow-hidden group transition-all duration-300 hover:bg-[#21f31f]/10"
                                         >
-                                            <div className="absolute inset-0 bg-gradient-to-t from-[#21f31f]/20 via-[#21f31f]/5 to-transparent translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out z-10" />
-                                            <span className="absolute top-0 left-0 w-full h-[1px] bg-[#21f31f] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 delay-75 z-20" />
-                                            <span className="absolute bottom-0 left-0 w-full h-[1px] bg-[#21f31f] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 delay-75 z-20" />
-                                            <span className="font-monument font-bold text-[11px] md:text-xs xl:text-sm tracking-[1.12px] relative z-20 text-gray-300 group-hover:text-[#21f31f] group-hover:drop-shadow-[0_0_8px_rgba(33,243,31,0.5)] transition-all duration-200">
+                                            {/* Fondo con gradiente que sube */}
+                                            <div className={`absolute inset-0 bg-gradient-to-t from-[#21f31f]/40 via-[#21f31f]/10 to-transparent transition-all duration-300 ease-out z-10 ${isActive ? "translate-y-0 opacity-100" : "translate-y-full opacity-0 group-hover:translate-y-0 group-hover:opacity-100"}`} />
+                                            
+                                            {/* Efecto de luz de barrido (sweep) */}
+                                            <div className="absolute top-0 -left-[100%] w-1/2 h-full bg-gradient-to-r from-transparent via-[#21f31f]/40 to-transparent transform -skew-x-12 z-10 transition-transform duration-700 ease-in-out group-hover:translate-x-[400%]" />
+
+                                            {/* Bordes que se expanden con resplandor */}
+                                            <span className={`absolute top-0 left-0 w-full h-[3px] bg-[#21f31f] shadow-[0_0_10px_#21f31f] transition-transform duration-300 ease-out z-20 origin-left ${isActive ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"}`} />
+                                            <span className={`absolute bottom-0 left-0 w-full h-[3px] bg-[#21f31f] shadow-[0_0_10px_#21f31f] transition-transform duration-300 ease-out z-20 origin-right ${isActive ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"}`} />
+                                            
+                                            {/* Texto animado que salta, escala y brilla */}
+                                            <span className={`font-monument font-black text-[11px] md:text-xs xl:text-sm tracking-[1.5px] relative z-20 transition-all duration-300 transform inline-block ${isActive ? "text-[#21f31f] drop-shadow-[0_0_12px_rgba(33,243,31,0.8)] scale-110" : "text-gray-300 group-hover:text-[#21f31f] group-hover:drop-shadow-[0_0_20px_rgba(33,243,31,1)] group-hover:scale-110 group-hover:-translate-y-1"}`}>
                                                 {item.label}
                                             </span>
                                         </Link>
-                                    ))}
+                                    )})}
                                 </nav>
 
                                 <button
@@ -354,16 +375,18 @@ export function SiteHeader() {
                                         { label: "GORRAS", href: "/caps" },
                                         { label: "BOTAS", href: "/boots" },
                                         { label: "ACCESORIOS", href: "/accessories" }
-                                    ].map((item) => (
+                                    ].map((item) => {
+                                        const isActive = pathname === item.href || pathname?.startsWith(item.href + '/');
+                                        return (
                                         <Link
                                             key={item.label}
                                             href={item.href}
-                                            className="px-4 py-3 font-bold text-sm tracking-widest uppercase hover:bg-[#21f31f]/20 hover:text-[#21f31f] transition-all text-white"
+                                            className={`px-4 py-3 font-bold text-sm tracking-widest uppercase transition-all ${isActive ? "bg-[#21f31f]/20 text-[#21f31f]" : "hover:bg-[#21f31f]/20 hover:text-[#21f31f] text-white"}`}
                                             onClick={() => setMobileMenuOpen(false)}
                                         >
                                             {item.label}
                                         </Link>
-                                    ))}
+                                    )})}
                                 </nav>
                             </div>
                         )}
@@ -375,9 +398,9 @@ export function SiteHeader() {
                         <div className="flex items-center justify-center h-10 gap-2 text-xs md:text-sm font-black uppercase">
                             <Flag className="w-3 md:w-4 h-3 md:h-4 text-[#21f31f]" />
                             <span className="text-black text-center">ENVÍO Y DEVOLUCIONES GRATIS EN CADA PEDIDO.</span>
-                            <a href="#" className="text-[#4B5320] font-black hover:underline hidden md:inline">
+                            <Link href="/" className="text-[#4B5320] font-black hover:underline hidden md:inline">
                                 EMPIEZA AQUÍ
-                            </a>
+                            </Link>
                         </div>
                     </div>
                 </div>

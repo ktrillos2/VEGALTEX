@@ -21,7 +21,7 @@ export default function PantsPage() {
       <section
         className="relative h-[400px] md:h-[550px] flex items-center justify-center"
         style={{
-          backgroundImage: "url('/hero.png')", // You might want a different background for pants if available
+          backgroundImage: "url('/hero.webp')", // You might want a different background for pants if available
           backgroundSize: "cover",
           backgroundPosition: "top center",
         }}
@@ -55,9 +55,9 @@ export default function PantsPage() {
                   <Button
                     key={filter}
                     variant="outline"
-                    className="bg-white border-gray-300 text-gray-700 hover:border-gray-900 hover:text-black rounded-sm uppercase font-bold text-xs h-9 px-4 whitespace-nowrap"
+                    className="bg-zinc-950 border border-[#21f31f]/30 text-white hover:bg-black hover:border-[#21f31f] transition-all duration-300 rounded-none shadow-md uppercase font-bold text-xs h-10 px-5 whitespace-nowrap group"
                   >
-                    {filter} <ChevronDown className="w-3 h-3 ml-2" />
+                    {filter} <ChevronDown className="w-4 h-4 ml-2 text-[#21f31f]/70 group-hover:text-[#21f31f] transition-colors" />
                   </Button>
                 ))}
               </div>
@@ -157,7 +157,7 @@ export default function PantsPage() {
           {/* Fondo de naturaleza (Helechos húmedos/bosque táctico) */}
           <div 
             className="absolute inset-0 bg-cover bg-center animate-subtle-pan"
-            style={{ backgroundImage: "url('/nature.png')" }}
+            style={{ backgroundImage: "url('/nature.webp')" }}
           />
           <div className="absolute inset-0 bg-[#0f140a]/50" /> {/* Tinte verde oscuro para el ambiente */}
           
@@ -167,7 +167,7 @@ export default function PantsPage() {
           {/* Imagen de los pantalones superpuesta */}
           <div className="absolute right-0 bottom-0 z-20 w-full md:w-[60%] h-[90%] md:h-full flex items-end justify-center md:justify-end pr-0 md:pr-12 pointer-events-none">
             <img
-              src="/pantalones.png"
+              src="/pantalones.webp"
               alt="Pantalones Tácticos"
               className="max-h-full w-auto object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.7)]"
             />
@@ -184,9 +184,6 @@ export default function PantsPage() {
                 Nuestros pantalones tácticos integran compartimentos estratégicos 
                 y materiales resistentes para soportar las condiciones más extremas.
               </p>
-              <Button className="w-full sm:w-auto bg-[#879a4a] hover:bg-[#9eb455] text-black font-black tracking-widest uppercase rounded-none h-12 px-8 transition-all hover:-translate-y-1 shadow-lg">
-                VER CATÁLOGO COMPLETO
-              </Button>
             </div>
           </div>
         </section>
