@@ -20,7 +20,7 @@ interface CategoryFilterProps {
 
 export function CategoryFilter({ currentCategory }: CategoryFilterProps) {
     return (
-        <DropdownMenu.Root>
+        <DropdownMenu.Root modal={false}>
             <DropdownMenu.Trigger asChild>
                 <Button
                     variant="outline"

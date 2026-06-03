@@ -11,16 +11,22 @@ export function useFavorites() {
     const [isLoaded, setIsLoaded] = useState(false)
 
     useEffect(() => {
-        try {
-            const stored = localStorage.getItem(STORAGE_KEY)
-            if (stored) {
-                setFavorites(JSON.parse(stored))
+        const loadFavorites = () => {
+            try {
+                const stored = localStorage.getItem(STORAGE_KEY)
+                if (stored) {
+                    setFavorites(JSON.parse(stored))
+                }
+            } catch (e) {
+                console.error("Failed to load favorites", e)
+            } finally {
+                setIsLoaded(true)
             }
-        } catch (e) {
-            console.error("Failed to load favorites", e)
-        } finally {
-            setIsLoaded(true)
         }
+        
+        loadFavorites()
+        window.addEventListener("favorites-updated", loadFavorites)
+        return () => window.removeEventListener("favorites-updated", loadFavorites)
     }, [])
 
     const toggleFavorite = (productId: number, productName: string) => {
@@ -30,18 +36,19 @@ export function useFavorites() {
         if (favorites.includes(productId)) {
             newFavorites = favorites.filter((id) => id !== productId)
             toast.custom((id) => (
-                <TacticalToast title= "SISTEMA ACTUALIZADO" message = {`${productName} eliminado de Destacados`} />
+                <TacticalToast title= "SISTEMA ACTUALIZADO" message = {`${productName} eliminado de Favoritos`} />
       ), { duration: 4000 })
 } else {
     newFavorites = [...favorites, productId]
     isAdded = true
     toast.custom((id) => (
-        <TacticalToast title= "OBJETIVO ASIGNADO" message = {`${productName} agregado a Destacados`} />
+        <TacticalToast title= "OBJETIVO ASIGNADO" message = {`${productName} agregado a Favoritos`} />
       ), { duration: 5000 })
     }
 
 setFavorites(newFavorites)
 localStorage.setItem(STORAGE_KEY, JSON.stringify(newFavorites))
+window.dispatchEvent(new Event("favorites-updated"))
 return isAdded
   }
 

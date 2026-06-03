@@ -47,7 +47,9 @@ export default function TacticalProLandingPage() {
       title: "DEFINIENDO EL FUTURO DEL EQUIPAMIENTO TÁCTICO",
       subtitle: "Diseñado para misiones críticas en los entornos más hostiles. Equípate con la ventaja definitiva.",
       ctaPrimary: "VER CATÁLOGO",
-      ctaSecondary: "SABER MÁS"
+      linkPrimary: "#categories",
+      ctaSecondary: "SABER MÁS",
+      linkSecondary: "#tecnologia"
     },
     {
       id: 2,
@@ -55,7 +57,9 @@ export default function TacticalProLandingPage() {
       title: "PROTECCIÓN SUPERIOR. RENDIMIENTO EXTREMO.",
       subtitle: "Nuestra nueva línea de chaquetas está diseñada para desafiar los elementos y mantenerte operativo.",
       ctaPrimary: "VER CHAQUETAS",
-      ctaSecondary: "TECNOLOGÍA"
+      linkPrimary: "/jackets",
+      ctaSecondary: "TECNOLOGÍA",
+      linkSecondary: "#tecnologia"
     },
     {
       id: 3,
@@ -63,7 +67,9 @@ export default function TacticalProLandingPage() {
       title: "DOMINA EL FRÍO",
       subtitle: "Aislamiento térmico avanzado para cuando la temperatura desciende. No dejes que el clima te detenga.",
       ctaPrimary: "COLECCIÓN INVIERNO",
-      ctaSecondary: "CALIDEZ TÁCTICA"
+      linkPrimary: "/jackets",
+      ctaSecondary: "CALIDEZ TÁCTICA",
+      linkSecondary: "#tecnologia"
     }
   ]
 
@@ -143,14 +149,19 @@ export default function TacticalProLandingPage() {
                         {slide.subtitle}
                       </p>
                       <div className="flex flex-col sm:flex-row gap-4">
-                        <Button className="bg-[#21f31f] hover:bg-[#1dd11b] text-black font-bold tracking-wider uppercase rounded-none h-14 px-10 text-lg transition-transform hover:scale-105">
-                          {slide.ctaPrimary}
+                        <Button asChild className="bg-[#21f31f] hover:bg-[#1dd11b] text-black font-bold tracking-wider uppercase rounded-none h-14 px-10 text-lg transition-transform hover:scale-105">
+                          <Link href={slide.linkPrimary}>
+                            {slide.ctaPrimary}
+                          </Link>
                         </Button>
                         <Button
+                          asChild
                           variant="outline"
                           className="border-2 border-white text-white hover:bg-white hover:text-black font-bold tracking-wider uppercase rounded-none h-14 px-10 text-lg bg-transparent backdrop-blur-sm transition-transform hover:scale-105"
                         >
-                          {slide.ctaSecondary}
+                          <Link href={slide.linkSecondary}>
+                            {slide.ctaSecondary}
+                          </Link>
                         </Button>
                       </div>
                     </div>
@@ -209,7 +220,7 @@ export default function TacticalProLandingPage() {
       </section>
 
       {/* Category Grid */}
-      <section className="py-20 bg-black">
+      <section id="categories" className="py-20 bg-black">
         <div className="container mx-auto px-4">
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {categories.map((category, index) => (
@@ -279,8 +290,10 @@ export default function TacticalProLandingPage() {
                     ))}
                   </div>
                 </div>
-                <Button className="bg-transparent border-2 border-[#21f31f] text-[#21f31f] hover:bg-[#21f31f] hover:text-black font-bold tracking-wider uppercase rounded-none h-14 px-10 text-lg">
-                  NUESTRA TECNOLOGÍA
+                <Button asChild className="bg-transparent border-2 border-[#21f31f] text-[#21f31f] hover:bg-[#21f31f] hover:text-black font-bold tracking-wider uppercase rounded-none h-14 px-10 text-lg">
+                  <Link href="#tecnologia">
+                    NUESTRA TECNOLOGÍA
+                  </Link>
                 </Button>
               </div>
             </ScrollAnimation>
@@ -300,12 +313,15 @@ export default function TacticalProLandingPage() {
           <div className="grid md:grid-cols-3 gap-8 mb-16">
             {testimonials.map((testimonial, idx) => (
               <ScrollAnimation key={idx} animation="fade-up" delay={idx * 150}>
-                <Card className="relative overflow-hidden bg-gradient-to-br from-[#b89547] via-[#dfc476] to-[#7a5e20] border border-[#f5e39b]/40 shadow-[inset_0_1px_1px_rgba(255,255,255,0.4)] shadow-black/50 rounded-sm p-8 h-full group">
-                  {/* Metallic shine overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+                <Card className="relative overflow-hidden bg-gradient-to-br from-zinc-700 via-zinc-800 to-black border-t border-l border-zinc-500 border-r-black border-b-black shadow-[inset_0_1px_3px_rgba(255,255,255,0.3),0_10px_20px_rgba(0,0,0,0.8)] rounded-sm p-8 h-full group transition-all duration-300 hover:-translate-y-1">
+                  {/* Static metallic texture/reflection */}
+                  <div className="absolute inset-0 bg-[linear-gradient(110deg,rgba(255,255,255,0.05)_0%,rgba(255,255,255,0)_20%,rgba(0,0,0,0.4)_50%,rgba(255,255,255,0)_80%,rgba(255,255,255,0.05)_100%)] pointer-events-none" />
                   
-                  <p className="text-black/90 mb-6 leading-relaxed font-bold relative z-10">{testimonial.text}</p>
-                  <p className="font-black text-sm uppercase tracking-widest text-black relative z-10">{testimonial.name}</p>
+                  {/* Active shine (now static) */}
+                  <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/20 to-transparent opacity-100 pointer-events-none" />
+                  
+                  <p className="text-gray-200 mb-6 leading-relaxed font-bold relative z-10">{testimonial.text}</p>
+                  <p className="font-black text-sm uppercase tracking-widest text-white relative z-10">{testimonial.name}</p>
                 </Card>
               </ScrollAnimation>
             ))}
@@ -314,7 +330,7 @@ export default function TacticalProLandingPage() {
       </section>
 
       {/* Technology Section */}
-      <section className="py-20 bg-black">
+      <section id="tecnologia" className="py-20 bg-black">
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <ScrollAnimation animation="slide-right">
@@ -430,6 +446,25 @@ export default function TacticalProLandingPage() {
               <CarouselNext className="absolute right-2 md:-right-6 top-1/2 -translate-y-1/2 bg-black border-zinc-800 text-white hover:bg-[#21f31f] hover:text-black hover:border-[#21f31f] rounded-none w-10 h-10 md:w-12 md:h-12 flex" />
             </Carousel>
             </div>
+          </ScrollAnimation>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-24 bg-zinc-950 border-t border-zinc-900">
+        <div className="container mx-auto px-4 text-center">
+          <ScrollAnimation animation="fade-up">
+            <h2 className="text-3xl md:text-5xl font-black tracking-wide uppercase mb-6 text-white font-monument">
+              ¿PREPARADO PARA TU PRÓXIMA MISIÓN?
+            </h2>
+            <p className="text-lg text-gray-400 mb-10 max-w-2xl mx-auto">
+              Nuestro equipo está listo para asesorarte. Contáctanos para resolver tus dudas o coordinar pedidos especiales.
+            </p>
+            <Button asChild className="bg-[#21f31f] hover:bg-[#1dd11b] text-black font-black tracking-widest uppercase rounded-none h-16 px-12 text-lg transition-transform hover:scale-105 shadow-[0_0_20px_rgba(33,243,31,0.2)]">
+              <Link href="/contact">
+                CONTÁCTANOS
+              </Link>
+            </Button>
           </ScrollAnimation>
         </div>
       </section>

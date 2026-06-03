@@ -26,7 +26,7 @@ export default function FeaturedPage() {
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 border-b-4 border-[#21f31f] pb-6">
                     <div>
                         <h1 className="text-4xl md:text-6xl font-black uppercase tracking-tighter mb-2 text-white">
-                            DESTACADOS
+                            FAVORITOS
                         </h1>
                         <p className="text-zinc-400 font-mono">
                             TU ARSENAL SELECCIONADO: {favoriteProducts.length} ÍTEMS
@@ -55,7 +55,7 @@ export default function FeaturedPage() {
                                         toggleFavorite(product.id, product.name);
                                     }}
                                     className="absolute top-2 left-2 z-10 w-8 h-8 flex items-center justify-center bg-black/80 hover:bg-[#21f31f] border border-zinc-700 hover:border-[#21f31f] transition-all text-zinc-400 hover:text-black"
-                                    title="Eliminar de destacados"
+                                    title="Eliminar de favoritos"
                                 >
                                     <Heart className="w-5 h-5 fill-current text-red-500" />
                                 </button>
@@ -115,7 +115,7 @@ export default function FeaturedPage() {
                             ZONA ESTÉRIL DETECTADA
                         </h2>
                         <p className="text-zinc-400 max-w-md mx-auto mb-8 font-mono">
-                            No se han marcado objetivos prioritarios. Explora el catálogo para agregar equipamiento a tu lista de destacados.
+                            No se han marcado objetivos prioritarios. Explora el catálogo para agregar equipamiento a tu lista de favoritos.
                         </p>
                         <Link href="/jackets">
                             <Button className="h-14 px-8 bg-[#21f31f] hover:bg-[#1dd11b] text-black font-bold text-lg uppercase tracking-widest rounded-none shadow-[0_4px_0_#1a7f1a] hover:shadow-[0_2px_0_#1a7f1a] translate-y-[-2px] hover:translate-y-[0px] transition-all">

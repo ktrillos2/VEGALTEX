@@ -11,6 +11,7 @@ import { products } from "@/lib/products" // Use shared products for search
 import { formatCOP } from "@/lib/utils"
 
 import { useCart } from "@/lib/context/cart-context" // Add import
+import { useFavorites } from "@/lib/hooks/use-favorites"
 
 export function SiteHeader() {
     const pathname = usePathname()
@@ -24,6 +25,7 @@ export function SiteHeader() {
 
     // Use Cart Logic
     const { items: cartItems, updateQuantity, cartTotal, cartCount, removeItem } = useCart()
+    const { favorites } = useFavorites()
 
     useEffect(() => {
         if (searchOpen) {
@@ -286,7 +288,7 @@ export function SiteHeader() {
                                 <span className="mx-3 text-zinc-700 hidden md:block">|</span>
                                 <Link href="/destacados" className="flex items-center gap-2 hover:text-[#21f31f] transition-colors">
                                     <Heart className="w-3 h-3" />
-                                    <span className="hidden md:inline">GUARDADO</span>
+                                    <span className="hidden md:inline">FAVORITOS ({favorites.length})</span>
                                 </Link>
                             </div>
                         </div>

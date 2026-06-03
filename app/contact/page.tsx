@@ -19,17 +19,20 @@ export default function ContactPage() {
 
                 <div className="grid lg:grid-cols-2 gap-12 items-start">
                     {/* Contact Form */}
-                    <div className="bg-zinc-950 border border-zinc-800 p-8">
-                        <h2 className="text-2xl font-bold uppercase text-white mb-8 border-l-4 border-[#21f31f] pl-4">
-                            ENVIAR MENSAJE
-                        </h2>
+                    <div className="relative overflow-hidden bg-gradient-to-br from-zinc-800 via-zinc-900 to-black border-t border-l border-zinc-600 border-r-black border-b-black shadow-[inset_0_1px_3px_rgba(255,255,255,0.2),0_10px_20px_rgba(0,0,0,0.8)] p-8">
+                        {/* Static metallic texture/reflection */}
+                        <div className="absolute inset-0 bg-[linear-gradient(110deg,rgba(255,255,255,0.03)_0%,rgba(255,255,255,0)_20%,rgba(0,0,0,0.6)_50%,rgba(255,255,255,0)_80%,rgba(255,255,255,0.03)_100%)] pointer-events-none" />
+                        <div className="relative z-10">
+                            <h2 className="text-2xl font-bold uppercase text-white mb-8 border-l-4 border-[#21f31f] pl-4">
+                                ENVIAR MENSAJE
+                            </h2>
                         <form className="space-y-6">
                             <div className="grid md:grid-cols-2 gap-6">
                                 <div className="space-y-2">
                                     <label className="text-sm font-bold uppercase text-gray-400">Nombre</label>
                                     <input
                                         type="text"
-                                        className="w-full bg-black border border-zinc-800 p-4 text-white focus:border-[#21f31f] outline-none transition-colors"
+                                        className="w-full bg-[#111] border-t-2 border-l-2 border-b border-r border-t-black border-l-black border-b-zinc-700 border-r-zinc-700 p-4 text-white focus:border-[#21f31f] outline-none transition-colors shadow-[inset_0_3px_6px_rgba(0,0,0,0.8)]"
                                         placeholder="Tu nombre"
                                     />
                                 </div>
@@ -37,7 +40,7 @@ export default function ContactPage() {
                                     <label className="text-sm font-bold uppercase text-gray-400">Apellido</label>
                                     <input
                                         type="text"
-                                        className="w-full bg-black border border-zinc-800 p-4 text-white focus:border-[#21f31f] outline-none transition-colors"
+                                        className="w-full bg-[#111] border-t-2 border-l-2 border-b border-r border-t-black border-l-black border-b-zinc-700 border-r-zinc-700 p-4 text-white focus:border-[#21f31f] outline-none transition-colors shadow-[inset_0_3px_6px_rgba(0,0,0,0.8)]"
                                         placeholder="Tu apellido"
                                     />
                                 </div>
@@ -54,7 +57,7 @@ export default function ContactPage() {
 
                             <div className="space-y-2">
                                 <label className="text-sm font-bold uppercase text-gray-400">Asunto</label>
-                                <select className="w-full bg-black border border-zinc-800 p-4 text-white focus:border-[#21f31f] outline-none transition-colors appearance-none">
+                                <select className="w-full bg-[#111] border-t-2 border-l-2 border-b border-r border-t-black border-l-black border-b-zinc-700 border-r-zinc-700 p-4 text-white focus:border-[#21f31f] outline-none transition-colors appearance-none shadow-[inset_0_3px_6px_rgba(0,0,0,0.8)]">
                                     <option>Consulta General</option>
                                     <option>Estado del Pedido</option>
                                     <option>Devoluciones / Garantía</option>
@@ -65,7 +68,7 @@ export default function ContactPage() {
                             <div className="space-y-2">
                                 <label className="text-sm font-bold uppercase text-gray-400">Mensaje</label>
                                 <textarea
-                                    className="w-full bg-black border border-zinc-800 p-4 text-white focus:border-[#21f31f] outline-none transition-colors min-h-[150px]"
+                                    className="w-full bg-[#111] border-t-2 border-l-2 border-b border-r border-t-black border-l-black border-b-zinc-700 border-r-zinc-700 p-4 text-white focus:border-[#21f31f] outline-none transition-colors min-h-[150px] shadow-[inset_0_3px_6px_rgba(0,0,0,0.8)]"
                                     placeholder="¿En qué podemos ayudarte?"
                                 ></textarea>
                             </div>
@@ -74,41 +77,64 @@ export default function ContactPage() {
                                 ENVIAR COMUNICACIÓN
                             </Button>
                         </form>
+                        </div>
                     </div>
 
                     {/* Contact Info */}
                     <div className="space-y-8">
                         <div className="grid sm:grid-cols-2 gap-6">
-                            <Card className="bg-zinc-900 border-zinc-800 p-6 rounded-none group hover:border-[#21f31f] transition-all">
-                                <Phone className="w-8 h-8 text-[#21f31f] mb-4 group-hover:scale-110 transition-transform" />
-                                <h3 className="font-bold uppercase text-white mb-2">TELÉFONO</h3>
-                                <p className="text-gray-400 text-sm mb-1">Lunes a Viernes, 9am - 6pm</p>
-                                <p className="text-xl font-bold text-white">+57 300 000 0000</p>
+                            <Card className="relative overflow-hidden bg-gradient-to-br from-zinc-700 via-zinc-800 to-black border-t border-l border-zinc-500 border-r-black border-b-black hover:border-[#21f31f] shadow-[inset_0_1px_3px_rgba(255,255,255,0.3),0_10px_20px_rgba(0,0,0,0.8)] rounded-none p-6 group transition-all duration-300 hover:-translate-y-1">
+                                {/* Static metallic texture/reflection */}
+                                <div className="absolute inset-0 bg-[linear-gradient(110deg,rgba(255,255,255,0.05)_0%,rgba(255,255,255,0)_20%,rgba(0,0,0,0.4)_50%,rgba(255,255,255,0)_80%,rgba(255,255,255,0.05)_100%)] pointer-events-none" />
+                                {/* Active shine (now static) */}
+                                <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/20 to-transparent opacity-100 pointer-events-none" />
+                                <div className="relative z-10">
+                                    <Phone className="w-8 h-8 text-[#21f31f] mb-4 group-hover:scale-110 transition-transform" />
+                                    <h3 className="font-bold uppercase text-white mb-2">TELÉFONO</h3>
+                                    <p className="text-gray-400 text-sm mb-1">Lunes a Viernes, 9am - 6pm</p>
+                                    <p className="text-xl font-bold text-white">+57 300 000 0000</p>
+                                </div>
                             </Card>
 
-                            <Card className="bg-zinc-900 border-zinc-800 p-6 rounded-none group hover:border-[#21f31f] transition-all">
-                                <Mail className="w-8 h-8 text-[#21f31f] mb-4 group-hover:scale-110 transition-transform" />
-                                <h3 className="font-bold uppercase text-white mb-2">EMAIL</h3>
-                                <p className="text-gray-400 text-sm mb-1">Respuesta en 24 horas</p>
-                                <p className="text-lg font-bold text-white">info@vegaltex.com</p>
+                            <Card className="relative overflow-hidden bg-gradient-to-br from-zinc-700 via-zinc-800 to-black border-t border-l border-zinc-500 border-r-black border-b-black hover:border-[#21f31f] shadow-[inset_0_1px_3px_rgba(255,255,255,0.3),0_10px_20px_rgba(0,0,0,0.8)] rounded-none p-6 group transition-all duration-300 hover:-translate-y-1">
+                                {/* Static metallic texture/reflection */}
+                                <div className="absolute inset-0 bg-[linear-gradient(110deg,rgba(255,255,255,0.05)_0%,rgba(255,255,255,0)_20%,rgba(0,0,0,0.4)_50%,rgba(255,255,255,0)_80%,rgba(255,255,255,0.05)_100%)] pointer-events-none" />
+                                {/* Active shine (now static) */}
+                                <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/20 to-transparent opacity-100 pointer-events-none" />
+                                <div className="relative z-10">
+                                    <Mail className="w-8 h-8 text-[#21f31f] mb-4 group-hover:scale-110 transition-transform" />
+                                    <h3 className="font-bold uppercase text-white mb-2">EMAIL</h3>
+                                    <p className="text-gray-400 text-sm mb-1">Respuesta en 24 horas</p>
+                                    <p className="text-lg font-bold text-white">info@vegaltex.com</p>
+                                </div>
                             </Card>
                         </div>
 
-                        <Card className="bg-zinc-900 border-zinc-800 p-6 rounded-none group hover:border-[#21f31f] transition-all">
-                            <MapPin className="w-8 h-8 text-[#21f31f] mb-4 group-hover:scale-110 transition-transform" />
-                            <h3 className="font-bold uppercase text-white mb-2">UBICACIÓN TÁCTICA</h3>
-                            <p className="text-gray-400 mb-2">
-                                Calle 123 #45-67, Bogotá D.C.<br />
-                                Colombia
-                            </p>
-                            <Button variant="link" className="text-[#21f31f] p-0 h-auto font-bold uppercase hover:text-white">
-                                VER EN EL MAPA &rarr;
-                            </Button>
+                        <Card className="relative overflow-hidden bg-gradient-to-br from-zinc-700 via-zinc-800 to-black border-t border-l border-zinc-500 border-r-black border-b-black hover:border-[#21f31f] shadow-[inset_0_1px_3px_rgba(255,255,255,0.3),0_10px_20px_rgba(0,0,0,0.8)] rounded-none p-6 group transition-all duration-300 hover:-translate-y-1">
+                            {/* Static metallic texture/reflection */}
+                            <div className="absolute inset-0 bg-[linear-gradient(110deg,rgba(255,255,255,0.05)_0%,rgba(255,255,255,0)_20%,rgba(0,0,0,0.4)_50%,rgba(255,255,255,0)_80%,rgba(255,255,255,0.05)_100%)] pointer-events-none" />
+                            {/* Active shine (now static) */}
+                            <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/20 to-transparent opacity-100 pointer-events-none" />
+                            <div className="relative z-10">
+                                <MapPin className="w-8 h-8 text-[#21f31f] mb-4 group-hover:scale-110 transition-transform" />
+                                <h3 className="font-bold uppercase text-white mb-2">UBICACIÓN TÁCTICA</h3>
+                                <p className="text-gray-400 mb-2">
+                                    Calle 123 #45-67, Bogotá D.C.<br />
+                                    Colombia
+                                </p>
+                                <Button variant="link" className="text-[#21f31f] p-0 h-auto font-bold uppercase hover:text-white">
+                                    VER EN EL MAPA &rarr;
+                                </Button>
+                            </div>
                         </Card>
 
-                        <div className="bg-[#21f31f]/10 border border-[#21f31f]/30 p-6">
-                            <div className="flex items-start gap-4">
-                                <Clock className="w-6 h-6 text-[#21f31f] mt-1" />
+                        <div className="relative overflow-hidden bg-gradient-to-br from-zinc-700 via-zinc-800 to-black border-t border-l border-zinc-500 border-r-black border-b-black hover:border-[#21f31f] shadow-[inset_0_1px_3px_rgba(255,255,255,0.3),0_10px_20px_rgba(0,0,0,0.8)] rounded-none p-6 group transition-all duration-300 hover:-translate-y-1">
+                            {/* Static metallic texture/reflection */}
+                            <div className="absolute inset-0 bg-[linear-gradient(110deg,rgba(255,255,255,0.05)_0%,rgba(255,255,255,0)_20%,rgba(0,0,0,0.4)_50%,rgba(255,255,255,0)_80%,rgba(255,255,255,0.05)_100%)] pointer-events-none" />
+                            {/* Active shine (now static) */}
+                            <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/20 to-transparent opacity-100 pointer-events-none" />
+                            <div className="relative z-10 flex items-start gap-4">
+                                <Clock className="w-6 h-6 text-[#21f31f] mt-1 group-hover:scale-110 transition-transform" />
                                 <div className="flex-1">
                                     <h3 className="font-bold uppercase text-white mb-2">HORARIO DE OPERACIONES</h3>
                                     <div className="space-y-1 text-sm text-gray-300">
