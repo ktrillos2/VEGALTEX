@@ -88,9 +88,9 @@ export default function ProductPage({ params }: ProductPageProps) {
       images: [rawProduct.images[idx] || rawProduct.images[0] || "/placeholder.svg"],
     })),
     allImages: rawProduct.images,
-    sizes: rawProduct.category === "BOTAS"
-      ? ["36", "37", "38", "39", "40", "41", "42", "43", "44", "45"]
-      : ["XS", "S", "M", "L", "XL", "2XL", "3XL", "4XL"],
+    sizes: (rawProduct as any).sizes ? (rawProduct as any).sizes : (rawProduct.category === "BOTAS"
+      ? ["7", "7.5", "8", "8.5", "9", "9.5", "10", "10.5", "11", "12"]
+      : ["XS", "S", "M", "L", "XL", "2XL", "3XL", "4XL"]),
     features: [
       "Material de alta resistencia para uso táctico",
       "Diseño ergonómico para máxima comodidad",
@@ -231,7 +231,24 @@ export default function ProductPage({ params }: ProductPageProps) {
             <div className="space-y-6">
               <div>
                 <h1 className="text-3xl md:text-4xl font-black uppercase tracking-tight mb-3 text-black">{product.name}</h1>
-                <div className="text-3xl font-black mb-4 text-black">{formatCOP(product.price)}</div>
+                {rawProduct.originalPrice > rawProduct.salePrice ? (
+                  <div className="space-y-1 mb-4">
+                    <div className="flex items-center gap-3 text-zinc-500 font-medium">
+                      <span className="line-through text-lg">{formatCOP(rawProduct.originalPrice)}</span>
+                      <span className="bg-[#21f31f] text-black font-black text-xs px-2.5 py-1 uppercase tracking-wider skew-x-[-10deg]">
+                        -{rawProduct.discount}% DESCUENTO
+                      </span>
+                    </div>
+                    <div className="flex items-baseline gap-4">
+                      <span className="text-3xl md:text-4xl font-black text-black">{formatCOP(rawProduct.salePrice)}</span>
+                      <span className="text-sm font-bold text-[#4B5320]">
+                        Ahorras: {formatCOP(rawProduct.originalPrice - rawProduct.salePrice)}
+                      </span>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="text-3xl font-black mb-4 text-black">{formatCOP(product.price)}</div>
+                )}
                 <p className="text-zinc-800 leading-relaxed font-medium">
                   {product.description}
                 </p>
@@ -283,16 +300,19 @@ export default function ProductPage({ params }: ProductPageProps) {
                 </div>
               </div>
 
-              {/* Delivery Info */}
+              {/* Inventory Info */}
               <div className="flex items-center gap-3 text-sm text-zinc-800 font-medium">
-                <Truck className="w-5 h-5 text-[#4B5320]" />
-                <span>
-                  Entrega est. el {new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toLocaleDateString("es-ES", {
-                    weekday: "long",
-                    month: "short",
-                    day: "numeric",
-                  })}
-                </span>
+                <Package className="w-5 h-5 text-[#4B5320]" />
+                <span>Inventario sujeto a disponibilidad</span>
+              </div>
+
+              {/* Delivery Info */}
+              <div className="flex items-start gap-3 text-sm text-zinc-800 font-medium">
+                <Truck className="w-5 h-5 text-[#4B5320] mt-0.5 shrink-0" />
+                <div className="flex flex-col gap-0.5">
+                  <span>Envios nacionales de 5 a 10 días hábiles</span>
+                  <span>Internacionales de 10 a 20 días hábiles</span>
+                </div>
               </div>
 
               {/* Add to Basket */}

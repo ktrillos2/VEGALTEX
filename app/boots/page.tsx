@@ -108,13 +108,18 @@ export default function BootsPage() {
                         </h2>
                       </Link>
 
-                      <div className="mt-auto pt-2 flex flex-col gap-2">
+                      <div className="mt-auto pt-2 flex flex-col gap-1">
                         <div className="flex items-baseline gap-2">
                           <span className="text-lg font-bold text-gray-900">{formatCOP(boot.salePrice)}</span>
                           {boot.originalPrice > boot.salePrice && (
                             <span className="text-sm text-gray-400 line-through font-medium">{formatCOP(boot.originalPrice)}</span>
                           )}
                         </div>
+                        {boot.originalPrice > boot.salePrice && (
+                          <span className="text-xs font-bold text-[#4B5320]">
+                            Ahorras: {formatCOP(boot.originalPrice - boot.salePrice)}
+                          </span>
+                        )}
 
                         {/* Color Swatches */}
                         <div className="flex items-center gap-1.5 h-6">

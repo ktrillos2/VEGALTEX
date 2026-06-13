@@ -92,6 +92,11 @@ export default function FeaturedPage() {
                                             <span className="text-xl font-black text-[#21f31f]">
                                                 {formatCOP(product.salePrice)}
                                             </span>
+                                            {product.originalPrice > product.salePrice && (
+                                                <span className="text-[10px] font-bold text-[#21f31f]/80 uppercase">
+                                                    Ahorras: {formatCOP(product.originalPrice - product.salePrice)}
+                                                </span>
+                                            )}
                                         </div>
 
                                         <Link href={`/product/${product.id}`}>

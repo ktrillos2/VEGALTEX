@@ -109,13 +109,18 @@ export default function PantsPage() {
                         </h3>
                       </Link>
 
-                      <div className="mt-auto pt-2 flex flex-col gap-2">
+                      <div className="mt-auto pt-2 flex flex-col gap-1">
                         <div className="flex items-baseline gap-2">
                           <span className="text-lg font-bold text-gray-900">{formatCOP(pant.salePrice)}</span>
                           {pant.originalPrice > pant.salePrice && (
                             <span className="text-sm text-gray-400 line-through font-medium">{formatCOP(pant.originalPrice)}</span>
                           )}
                         </div>
+                        {pant.originalPrice > pant.salePrice && (
+                          <span className="text-xs font-bold text-[#4B5320]">
+                            Ahorras: {formatCOP(pant.originalPrice - pant.salePrice)}
+                          </span>
+                        )}
 
                         {/* Color Swatches */}
                         <div className="flex items-center gap-1.5 h-6">

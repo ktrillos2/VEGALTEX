@@ -60,9 +60,9 @@ export function SiteFooter() {
                                 </Link>
                             </li>
                             <li>
-                                <Link href="/" className="text-gray-400 hover:text-[#21f31f] transition-colors">
+                                <a href="https://wa.me/573000000000" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-[#21f31f] transition-colors">
                                     Devoluciones
-                                </Link>
+                                </a>
                             </li>
                             <li>
                                 <Link href="/" className="text-gray-400 hover:text-[#21f31f] transition-colors">
