@@ -180,14 +180,26 @@ export default function BootsPage() {
               </p>
             </div>
             <div className="mt-20 md:mt-24 grid grid-cols-1 md:grid-cols-3 gap-6 relative z-20 max-w-6xl mx-auto">
-              <div className="border border-dashed border-gray-500/50 h-[300px] md:h-[400px] flex items-center justify-center text-gray-500 font-bold tracking-widest text-sm uppercase md:-translate-y-8">
-                ESPACIO PARA IMAGEN 1
+              <div className="h-[450px] md:h-[650px] flex items-center justify-center md:-translate-y-8 overflow-hidden group">
+                <img
+                  src="/botas-01.jpeg"
+                  alt="Bota táctica 1"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                />
               </div>
-              <div className="border border-dashed border-gray-500/50 h-[300px] md:h-[400px] flex items-center justify-center text-gray-500 font-bold tracking-widest text-sm uppercase md:translate-y-8">
-                ESPACIO PARA IMAGEN 2
+              <div className="h-[450px] md:h-[650px] flex items-center justify-center md:translate-y-8 overflow-hidden group">
+                <img
+                  src="/botas-03.jpeg"
+                  alt="Bota táctica morada"
+                  className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-110"
+                />
               </div>
-              <div className="border border-dashed border-gray-500/50 h-[300px] md:h-[400px] flex items-center justify-center text-gray-500 font-bold tracking-widest text-sm uppercase md:-translate-y-8">
-                ESPACIO PARA IMAGEN 3
+              <div className="h-[450px] md:h-[650px] flex items-center justify-center md:-translate-y-8 overflow-hidden group">
+                <img
+                  src="/botas-02.jpeg"
+                  alt="Bota táctica 2"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                />
               </div>
             </div>
           </div>

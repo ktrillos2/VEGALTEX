@@ -198,7 +198,7 @@ export default function TacticalProLandingPage() {
                     <img
                       src={product.image || "/placeholder.svg?height=400&width=300"}
                       alt={product.name}
-                      className="w-full h-96 object-cover transition-transform duration-500 group-hover:scale-110"
+                      className="w-full h-[450px] md:h-[500px] object-cover transition-transform duration-500 group-hover:scale-110"
                     />
                   </div>
                   <div className="mt-4">
@@ -226,7 +226,7 @@ export default function TacticalProLandingPage() {
             {categories.map((category, index) => (
               <ScrollAnimation key={index} animation="fade-up" delay={index * 150}>
                 <Link href={category.link}>
-                  <div className="group relative h-96 overflow-hidden cursor-pointer rounded-none">
+                  <div className="group relative h-[450px] md:h-[550px] overflow-hidden cursor-pointer rounded-none">
                     <div
                       className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
                       style={{ backgroundImage: `url('${category.image}')` }}
@@ -419,7 +419,7 @@ export default function TacticalProLandingPage() {
               <CarouselContent>
                 <CarouselItem>
                   <div className="p-2">
-                    <div className="relative overflow-hidden group h-[400px] md:h-[500px]">
+                    <div className="relative overflow-hidden group h-[500px] md:h-[700px]">
                       <img
                         src="/accesorios-a.webp"
                         alt="Accesorios A"
@@ -431,7 +431,7 @@ export default function TacticalProLandingPage() {
                 </CarouselItem>
                 <CarouselItem>
                   <div className="p-2">
-                    <div className="relative overflow-hidden group h-[400px] md:h-[500px]">
+                    <div className="relative overflow-hidden group h-[500px] md:h-[700px]">
                       <img
                         src="/accesorios-b.webp"
                         alt="Accesorios B"
