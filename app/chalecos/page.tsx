@@ -7,7 +7,7 @@ import { ChevronDown } from "lucide-react"
 import { products } from "@/lib/products"
 import { formatCOP } from "@/lib/utils"
 import { CategoryFilter } from "@/components/category-filter"
-
+//
 export default function ChalecosPage() {
   const [selectedColors, setSelectedColors] = useState<Record<number, number>>({})
 
@@ -143,7 +143,8 @@ export default function ChalecosPage() {
           </div>
         </section>
         {/* Estilos para animación de fondo */}
-        <style dangerouslySetInnerHTML={{__html: `
+        <style dangerouslySetInnerHTML={{
+          __html: `
           @keyframes subtlePan {
             0% { transform: scale(1.05) translate(0, 0); }
             50% { transform: scale(1.1) translate(-1%, 1%); }
@@ -157,12 +158,12 @@ export default function ChalecosPage() {
         {/* Banner Chalecos con Fondo Natural y Diseño Superpuesto */}
         <section className="relative w-full h-[calc(100vh-130px)] md:h-[calc(100vh-146px)] mt-12 group overflow-hidden">
           {/* Fondo de naturaleza (Helechos húmedos/bosque táctico) */}
-          <div 
+          <div
             className="absolute inset-0 bg-cover bg-center animate-subtle-pan"
             style={{ backgroundImage: "url('/nature.webp')" }}
           />
           <div className="absolute inset-0 bg-[#0f140a]/50" /> {/* Tinte verde oscuro para el ambiente */}
-          
+
           {/* Difuminado hacia el color de fondo */}
           <div className="absolute inset-x-0 bottom-0 h-32 md:h-48 bg-gradient-to-t from-[#f8f8f8] to-transparent z-10" />
 
@@ -182,8 +183,8 @@ export default function ChalecosPage() {
                 PROTECCIÓN<br />SUPERIOR
               </h2>
               <p className="text-sm md:text-base text-gray-300 mb-8 font-medium leading-relaxed">
-                Diseñados para la máxima movilidad y protección. 
-                Nuestros chalecos tácticos integran compartimentos estratégicos 
+                Diseñados para la máxima movilidad y protección.
+                Nuestros chalecos tácticos integran compartimentos estratégicos
                 y materiales resistentes para soportar las condiciones más extremas.
               </p>
             </div>
