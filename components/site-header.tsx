@@ -295,7 +295,7 @@ export function SiteHeader() {
                     </div>
                     <div className="bg-gradient-to-b from-[#2e3238] to-[#1a1d21] shadow-lg relative z-20">
                         <div className="container mx-auto px-4">
-                            <div className="flex items-stretch h-20 md:h-24">
+                            <div className="flex items-stretch h-16 md:h-20">
                                 <div className="flex items-center border-r border-[#545659] relative w-32 md:w-40 shrink-0">
                                     <Link href="/" className="w-full h-full flex items-center justify-center">
                                         <img
@@ -311,6 +311,7 @@ export function SiteHeader() {
                                         { label: "PANTALONES", href: "/pants" },
                                         { label: "CHAQUETAS", href: "/jackets" },
                                         { label: "CAMISAS", href: "/shirts" },
+                                        { label: "CHALECOS", href: "/chalecos" },
                                         { label: "GORRAS", href: "/caps" },
                                         { label: "BOTAS", href: "/boots" },
                                         { label: "ACCESORIOS", href: "/accessories" }
@@ -320,7 +321,7 @@ export function SiteHeader() {
                                         <Link
                                             key={item.label}
                                             href={item.href}
-                                            className="relative px-6 xl:px-10 h-full flex items-center justify-center border-l border-[#545659] border-b border-[#1f2226] overflow-hidden group transition-all duration-300 hover:bg-[#21f31f]/10"
+                                            className="relative px-3 lg:px-4 xl:px-6 h-full flex items-center justify-center border-l border-[#545659] border-b border-[#1f2226] overflow-hidden group transition-all duration-300 hover:bg-[#21f31f]/10"
                                         >
                                             {/* Fondo con gradiente que sube */}
                                             <div className={`absolute inset-0 bg-gradient-to-t from-[#21f31f]/40 via-[#21f31f]/10 to-transparent transition-all duration-300 ease-out z-10 ${isActive ? "translate-y-0 opacity-100" : "translate-y-full opacity-0 group-hover:translate-y-0 group-hover:opacity-100"}`} />
@@ -374,6 +375,7 @@ export function SiteHeader() {
                                         { label: "PANTALONES", href: "/pants" },
                                         { label: "CHAQUETAS", href: "/jackets" },
                                         { label: "CAMISAS", href: "/shirts" },
+                                        { label: "CHALECOS", href: "/chalecos" },
                                         { label: "GORRAS", href: "/caps" },
                                         { label: "BOTAS", href: "/boots" },
                                         { label: "ACCESORIOS", href: "/accessories" }
@@ -397,7 +399,7 @@ export function SiteHeader() {
 
                 <div className="bg-[#CCCCCC] font-sans">
                     <div className="container mx-auto px-4">
-                        <div className="flex items-center justify-center h-10 gap-2 text-xs md:text-sm font-black uppercase">
+                        <div className="flex items-center justify-center h-10 gap-2 text-[10px] md:text-xs font-black uppercase">
                             <Flag className="w-3 md:w-4 h-3 md:h-4 text-[#21f31f]" />
                             <span className="text-black text-center">ENVÍO Y DEVOLUCIONES GRATIS EN CADA PEDIDO.</span>
                             <Link href="/" className="text-[#4B5320] font-black hover:underline hidden md:inline">
@@ -407,7 +409,7 @@ export function SiteHeader() {
                     </div>
                 </div>
             </header>
-            <div className="h-[146px] md:h-[162px]" />
+            <div className="h-[130px] md:h-[146px]" />
         </>
     )
 }
