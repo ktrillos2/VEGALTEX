@@ -7,7 +7,7 @@ import { ChevronDown } from "lucide-react"
 import { products } from "@/lib/products"
 import { formatCOP } from "@/lib/utils"
 import { CategoryFilter } from "@/components/category-filter"
-//
+
 export default function ChalecosPage() {
   const [selectedColors, setSelectedColors] = useState<Record<number, number>>({})
 
