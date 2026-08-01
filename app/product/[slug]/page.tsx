@@ -82,7 +82,7 @@ export default function ProductPage({ params }: ProductPageProps) {
     rating: 5,
     reviews: 12,
     description: (rawProduct as any).description || `Producto táctico de alta calidad de la categoría ${rawProduct.category.toLowerCase()}. Diseñado para ofrecer rendimiento máximo en condiciones exigentes con materiales premium.${isTechPlus ? " Incorpora tecnología uni For me TECH PLUS." : ""}`,
-    colors: rawProduct.colors.map((hex, idx) => ({
+    colors: rawProduct.colors.map((hex: string, idx: number) => ({
       name: `Color ${idx + 1}`,
       hex,
       images: [rawProduct.images[idx] || rawProduct.images[0] || "/placeholder.svg"],

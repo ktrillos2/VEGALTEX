@@ -766,10 +766,9 @@ const rawProducts = [
         category: "CHALECOS",
         badge: "",
     },
-    // PANTALONES-VEGALTEX
     {
         id: 120,
-        name: "PANTALÓN TÁCTICO ANTIDESGARRO REF. 1.1 - Coyote",
+        name: "PANTALÓN TÁCTICO ANTIDESGARRO REF. 1.1 - Modelo 1",
         originalPrice: 385,
         salePrice: 365,
         discount: 5,
@@ -810,14 +809,11 @@ const rawProducts = [
             "Diseñado para trabajo, entrenamiento y uso diario."
         ],
         guarantee: "⭐ 1 Año de Garantía\n\nSomos una de las pocas empresas del mercado que respalda este pantalón con 1 año de garantía por defectos de fabricación, reflejando la calidad y confianza de nuestros productos.",
-        images: [
-            "/PANTALONES-VEGALTEX/03F0D006-0D05-4A98-A368-0FA73DFA9F53-Photoroom.JPG",
-            "/PANTALONES-VEGALTEX/1030EEAD-4C71-4F3D-9620-577BD9706B7A-Photoroom.JPG"
-        ]
+        images: ["/PANTALONES-VEGALTEX/03F0D006-0D05-4A98-A368-0FA73DFA9F53-Photoroom.JPG"]
     },
     {
         id: 121,
-        name: "PANTALÓN TÁCTICO ANTIDESGARRO REF. 1.1 - Gris",
+        name: "PANTALÓN TÁCTICO ANTIDESGARRO REF. 1.1 - Modelo 2",
         originalPrice: 385,
         salePrice: 365,
         discount: 5,
@@ -858,14 +854,11 @@ const rawProducts = [
             "Diseñado para trabajo, entrenamiento y uso diario."
         ],
         guarantee: "⭐ 1 Año de Garantía\n\nSomos una de las pocas empresas del mercado que respalda este pantalón con 1 año de garantía por defectos de fabricación, reflejando la calidad y confianza de nuestros productos.",
-        images: [
-            "/PANTALONES-VEGALTEX/292EC2B2-3ACB-4D66-99D0-F369033DCE60-Photoroom.JPG",
-            "/PANTALONES-VEGALTEX/5402E507-AE77-4CA3-B7AD-0852DEF6842E-Photoroom.JPG"
-        ]
+        images: ["/PANTALONES-VEGALTEX/1030EEAD-4C71-4F3D-9620-577BD9706B7A-Photoroom.JPG"]
     },
     {
         id: 122,
-        name: "PANTALÓN TÁCTICO ANTIDESGARRO REF. 1.1 - Azul Oscuro",
+        name: "PANTALÓN TÁCTICO ANTIDESGARRO REF. 1.1 - Modelo 3",
         originalPrice: 385,
         salePrice: 365,
         discount: 5,
@@ -906,14 +899,11 @@ const rawProducts = [
             "Diseñado para trabajo, entrenamiento y uso diario."
         ],
         guarantee: "⭐ 1 Año de Garantía\n\nSomos una de las pocas empresas del mercado que respalda este pantalón con 1 año de garantía por defectos de fabricación, reflejando la calidad y confianza de nuestros productos.",
-        images: [
-            "/PANTALONES-VEGALTEX/681C9781-5DF5-4AE5-8C26-7E46C6CFD95F-Photoroom.JPG",
-            "/PANTALONES-VEGALTEX/7EA9D055-272D-46FB-8A25-262837A18960-Photoroom.JPG"
-        ]
+        images: ["/PANTALONES-VEGALTEX/292EC2B2-3ACB-4D66-99D0-F369033DCE60-Photoroom.JPG"]
     },
     {
         id: 123,
-        name: "PANTALÓN TÁCTICO ANTIDESGARRO REF. 1.1 - Negro",
+        name: "PANTALÓN TÁCTICO ANTIDESGARRO REF. 1.1 - Modelo 4",
         originalPrice: 385,
         salePrice: 365,
         discount: 5,
@@ -954,14 +944,11 @@ const rawProducts = [
             "Diseñado para trabajo, entrenamiento y uso diario."
         ],
         guarantee: "⭐ 1 Año de Garantía\n\nSomos una de las pocas empresas del mercado que respalda este pantalón con 1 año de garantía por defectos de fabricación, reflejando la calidad y confianza de nuestros productos.",
-        images: [
-            "/PANTALONES-VEGALTEX/845B9161-DE2E-4C22-8EDB-659FC923E89C-Photoroom.JPG",
-            "/PANTALONES-VEGALTEX/8C02F7A5-FA95-49F9-8C23-7575CF1F9BF1-Photoroom.JPG"
-        ]
+        images: ["/PANTALONES-VEGALTEX/5402E507-AE77-4CA3-B7AD-0852DEF6842E-Photoroom.JPG"]
     },
     {
         id: 124,
-        name: "PANTALÓN TÁCTICO ANTIDESGARRO REF. 1.1 - Arena",
+        name: "PANTALÓN TÁCTICO ANTIDESGARRO REF. 1.1 - Modelo 5",
         originalPrice: 385,
         salePrice: 365,
         discount: 5,
@@ -1002,14 +989,11 @@ const rawProducts = [
             "Diseñado para trabajo, entrenamiento y uso diario."
         ],
         guarantee: "⭐ 1 Año de Garantía\n\nSomos una de las pocas empresas del mercado que respalda este pantalón con 1 año de garantía por defectos de fabricación, reflejando la calidad y confianza de nuestros productos.",
-        images: [
-            "/PANTALONES-VEGALTEX/A608B093-B847-48D9-BAF4-0A9B30A2E578-Photoroom.JPG",
-            "/PANTALONES-VEGALTEX/A9FF4E27-9FEA-46EF-B54C-18DA45EA844E-Photoroom.JPG"
-        ]
+        images: ["/PANTALONES-VEGALTEX/681C9781-5DF5-4AE5-8C26-7E46C6CFD95F-Photoroom.JPG"]
     },
     {
         id: 125,
-        name: "PANTALÓN TÁCTICO ANTIDESGARRO REF. 1.1 - Verde Militar",
+        name: "PANTALÓN TÁCTICO ANTIDESGARRO REF. 1.1 - Modelo 6",
         originalPrice: 385,
         salePrice: 365,
         discount: 5,
@@ -1050,10 +1034,277 @@ const rawProducts = [
             "Diseñado para trabajo, entrenamiento y uso diario."
         ],
         guarantee: "⭐ 1 Año de Garantía\n\nSomos una de las pocas empresas del mercado que respalda este pantalón con 1 año de garantía por defectos de fabricación, reflejando la calidad y confianza de nuestros productos.",
-        images: [
-            "/PANTALONES-VEGALTEX/D8069200-E201-4058-91EF-4FA1573DAF3F-Photoroom.JPG",
-            "/PANTALONES-VEGALTEX/DC20F097-04E6-4C3D-82E3-98AB81E5C077-Photoroom.JPG"
-        ]
+        images: ["/PANTALONES-VEGALTEX/7EA9D055-272D-46FB-8A25-262837A18960-Photoroom.JPG"]
+    },
+    {
+        id: 126,
+        name: "PANTALÓN TÁCTICO ANTIDESGARRO REF. 1.1 - Modelo 7",
+        originalPrice: 385,
+        salePrice: 365,
+        discount: 5,
+        specifications: [
+            { label: "Referencia", value: "1.1" },
+            { label: "Tipo", value: "Pantalón Táctico Antidesgarro" },
+            { label: "Material", value: "Tela Ripstop Premium + Elastano (Spandex)" },
+            { label: "Costuras", value: "Triple costura reforzada" },
+            { label: "Bolsillos", value: "6 bolsillos funcionales" },
+            { label: "Tecnología", value: "Antidesgarro • Secado rápido • No requiere plancha" },
+            { label: "Uso", value: "Táctico • Militar • Policía • Escoltas • Seguridad • Outdoor" },
+            { label: "Garantía", value: "1 año" }
+        ],
+        colors: ["#8B7355", "#5a5a5a", "#2d3e50", "#000000", "#c2b280", "#4B5320"],
+        category: "PANTALONES",
+        badge: "NUEVO",
+        sizes: ["28", "30", "32", "34", "36", "38", "40", "42", "44", "46"],
+        description: "Máximo rendimiento. Máxima resistencia. Diseñado para quienes exigen más.\n\nEl Pantalón Táctico Antidesgarro Ref. 1.1 fue desarrollado para operadores tácticos, Fuerzas Militares, Policía, escoltas, seguridad privada y amantes del outdoor que requieren una prenda resistente, cómoda y de alto desempeño.\n\nFabricado con tela Ripstop Premium con elastano (Spandex), ofrece una excelente libertad de movimiento sin sacrificar resistencia, convirtiéndose en uno de los pantalones tácticos más completos del mercado.",
+        features: [
+            "Tela Ripstop Premium Antidesgarro",
+            "Tecnología Antirrasgado",
+            "Elastano (Spandex) para mayor comodidad y movilidad",
+            "6 bolsillos tácticos funcionales",
+            "Triple costura en puntos de mayor esfuerzo e impacto",
+            "Secado rápido",
+            "No requiere plancha",
+            "Alta resistencia al desgaste",
+            "Excelente confort para uso prolongado",
+            "Conserva su color lavado tras lavado",
+            "Diseño ergonómico para máxima movilidad"
+        ],
+        benefits: [
+            "Mayor resistencia en operaciones tácticas.",
+            "Libertad total de movimiento gracias a su tejido con elastano.",
+            "Ideal para climas cálidos y templados.",
+            "Fácil mantenimiento.",
+            "Apariencia profesional durante mucho más tiempo.",
+            "Diseñado para trabajo, entrenamiento y uso diario."
+        ],
+        guarantee: "⭐ 1 Año de Garantía\n\nSomos una de las pocas empresas del mercado que respalda este pantalón con 1 año de garantía por defectos de fabricación, reflejando la calidad y confianza de nuestros productos.",
+        images: ["/PANTALONES-VEGALTEX/845B9161-DE2E-4C22-8EDB-659FC923E89C-Photoroom.JPG"]
+    },
+    {
+        id: 127,
+        name: "PANTALÓN TÁCTICO ANTIDESGARRO REF. 1.1 - Modelo 8",
+        originalPrice: 385,
+        salePrice: 365,
+        discount: 5,
+        specifications: [
+            { label: "Referencia", value: "1.1" },
+            { label: "Tipo", value: "Pantalón Táctico Antidesgarro" },
+            { label: "Material", value: "Tela Ripstop Premium + Elastano (Spandex)" },
+            { label: "Costuras", value: "Triple costura reforzada" },
+            { label: "Bolsillos", value: "6 bolsillos funcionales" },
+            { label: "Tecnología", value: "Antidesgarro • Secado rápido • No requiere plancha" },
+            { label: "Uso", value: "Táctico • Militar • Policía • Escoltas • Seguridad • Outdoor" },
+            { label: "Garantía", value: "1 año" }
+        ],
+        colors: ["#8B7355", "#5a5a5a", "#2d3e50", "#000000", "#c2b280", "#4B5320"],
+        category: "PANTALONES",
+        badge: "NUEVO",
+        sizes: ["28", "30", "32", "34", "36", "38", "40", "42", "44", "46"],
+        description: "Máximo rendimiento. Máxima resistencia. Diseñado para quienes exigen más.\n\nEl Pantalón Táctico Antidesgarro Ref. 1.1 fue desarrollado para operadores tácticos, Fuerzas Militares, Policía, escoltas, seguridad privada y amantes del outdoor que requieren una prenda resistente, cómoda y de alto desempeño.\n\nFabricado con tela Ripstop Premium con elastano (Spandex), ofrece una excelente libertad de movimiento sin sacrificar resistencia, convirtiéndose en uno de los pantalones tácticos más completos del mercado.",
+        features: [
+            "Tela Ripstop Premium Antidesgarro",
+            "Tecnología Antirrasgado",
+            "Elastano (Spandex) para mayor comodidad y movilidad",
+            "6 bolsillos tácticos funcionales",
+            "Triple costura en puntos de mayor esfuerzo e impacto",
+            "Secado rápido",
+            "No requiere plancha",
+            "Alta resistencia al desgaste",
+            "Excelente confort para uso prolongado",
+            "Conserva su color lavado tras lavado",
+            "Diseño ergonómico para máxima movilidad"
+        ],
+        benefits: [
+            "Mayor resistencia en operaciones tácticas.",
+            "Libertad total de movimiento gracias a su tejido con elastano.",
+            "Ideal para climas cálidos y templados.",
+            "Fácil mantenimiento.",
+            "Apariencia profesional durante mucho más tiempo.",
+            "Diseñado para trabajo, entrenamiento y uso diario."
+        ],
+        guarantee: "⭐ 1 Año de Garantía\n\nSomos una de las pocas empresas del mercado que respalda este pantalón con 1 año de garantía por defectos de fabricación, reflejando la calidad y confianza de nuestros productos.",
+        images: ["/PANTALONES-VEGALTEX/8C02F7A5-FA95-49F9-8C23-7575CF1F9BF1-Photoroom.JPG"]
+    },
+    {
+        id: 128,
+        name: "PANTALÓN TÁCTICO ANTIDESGARRO REF. 1.1 - Modelo 9",
+        originalPrice: 385,
+        salePrice: 365,
+        discount: 5,
+        specifications: [
+            { label: "Referencia", value: "1.1" },
+            { label: "Tipo", value: "Pantalón Táctico Antidesgarro" },
+            { label: "Material", value: "Tela Ripstop Premium + Elastano (Spandex)" },
+            { label: "Costuras", value: "Triple costura reforzada" },
+            { label: "Bolsillos", value: "6 bolsillos funcionales" },
+            { label: "Tecnología", value: "Antidesgarro • Secado rápido • No requiere plancha" },
+            { label: "Uso", value: "Táctico • Militar • Policía • Escoltas • Seguridad • Outdoor" },
+            { label: "Garantía", value: "1 año" }
+        ],
+        colors: ["#8B7355", "#5a5a5a", "#2d3e50", "#000000", "#c2b280", "#4B5320"],
+        category: "PANTALONES",
+        badge: "NUEVO",
+        sizes: ["28", "30", "32", "34", "36", "38", "40", "42", "44", "46"],
+        description: "Máximo rendimiento. Máxima resistencia. Diseñado para quienes exigen más.\n\nEl Pantalón Táctico Antidesgarro Ref. 1.1 fue desarrollado para operadores tácticos, Fuerzas Militares, Policía, escoltas, seguridad privada y amantes del outdoor que requieren una prenda resistente, cómoda y de alto desempeño.\n\nFabricado con tela Ripstop Premium con elastano (Spandex), ofrece una excelente libertad de movimiento sin sacrificar resistencia, convirtiéndose en uno de los pantalones tácticos más completos del mercado.",
+        features: [
+            "Tela Ripstop Premium Antidesgarro",
+            "Tecnología Antirrasgado",
+            "Elastano (Spandex) para mayor comodidad y movilidad",
+            "6 bolsillos tácticos funcionales",
+            "Triple costura en puntos de mayor esfuerzo e impacto",
+            "Secado rápido",
+            "No requiere plancha",
+            "Alta resistencia al desgaste",
+            "Excelente confort para uso prolongado",
+            "Conserva su color lavado tras lavado",
+            "Diseño ergonómico para máxima movilidad"
+        ],
+        benefits: [
+            "Mayor resistencia en operaciones tácticas.",
+            "Libertad total de movimiento gracias a su tejido con elastano.",
+            "Ideal para climas cálidos y templados.",
+            "Fácil mantenimiento.",
+            "Apariencia profesional durante mucho más tiempo.",
+            "Diseñado para trabajo, entrenamiento y uso diario."
+        ],
+        guarantee: "⭐ 1 Año de Garantía\n\nSomos una de las pocas empresas del mercado que respalda este pantalón con 1 año de garantía por defectos de fabricación, reflejando la calidad y confianza de nuestros productos.",
+        images: ["/PANTALONES-VEGALTEX/A608B093-B847-48D9-BAF4-0A9B30A2E578-Photoroom.JPG"]
+    },
+    {
+        id: 129,
+        name: "PANTALÓN TÁCTICO ANTIDESGARRO REF. 1.1 - Modelo 10",
+        originalPrice: 385,
+        salePrice: 365,
+        discount: 5,
+        specifications: [
+            { label: "Referencia", value: "1.1" },
+            { label: "Tipo", value: "Pantalón Táctico Antidesgarro" },
+            { label: "Material", value: "Tela Ripstop Premium + Elastano (Spandex)" },
+            { label: "Costuras", value: "Triple costura reforzada" },
+            { label: "Bolsillos", value: "6 bolsillos funcionales" },
+            { label: "Tecnología", value: "Antidesgarro • Secado rápido • No requiere plancha" },
+            { label: "Uso", value: "Táctico • Militar • Policía • Escoltas • Seguridad • Outdoor" },
+            { label: "Garantía", value: "1 año" }
+        ],
+        colors: ["#8B7355", "#5a5a5a", "#2d3e50", "#000000", "#c2b280", "#4B5320"],
+        category: "PANTALONES",
+        badge: "NUEVO",
+        sizes: ["28", "30", "32", "34", "36", "38", "40", "42", "44", "46"],
+        description: "Máximo rendimiento. Máxima resistencia. Diseñado para quienes exigen más.\n\nEl Pantalón Táctico Antidesgarro Ref. 1.1 fue desarrollado para operadores tácticos, Fuerzas Militares, Policía, escoltas, seguridad privada y amantes del outdoor que requieren una prenda resistente, cómoda y de alto desempeño.\n\nFabricado con tela Ripstop Premium con elastano (Spandex), ofrece una excelente libertad de movimiento sin sacrificar resistencia, convirtiéndose en uno de los pantalones tácticos más completos del mercado.",
+        features: [
+            "Tela Ripstop Premium Antidesgarro",
+            "Tecnología Antirrasgado",
+            "Elastano (Spandex) para mayor comodidad y movilidad",
+            "6 bolsillos tácticos funcionales",
+            "Triple costura en puntos de mayor esfuerzo e impacto",
+            "Secado rápido",
+            "No requiere plancha",
+            "Alta resistencia al desgaste",
+            "Excelente confort para uso prolongado",
+            "Conserva su color lavado tras lavado",
+            "Diseño ergonómico para máxima movilidad"
+        ],
+        benefits: [
+            "Mayor resistencia en operaciones tácticas.",
+            "Libertad total de movimiento gracias a su tejido con elastano.",
+            "Ideal para climas cálidos y templados.",
+            "Fácil mantenimiento.",
+            "Apariencia profesional durante mucho más tiempo.",
+            "Diseñado para trabajo, entrenamiento y uso diario."
+        ],
+        guarantee: "⭐ 1 Año de Garantía\n\nSomos una de las pocas empresas del mercado que respalda este pantalón con 1 año de garantía por defectos de fabricación, reflejando la calidad y confianza de nuestros productos.",
+        images: ["/PANTALONES-VEGALTEX/A9FF4E27-9FEA-46EF-B54C-18DA45EA844E-Photoroom.JPG"]
+    },
+    {
+        id: 130,
+        name: "PANTALÓN TÁCTICO ANTIDESGARRO REF. 1.1 - Modelo 11",
+        originalPrice: 385,
+        salePrice: 365,
+        discount: 5,
+        specifications: [
+            { label: "Referencia", value: "1.1" },
+            { label: "Tipo", value: "Pantalón Táctico Antidesgarro" },
+            { label: "Material", value: "Tela Ripstop Premium + Elastano (Spandex)" },
+            { label: "Costuras", value: "Triple costura reforzada" },
+            { label: "Bolsillos", value: "6 bolsillos funcionales" },
+            { label: "Tecnología", value: "Antidesgarro • Secado rápido • No requiere plancha" },
+            { label: "Uso", value: "Táctico • Militar • Policía • Escoltas • Seguridad • Outdoor" },
+            { label: "Garantía", value: "1 año" }
+        ],
+        colors: ["#8B7355", "#5a5a5a", "#2d3e50", "#000000", "#c2b280", "#4B5320"],
+        category: "PANTALONES",
+        badge: "NUEVO",
+        sizes: ["28", "30", "32", "34", "36", "38", "40", "42", "44", "46"],
+        description: "Máximo rendimiento. Máxima resistencia. Diseñado para quienes exigen más.\n\nEl Pantalón Táctico Antidesgarro Ref. 1.1 fue desarrollado para operadores tácticos, Fuerzas Militares, Policía, escoltas, seguridad privada y amantes del outdoor que requieren una prenda resistente, cómoda y de alto desempeño.\n\nFabricado con tela Ripstop Premium con elastano (Spandex), ofrece una excelente libertad de movimiento sin sacrificar resistencia, convirtiéndose en uno de los pantalones tácticos más completos del mercado.",
+        features: [
+            "Tela Ripstop Premium Antidesgarro",
+            "Tecnología Antirrasgado",
+            "Elastano (Spandex) para mayor comodidad y movilidad",
+            "6 bolsillos tácticos funcionales",
+            "Triple costura en puntos de mayor esfuerzo e impacto",
+            "Secado rápido",
+            "No requiere plancha",
+            "Alta resistencia al desgaste",
+            "Excelente confort para uso prolongado",
+            "Conserva su color lavado tras lavado",
+            "Diseño ergonómico para máxima movilidad"
+        ],
+        benefits: [
+            "Mayor resistencia en operaciones tácticas.",
+            "Libertad total de movimiento gracias a su tejido con elastano.",
+            "Ideal para climas cálidos y templados.",
+            "Fácil mantenimiento.",
+            "Apariencia profesional durante mucho más tiempo.",
+            "Diseñado para trabajo, entrenamiento y uso diario."
+        ],
+        guarantee: "⭐ 1 Año de Garantía\n\nSomos una de las pocas empresas del mercado que respalda este pantalón con 1 año de garantía por defectos de fabricación, reflejando la calidad y confianza de nuestros productos.",
+        images: ["/PANTALONES-VEGALTEX/D8069200-E201-4058-91EF-4FA1573DAF3F-Photoroom.JPG"]
+    },
+    {
+        id: 131,
+        name: "PANTALÓN TÁCTICO ANTIDESGARRO REF. 1.1 - Modelo 12",
+        originalPrice: 385,
+        salePrice: 365,
+        discount: 5,
+        specifications: [
+            { label: "Referencia", value: "1.1" },
+            { label: "Tipo", value: "Pantalón Táctico Antidesgarro" },
+            { label: "Material", value: "Tela Ripstop Premium + Elastano (Spandex)" },
+            { label: "Costuras", value: "Triple costura reforzada" },
+            { label: "Bolsillos", value: "6 bolsillos funcionales" },
+            { label: "Tecnología", value: "Antidesgarro • Secado rápido • No requiere plancha" },
+            { label: "Uso", value: "Táctico • Militar • Policía • Escoltas • Seguridad • Outdoor" },
+            { label: "Garantía", value: "1 año" }
+        ],
+        colors: ["#8B7355", "#5a5a5a", "#2d3e50", "#000000", "#c2b280", "#4B5320"],
+        category: "PANTALONES",
+        badge: "NUEVO",
+        sizes: ["28", "30", "32", "34", "36", "38", "40", "42", "44", "46"],
+        description: "Máximo rendimiento. Máxima resistencia. Diseñado para quienes exigen más.\n\nEl Pantalón Táctico Antidesgarro Ref. 1.1 fue desarrollado para operadores tácticos, Fuerzas Militares, Policía, escoltas, seguridad privada y amantes del outdoor que requieren una prenda resistente, cómoda y de alto desempeño.\n\nFabricado con tela Ripstop Premium con elastano (Spandex), ofrece una excelente libertad de movimiento sin sacrificar resistencia, convirtiéndose en uno de los pantalones tácticos más completos del mercado.",
+        features: [
+            "Tela Ripstop Premium Antidesgarro",
+            "Tecnología Antirrasgado",
+            "Elastano (Spandex) para mayor comodidad y movilidad",
+            "6 bolsillos tácticos funcionales",
+            "Triple costura en puntos de mayor esfuerzo e impacto",
+            "Secado rápido",
+            "No requiere plancha",
+            "Alta resistencia al desgaste",
+            "Excelente confort para uso prolongado",
+            "Conserva su color lavado tras lavado",
+            "Diseño ergonómico para máxima movilidad"
+        ],
+        benefits: [
+            "Mayor resistencia en operaciones tácticas.",
+            "Libertad total de movimiento gracias a su tejido con elastano.",
+            "Ideal para climas cálidos y templados.",
+            "Fácil mantenimiento.",
+            "Apariencia profesional durante mucho más tiempo.",
+            "Diseñado para trabajo, entrenamiento y uso diario."
+        ],
+        guarantee: "⭐ 1 Año de Garantía\n\nSomos una de las pocas empresas del mercado que respalda este pantalón con 1 año de garantía por defectos de fabricación, reflejando la calidad y confianza de nuestros productos.",
+        images: ["/PANTALONES-VEGALTEX/DC20F097-04E6-4C3D-82E3-98AB81E5C077-Photoroom.JPG"]
     }
 ];
 
