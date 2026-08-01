@@ -81,7 +81,7 @@ export default function ProductPage({ params }: ProductPageProps) {
     badge: rawProduct.badge,
     rating: 5,
     reviews: 12,
-    description: `Producto táctico de alta calidad de la categoría ${rawProduct.category.toLowerCase()}. Diseñado para ofrecer rendimiento máximo en condiciones exigentes con materiales premium.${isTechPlus ? " Incorpora tecnología uni For me TECH PLUS." : ""}`,
+    description: (rawProduct as any).description || `Producto táctico de alta calidad de la categoría ${rawProduct.category.toLowerCase()}. Diseñado para ofrecer rendimiento máximo en condiciones exigentes con materiales premium.${isTechPlus ? " Incorpora tecnología uni For me TECH PLUS." : ""}`,
     colors: rawProduct.colors.map((hex, idx) => ({
       name: `Color ${idx + 1}`,
       hex,
@@ -91,7 +91,7 @@ export default function ProductPage({ params }: ProductPageProps) {
     sizes: (rawProduct as any).sizes ? (rawProduct as any).sizes : (rawProduct.category === "BOTAS"
       ? ["7", "7.5", "8", "8.5", "9", "9.5", "10", "10.5", "11", "12"]
       : ["XS", "S", "M", "L", "XL", "2XL", "3XL", "4XL"]),
-    features: [
+    features: (rawProduct as any).features || [
       "Material de alta resistencia para uso táctico",
       "Diseño ergonómico para máxima comodidad",
       "Construcción reforzada en zonas de desgaste",
@@ -99,6 +99,9 @@ export default function ProductPage({ params }: ProductPageProps) {
       "Acabados de alta durabilidad",
       "Probado en condiciones extremas",
     ],
+    benefits: (rawProduct as any).benefits,
+    guarantee: (rawProduct as any).guarantee,
+    specifications: (rawProduct as any).specifications || [],
     upgradeWith: [
       {
         id: 22,
@@ -285,7 +288,7 @@ export default function ProductPage({ params }: ProductPageProps) {
               <div>
                 <label className="block text-sm font-bold uppercase tracking-wide mb-3 text-black">TALLA:</label>
                 <div className="grid grid-cols-4 gap-2 mb-3">
-                  {product.sizes.map((size) => (
+                  {product.sizes.map((size: string) => (
                     <button
                       key={size}
                       onClick={() => setSelectedSize(size)}
@@ -460,22 +463,88 @@ export default function ProductPage({ params }: ProductPageProps) {
                 </Card>
               </div>
 
-              <h3 className="font-black text-xl uppercase mb-4 text-black">BENEFICIOS:</h3>
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                {[
-                  "RESISTENCIA al enganche, pilling (mota, chanchito), y rasgado",
-                  "FÁCIL DE CUIDAR",
-                  "DURACIÓN DE COLOR",
-                  "DURABILIDAD",
-                  "PLANCHADO + RÁPIDO",
-                  "SECADO + RÁPIDO",
-                ].map((benefit, idx) => (
-                  <div key={idx} className="flex items-center gap-2 p-3 bg-zinc-50 border border-zinc-200">
-                    <div className="w-2 h-2 bg-[#21f31f] shrink-0" />
-                    <span className="text-sm font-bold text-zinc-800">{benefit}</span>
+              {(product.benefits || isTechPlus) && (
+                <>
+                  <h3 className="font-black text-xl uppercase mb-4 text-black mt-8">BENEFICIOS:</h3>
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                    {(product.benefits || [
+                      "RESISTENCIA al enganche, pilling (mota, chanchito), y rasgado",
+                      "FÁCIL DE CUIDAR",
+                      "DURACIÓN DE COLOR",
+                      "DURABILIDAD",
+                      "PLANCHADO + RÁPIDO",
+                      "SECADO + RÁPIDO",
+                    ]).map((benefit: string, idx: number) => (
+                      <div key={idx} className="flex items-center gap-2 p-3 bg-zinc-50 border border-zinc-200">
+                        <div className="w-2 h-2 bg-[#21f31f] shrink-0" />
+                        <span className="text-sm font-bold text-zinc-800">{benefit}</span>
+                      </div>
+                    ))}
                   </div>
-                ))}
-              </div>
+                </>
+              )}
+
+              {product.guarantee && (
+                <>
+                  <h3 className="font-black text-xl uppercase mb-4 text-black mt-12">GARANTÍA:</h3>
+                  <div className="bg-zinc-50 p-6 border-l-4 border-[#21f31f]">
+                    <p className="text-zinc-700 whitespace-pre-line font-medium leading-relaxed">
+                      {product.guarantee}
+                    </p>
+                  </div>
+                </>
+              )}
+            </div>
+          )}
+          
+          {!isTechPlus && (product.benefits || product.guarantee || (product.specifications && product.specifications.length > 0)) && (
+            <div className="mb-16">
+              {product.specifications && product.specifications.length > 0 && (
+                <>
+                  <h3 className="font-black text-xl md:text-2xl uppercase mb-6 text-black mt-8">ESPECIFICACIONES</h3>
+                  <div className="bg-white border border-zinc-200 overflow-hidden mb-12">
+                    <table className="w-full text-left border-collapse">
+                      <thead>
+                        <tr className="bg-zinc-50 border-b border-zinc-200">
+                          <th className="py-4 px-6 font-bold text-black uppercase w-1/3">Característica</th>
+                          <th className="py-4 px-6 font-bold text-black uppercase">Detalle</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {product.specifications.map((spec: any, idx: number) => (
+                          <tr key={idx} className="border-b border-zinc-100 hover:bg-zinc-50 transition-colors">
+                            <td className="py-4 px-6 font-semibold text-zinc-800">{spec.label}</td>
+                            <td className="py-4 px-6 text-zinc-600 font-medium">{spec.value}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </>
+              )}
+              {product.benefits && (
+                <>
+                  <h3 className="font-black text-xl uppercase mb-4 text-black mt-8">BENEFICIOS:</h3>
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                    {product.benefits.map((benefit: string, idx: number) => (
+                      <div key={idx} className="flex items-center gap-2 p-3 bg-zinc-50 border border-zinc-200">
+                        <div className="w-2 h-2 bg-[#21f31f] shrink-0" />
+                        <span className="text-sm font-bold text-zinc-800">{benefit}</span>
+                      </div>
+                    ))}
+                  </div>
+                </>
+              )}
+              {product.guarantee && (
+                <>
+                  <h3 className="font-black text-xl uppercase mb-4 text-black mt-12">GARANTÍA:</h3>
+                  <div className="bg-zinc-50 p-6 border-l-4 border-[#21f31f]">
+                    <p className="text-zinc-700 whitespace-pre-line font-medium leading-relaxed">
+                      {product.guarantee}
+                    </p>
+                  </div>
+                </>
+              )}
             </div>
           )}
 
