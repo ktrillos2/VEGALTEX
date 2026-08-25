@@ -73,7 +73,7 @@ export default function ProductPage({ params }: ProductPageProps) {
 
   const isTechPlus = ["PANTALONES", "CHAQUETAS", "CAMISAS", "GORRAS"].includes(rawProduct.category)
 
-  // Adaptar el producto al formato que necesita esta páginas
+  // Adaptar el producto al formato que necesita esta página
   const product = {
     id: rawProduct.id,
     name: rawProduct.name,
